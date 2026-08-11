@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-black: #2c2118;
+  --color-wood: #4a3426;
+  --color-wood-deep: #2c2118;
+  --color-wood-muted: #6b5344;
+  --color-wood-soft: #8a7360;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--color-wood);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-wood-deep);
+}
+
+.text-white,
+.text-white h1,
+.text-white h2,
+.text-white h3,
+.text-white h4,
+.text-white p {
+  color: #ffffff;
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
