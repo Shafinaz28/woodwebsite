@@ -6,6 +6,8 @@
   --color-wood-deep: #2c2118;
   --color-wood-muted: #6b5344;
   --color-wood-soft: #8a7360;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
 }
 
 * {
@@ -15,6 +17,11 @@
 body {
   margin: 0;
   color: var(--color-wood);
+  font-family: var(--font-sans);
+}
+
+.font-display {
+  font-family: var(--font-display);
 }
 
 h1,
@@ -31,6 +38,15 @@ h4 {
 .text-white h4,
 .text-white p {
   color: #ffffff;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes hero-zoom {

@@ -1,12 +1,12 @@
 import { Link } from "react-router";
+import { ArrowRight } from "lucide-react";
 
 function Hero() {
   return (
-    <section className="relative h-[85vh] md:h-[92vh] min-h-[600px] overflow-hidden bg-[#1a1510]">
+    <section className="relative h-[72vh] sm:h-[78vh] md:h-[88vh] min-h-[520px] overflow-hidden bg-[#1a1510]">
 
-      {/* Background Video */}
       <video
-        className="absolute inset-0 w-full h-full object-cover scale-105 animate-[hero-zoom_28s_ease-in-out_infinite_alternate]"
+        className="absolute inset-0 w-full h-full object-cover scale-105 animate-[hero-zoom_30s_ease-in-out_infinite_alternate]"
         autoPlay
         muted
         loop
@@ -16,7 +16,6 @@ function Hero() {
         <source src="/videos/hero-wood.mp4" type="video/mp4" />
       </video>
 
-      {/* Fallback / atmosphere image layer (shows if video fails) */}
       <img
         src="/images/hero/hero-1.jpg"
         alt=""
@@ -24,51 +23,49 @@ function Hero() {
         className="absolute inset-0 w-full h-full object-cover -z-10"
       />
 
-      {/* Warm wood-toned overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/25" />
-      <div className="absolute inset-0 bg-[#3b2a1a]/20 mix-blend-multiply" />
+      <div className="absolute inset-0 bg-black/45" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/30" />
 
-      {/* Content */}
-      <div className="relative z-10 h-full max-w-[1500px] mx-auto px-6 md:px-10 flex items-end">
+      <div className="relative z-10 h-full flex items-center justify-center px-5 sm:px-6">
+        <div className="max-w-3xl text-center text-white animate-[hero-rise_1.1s_ease-out_both]">
 
-        <div className="pb-16 md:pb-24 max-w-3xl text-white animate-[hero-rise_1.1s_ease-out_both]">
-
-          <p className="text-xs md:text-sm uppercase tracking-[0.35em] mb-5 text-white/80">
-            Arileon
+          <p className="text-[11px] sm:text-xs uppercase tracking-[0.35em] mb-5 text-white/90">
+            Collection — 2026
           </p>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-light leading-[1.05] text-white">
-            Crafted for spaces that feel like home.
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.1] text-white">
+            Crafted Furniture For Every Beautiful Home
           </h1>
-
-          <p className="mt-6 max-w-xl text-sm md:text-base leading-7 text-white/85">
-            Discover thoughtfully designed furniture combining natural
-            materials, craftsmanship and modern living.
-          </p>
 
           <Link
             to="/shop"
             className="
-              inline-block
+              inline-flex
+              items-center
+              gap-3
               mt-8
-              bg-white
-              text-black
-              px-7
-              py-4
+              sm:mt-10
+              rounded-full
+              bg-[#b58e58]
+              text-white
+              pl-7
+              pr-2
+              py-2
               text-xs
               uppercase
               tracking-[0.18em]
-              hover:bg-[#2c2118]
-              hover:text-white
+              hover:bg-[#9a7548]
               transition
               duration-300
             "
           >
-            Explore Collection
+            Shop Now
+            <span className="w-10 h-10 rounded-full bg-white text-[#2c2118] flex items-center justify-center">
+              <ArrowRight size={16} />
+            </span>
           </Link>
 
         </div>
-
       </div>
 
     </section>

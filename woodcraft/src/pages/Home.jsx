@@ -1,8 +1,10 @@
 import Hero from "../components/home/Hero";
-import RoomCategories from "../components/home/RoomCategories";
-import FeaturedProducts from "../components/home/FeaturedProducts";
-import Craftsmanship from "../components/home/Craftsmanship";
+import CircleCategories from "../components/home/CircleCategories";
+import PromoBanners from "../components/home/PromoBanners";
 import NewArrivals from "../components/home/NewArrivals";
+import LifestyleBanner from "../components/home/LifestyleBanner";
+import InspirationRow from "../components/home/InspirationRow";
+import Craftsmanship from "../components/home/Craftsmanship";
 import Testimonials from "../components/home/Testimonials";
 import Benefits from "../components/home/Benefits";
 
@@ -11,13 +13,17 @@ function Home() {
     <>
       <Hero />
 
-      <RoomCategories />
+      <CircleCategories />
 
-      <FeaturedProducts />
-
-      <Craftsmanship />
+      <PromoBanners />
 
       <NewArrivals />
+
+      <LifestyleBanner />
+
+      <InspirationRow />
+
+      <Craftsmanship />
 
       <Testimonials />
 

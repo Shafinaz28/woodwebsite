@@ -60,11 +60,11 @@ function FeaturedProducts() {
           <div>
 
             <p className="text-xs uppercase tracking-[0.25em] mb-4">
-              Our Collection
+              Shop By Category
             </p>
 
             <h2 className="text-3xl md:text-5xl font-light">
-              Most Loved Pieces
+              Featured Furniture
             </h2>
 
             <p className="mt-4 max-w-xl text-sm md:text-base text-black/60 leading-7">
