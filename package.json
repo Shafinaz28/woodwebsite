@@ -1,0 +1,7 @@
+{
+  "name": "woodwebsite",
+  "private": true,
+  "scripts": {
+    "build": "npm run build --prefix woodcraft"
+  }
+}

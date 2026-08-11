@@ -1,0 +1,12 @@
+{
+  "installCommand": "npm install --prefix woodcraft",
+  "buildCommand": "npm run build --prefix woodcraft",
+  "outputDirectory": "woodcraft/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
