@@ -54,15 +54,16 @@ function ProductDetails() {
           <div>
 
             {/* Main Image */}
-            <div className="bg-[#efede8] overflow-hidden">
+            <div className="bg-[#efede8] overflow-hidden flex items-center justify-center min-h-[320px] md:min-h-[480px]">
 
               <img
                 src={selectedImage}
                 alt={product.name}
                 className="
                   w-full
-                  aspect-[4/5]
-                  object-cover
+                  h-auto
+                  max-h-[70vh]
+                  object-contain
                   transition
                   duration-300
                 "
@@ -82,6 +83,11 @@ function ProductDetails() {
                   className={`
                     overflow-hidden
                     border
+                    bg-[#efede8]
+                    flex
+                    items-center
+                    justify-center
+                    aspect-square
                     transition
                     ${
                       selectedImage === image
@@ -96,8 +102,9 @@ function ProductDetails() {
                     alt={`${product.name} ${index + 1}`}
                     className="
                       w-full
-                      aspect-square
-                      object-cover
+                      h-full
+                      object-contain
+                      p-1
                     "
                   />
 

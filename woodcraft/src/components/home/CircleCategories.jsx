@@ -5,33 +5,33 @@ function CircleCategories() {
   const categories = [
     {
       title: "Bedroom",
-      image: "/images/categories/bedroom.jpg",
-      link: "/shop",
+      image: "/images/products/bedroom/bead1.png",
+      link: "/shop?category=Bedroom",
     },
     {
       title: "Living Room",
-      image: "/images/categories/living.jpg",
-      link: "/shop",
+      image: "/images/products/living-room/living.png",
+      link: "/shop?category=Living%20Room",
     },
     {
       title: "Dining",
-      image: "/images/categories/dining.jpg",
-      link: "/shop",
+      image: "/images/products/dining/dining.jpg",
+      link: "/shop?category=Dining",
     },
     {
       title: "Outdoor",
-      image: "/images/categories/outdoor.jpg",
-      link: "/shop",
+      image: "/images/products/outdoor/outdoor.png",
+      link: "/shop?category=Outdoor",
     },
     {
       title: "Office",
-      image: "/images/products/table-1.jpg",
-      link: "/shop",
+      image: "/images/products/office/office.jpg",
+      link: "/shop?category=Office",
     },
     {
       title: "Storage",
-      image: "/images/products/side-table.jpg",
-      link: "/shop",
+      image: "/images/products/storage/storage.png",
+      link: "/shop?category=Storage",
     },
   ];
 
@@ -50,7 +50,6 @@ function CircleCategories() {
           </h2>
         </div>
 
-        {/* Mobile: horizontal scroll carousel */}
         <div
           className="
             flex
@@ -88,7 +87,6 @@ function CircleCategories() {
           ))}
         </div>
 
-        {/* Mobile dots */}
         <div className="flex md:hidden items-center justify-center gap-2 mt-4">
           {categories.map((_, index) => (
             <span
@@ -102,7 +100,6 @@ function CircleCategories() {
           ))}
         </div>
 
-        {/* Desktop wrap */}
         <div className="hidden md:flex flex-wrap items-center justify-center gap-10 lg:gap-14">
           {categories.map((category) => (
             <Link

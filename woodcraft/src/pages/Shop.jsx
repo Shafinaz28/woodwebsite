@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import {
   ArrowRight,
@@ -10,7 +10,14 @@ import {
 } from "lucide-react";
 import { products } from "../data/products";
 
-const CATEGORY_FILTERS = ["Chairs", "Sofas", "Tables", "Benches"];
+const CATEGORY_FILTERS = [
+  "Bedroom",
+  "Living Room",
+  "Dining",
+  "Outdoor",
+  "Office",
+  "Storage",
+];
 
 const MATERIAL_FILTERS = [
   "Solid Wood",
@@ -41,8 +48,11 @@ function FilterSection({ title, open, onToggle, children }) {
 function Shop() {
   const [searchParams] = useSearchParams();
   const searchQuery = (searchParams.get("q") || "").trim().toLowerCase();
+  const categoryFromUrl = searchParams.get("category") || "";
 
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(
+    categoryFromUrl ? [categoryFromUrl] : []
+  );
   const [selectedMaterials, setSelectedMaterials] = useState([]);
   const [availability, setAvailability] = useState({
     inStock: false,
@@ -55,6 +65,12 @@ function Shop() {
     material: false,
     availability: false,
   });
+
+  useEffect(() => {
+    if (categoryFromUrl) {
+      setSelectedCategories([categoryFromUrl]);
+    }
+  }, [categoryFromUrl]);
 
   function toggleSection(key) {
     setOpenSections((current) => ({
@@ -235,7 +251,7 @@ function Shop() {
       {/* Shop Hero */}
       <section className="relative min-h-[220px] sm:min-h-[280px] md:min-h-[360px] overflow-hidden">
         <img
-          src="/images/categories/living.jpg"
+          src="/images/products/living-room/living.png"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -324,12 +340,12 @@ function Shop() {
 
                     return (
                       <div key={product.id} className="group">
-                        <div className="relative bg-[#efede8] rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/5]">
-                          <Link to={`/product/${product.slug}`} className="block h-full">
+                        <div className="relative bg-[#efede8] rounded-xl sm:rounded-2xl overflow-hidden aspect-[4/5] flex items-center justify-center">
+                          <Link to={`/product/${product.slug}`} className="block w-full h-full p-2 sm:p-3">
                             <img
                               src={product.image}
                               alt={product.name}
-                              className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                              className="w-full h-full object-contain transition duration-700 group-hover:scale-105"
                             />
                           </Link>
 

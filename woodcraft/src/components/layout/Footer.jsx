@@ -128,13 +128,13 @@ function Footer() {
 
             <div className="flex flex-col gap-3 text-sm text-white/60">
 
-              <Link to="#">Our Story</Link>
+              <Link to="/about">Our Story</Link>
 
-              <Link to="#">Craftsmanship</Link>
+              <Link to="/about">Craftsmanship</Link>
 
-              <Link to="#">Projects</Link>
+              <Link to="/shop">Shop</Link>
 
-              <Link to="#">Contact</Link>
+              <Link to="/contact">Contact</Link>
 
             </div>
 

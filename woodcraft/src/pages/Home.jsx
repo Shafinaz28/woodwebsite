@@ -4,7 +4,6 @@ import PromoBanners from "../components/home/PromoBanners";
 import NewArrivals from "../components/home/NewArrivals";
 import LifestyleBanner from "../components/home/LifestyleBanner";
 import InspirationRow from "../components/home/InspirationRow";
-import Craftsmanship from "../components/home/Craftsmanship";
 import Testimonials from "../components/home/Testimonials";
 import Benefits from "../components/home/Benefits";
 
@@ -22,8 +21,6 @@ function Home() {
       <LifestyleBanner />
 
       <InspirationRow />
-
-      <Craftsmanship />
 
       <Testimonials />
 

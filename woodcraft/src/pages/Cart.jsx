@@ -93,7 +93,7 @@ function Cart() {
                     className="
                       w-full
                       aspect-square
-                      object-cover
+                      object-contain
                       bg-[#ebe8e1]
                     "
                   />

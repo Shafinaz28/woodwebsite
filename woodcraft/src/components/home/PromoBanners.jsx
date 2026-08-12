@@ -6,13 +6,13 @@ function PromoBanners() {
     {
       eyebrow: "Weekly Sale",
       title: "Limited Time Flash Sale",
-      image: "/images/categories/living.jpg",
+      image: "/images/products/living-room/living5.png",
       link: "/shop",
     },
     {
       eyebrow: "New Arrivals",
       title: "Modern Furniture Collection",
-      image: "/images/categories/dining.jpg",
+      image: "/images/products/office/office1.png",
       link: "/shop",
     },
   ];

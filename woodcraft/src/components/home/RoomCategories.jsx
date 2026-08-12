@@ -4,23 +4,23 @@ function RoomCategories() {
   const categories = [
     {
       title: "Living Room",
-      image: "/images/categories/living.jpg",
-      link: "/shop",
+      image: "/images/products/living-room/living.png",
+      link: "/shop?category=Living%20Room",
     },
     {
       title: "Dining",
-      image: "/images/categories/dining.jpg",
-      link: "/shop",
+      image: "/images/products/dining/dining.jpg",
+      link: "/shop?category=Dining",
     },
     {
       title: "Bedroom",
-      image: "/images/categories/bedroom.jpg",
-      link: "/shop",
+      image: "/images/products/bedroom/bead1.png",
+      link: "/shop?category=Bedroom",
     },
     {
       title: "Outdoor",
-      image: "/images/categories/outdoor.jpg",
-      link: "/shop",
+      image: "/images/products/outdoor/outdoor.png",
+      link: "/shop?category=Outdoor",
     },
   ];
 

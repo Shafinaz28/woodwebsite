@@ -3,28 +3,52 @@ import { ArrowRight } from "lucide-react";
 
 function Hero() {
   return (
-    <section className="relative h-[72vh] sm:h-[78vh] md:h-[88vh] min-h-[520px] overflow-hidden bg-[#1a1510]">
+    <section className="relative w-full h-[100svh] min-h-[560px] overflow-hidden bg-[#1a1510]">
 
+      {/* Full-bleed video cover */}
       <video
-        className="absolute inset-0 w-full h-full object-cover scale-105 animate-[hero-zoom_30s_ease-in-out_infinite_alternate]"
+        className="
+          absolute
+          top-1/2
+          left-1/2
+          -translate-x-1/2
+          -translate-y-1/2
+          w-full
+          h-full
+          min-w-full
+          min-h-full
+          object-cover
+        "
         autoPlay
         muted
         loop
         playsInline
         poster="/images/hero/hero-1.jpg"
       >
-        <source src="/videos/hero-wood.mp4" type="video/mp4" />
+        <source src="/videos/hero-wood.mp4?v=2" type="video/mp4" />
       </video>
 
       <img
         src="/images/hero/hero-1.jpg"
         alt=""
         aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover -z-10"
+        className="
+          absolute
+          top-1/2
+          left-1/2
+          -translate-x-1/2
+          -translate-y-1/2
+          w-full
+          h-full
+          min-w-full
+          min-h-full
+          object-cover
+          -z-10
+        "
       />
 
-      <div className="absolute inset-0 bg-black/45" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/30" />
+      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/30" />
 
       <div className="relative z-10 h-full flex items-center justify-center px-5 sm:px-6">
         <div className="max-w-3xl text-center text-white animate-[hero-rise_1.1s_ease-out_both]">

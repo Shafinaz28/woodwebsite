@@ -2,79 +2,48 @@ import { Link } from "react-router";
 
 function Craftsmanship() {
   return (
-    <section className="bg-[#ebe7df]">
+    <section className="bg-[#F2F0E9]">
+      <div className="grid lg:grid-cols-2 min-h-[520px] lg:min-h-[640px]">
 
-      <div className="grid lg:grid-cols-2">
-
-        {/* Image */}
-        <div className="min-h-[450px] lg:min-h-[700px] overflow-hidden">
+        {/* Left — full-bleed image */}
+        <div className="relative min-h-[320px] sm:min-h-[400px] lg:min-h-full overflow-hidden">
           <img
             src="/images/story/craftsmanship.jpg"
-            alt="Furniture craftsmanship"
-            className="w-full h-full object-cover"
+            alt="Handmade craft and materials"
+            className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
 
-        {/* Content */}
-        <div
-          className="
-            flex
-            items-center
-            px-6
-            md:px-12
-            lg:px-20
-            py-16
-            lg:py-20
-          "
-        >
-          <div className="max-w-xl">
-
-            <p className="text-xs uppercase tracking-[0.25em] mb-5">
-              Our Craft
+        {/* Right — editorial copy */}
+        <div className="flex items-center px-8 sm:px-12 md:px-16 lg:px-20 xl:px-24 py-16 lg:py-20">
+          <div className="max-w-md">
+            <p className="text-[11px] uppercase tracking-[0.28em] text-wood-soft mb-6">
+              Our Story <span className="ml-1 opacity-50">&gt;</span>
             </p>
 
-            <h2
-              className="
-                text-3xl
-                md:text-5xl
-                lg:text-6xl
-                font-light
-                leading-[1.08]
-              "
-            >
+            <h2 className="font-display text-3xl md:text-4xl xl:text-5xl font-semibold leading-[1.12] text-wood-deep">
               Made with intention.
               <br />
               Built to last.
             </h2>
 
-            <p className="mt-7 text-sm md:text-base text-black/60 leading-7">
-              Every piece begins with thoughtful design and carefully
-              selected materials. Our furniture brings together skilled
-              craftsmanship, natural textures and timeless forms for
-              spaces that feel truly personal.
+            <p className="mt-7 text-sm md:text-[15px] text-wood-muted leading-7">
+              Every piece begins with thoughtful design and carefully selected
+              materials. Our furniture brings together skilled craftsmanship,
+              natural textures and timeless forms for spaces that feel truly
+              personal.
             </p>
 
             <Link
               to="/about"
-              className="
-                inline-block
-                mt-8
-                text-xs
-                uppercase
-                tracking-[0.18em]
-                border-b
-                border-black
-                pb-1
-              "
+              className="inline-block mt-10 text-[11px] uppercase tracking-[0.22em] text-wood-deep border-b border-wood-deep pb-1 hover:opacity-70 transition"
             >
-              Discover Our Story
+              Discover Who We Are
             </Link>
-
           </div>
         </div>
 
       </div>
-
     </section>
   );
 }

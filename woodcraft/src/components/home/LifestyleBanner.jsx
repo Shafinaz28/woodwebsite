@@ -3,13 +3,38 @@ import { Play } from "lucide-react";
 
 function LifestyleBanner() {
   return (
-    <section className="relative min-h-[420px] sm:min-h-[520px] md:min-h-[620px] overflow-hidden">
+    <section className="relative min-h-[420px] sm:min-h-[520px] md:min-h-[620px] overflow-hidden bg-[#1a1510]">
+
+      <video
+        className="
+          absolute
+          top-1/2
+          left-1/2
+          -translate-x-1/2
+          -translate-y-1/2
+          w-full
+          h-full
+          min-w-full
+          min-h-full
+          object-cover
+        "
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/images/story/craftsmanship.jpg"
+      >
+        <source src="/videos/products-living.mp4" type="video/mp4" />
+      </video>
+
       <img
         src="/images/story/craftsmanship.jpg"
-        alt="Wood furniture lifestyle"
-        className="absolute inset-0 w-full h-full object-cover"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover -z-10"
       />
-      <div className="absolute inset-0 bg-black/50" />
+
+      <div className="absolute inset-0 bg-black/45" />
 
       <div className="relative z-10 min-h-[420px] sm:min-h-[520px] md:min-h-[620px] flex flex-col items-center justify-center px-5 text-center text-white">
         <p className="text-xs uppercase tracking-[0.3em] mb-4 text-white/90">

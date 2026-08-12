@@ -5,16 +5,16 @@ function ProductCard({ product }) {
   return (
     <div className="group">
 
-      <div className="relative overflow-hidden bg-[#efede8] aspect-[4/5]">
+      <div className="relative overflow-hidden bg-[#efede8] aspect-[4/5] flex items-center justify-center">
 
-        <Link to={`/product/${product.slug}`}>
+        <Link to={`/product/${product.slug}`} className="block w-full h-full flex items-center justify-center p-2">
           <img
             src={product.image}
             alt={product.name}
             className="
               w-full
               h-full
-              object-cover
+              object-contain
               transition
               duration-700
               group-hover:scale-105

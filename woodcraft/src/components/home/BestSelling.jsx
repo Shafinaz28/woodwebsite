@@ -4,24 +4,24 @@ function BestSelling() {
   const items = [
     {
       title: "Living Essentials",
-      image: "/images/categories/living.jpg",
+      image: "/images/products/living-room/living.png",
       large: true,
     },
     {
       title: "Dining Spaces",
-      image: "/images/categories/dining.jpg",
+      image: "/images/products/dining/dining.jpg",
     },
     {
       title: "Bedroom Calm",
-      image: "/images/categories/bedroom.jpg",
+      image: "/images/products/bedroom/bead1.png",
     },
     {
       title: "Outdoor Living",
-      image: "/images/categories/outdoor.jpg",
+      image: "/images/products/outdoor/outdoor.png",
     },
     {
       title: "Studio Desk",
-      image: "/images/products/table-1.jpg",
+      image: "/images/products/office/office.jpg",
     },
   ];
 

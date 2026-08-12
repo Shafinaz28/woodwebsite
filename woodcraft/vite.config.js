@@ -9,7 +9,7 @@ export default defineConfig({
   ],
   server: {
     watch: {
-      // Avoid OneDrive EBUSY crashes when new public assets sync
+      // Avoid OneDrive EBUSY crashes when videos/images sync
       ignored: ["**/public/**"],
     },
   },

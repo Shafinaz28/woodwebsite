@@ -5,19 +5,19 @@ function InspirationRow() {
   const rooms = [
     {
       title: "Explore Workspace Product Styles",
-      image: "/images/products/table-1.jpg",
+      image: "/images/products/office/office1.png",
     },
     {
       title: "Modern Dining Room Furniture Styles",
-      image: "/images/categories/dining.jpg",
+      image: "/images/products/dining/dining1.png",
     },
     {
       title: "Calm Bedroom Furniture Styles",
-      image: "/images/categories/bedroom.jpg",
+      image: "/images/products/bedroom/bead2.png",
     },
     {
       title: "Warm Living Room Furniture Styles",
-      image: "/images/categories/living.jpg",
+      image: "/images/products/living-room/living1.png",
     },
   ];
 
