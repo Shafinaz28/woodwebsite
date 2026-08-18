@@ -9,8 +9,7 @@ export default defineConfig({
   ],
   server: {
     watch: {
-      // Avoid OneDrive EBUSY crashes when videos/images sync
-      ignored: ["**/public/**"],
+      ignored: ["**/public/**/*.mp4", "**/public/**/*.webm", "**/public/**/*.mov"],
     },
   },
 });

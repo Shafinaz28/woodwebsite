@@ -30,7 +30,7 @@ function Contact() {
   ];
 
   return (
-    <div className="bg-[#F7F3EC]">
+    <div className="bg-background">
 
       {/* Hero with background image */}
       <section className="relative h-[100svh] min-h-[560px] w-full overflow-hidden bg-[#1a1510]">
@@ -104,7 +104,7 @@ function Contact() {
           {/* Right — form */}
           <div className="lg:col-span-8">
             {sent ? (
-              <div className="min-h-[320px] flex flex-col justify-center border border-wood-deep/10 bg-white/50 px-8 py-12 md:px-12">
+              <div className="min-h-[320px] flex flex-col justify-center border border-dark-brown/15 bg-cream/35 px-8 py-12 md:px-12">
                 <p className="text-[11px] uppercase tracking-[0.28em] text-wood-soft mb-4">
                   Message sent
                 </p>
@@ -126,7 +126,7 @@ function Contact() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="border border-wood-deep/10 bg-white/50 px-6 py-8 sm:px-8 md:px-10 md:py-10"
+                className="border border-dark-brown/15 bg-cream/35 px-6 py-8 sm:px-8 md:px-10 md:py-10"
               >
                 <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
                   <label className="block">

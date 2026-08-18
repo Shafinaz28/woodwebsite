@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { products } from "../data/products";
 import {
   ShoppingBag,
   Heart,
   Minus,
   Plus,
 } from "lucide-react";
+
+import { supabase } from "../lib/supabase";
 import { useCart } from "../context/CartContext";
 
 function ProductDetails() {
@@ -14,22 +15,61 @@ function ProductDetails() {
 
   const { addToCart } = useCart();
 
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState("");
 
-  const product = products.find(
-    (item) => item.slug === slug
-  );
+  useEffect(() => {
+    async function fetchProduct() {
+      setLoading(true);
 
-  const productImages = product?.images || [product?.image];
+      const { data, error } = await supabase
+        .from("products")
+        .select("*")
+        .eq("slug", slug)
+        .maybeSingle();
 
-  const [selectedImage, setSelectedImage] = useState(
-    productImages[0]
-  );
+      if (error) {
+        console.error(error);
+        setError(error.message);
+      } else {
+        setProduct(data);
+
+        if (data) {
+          setSelectedImage(data.image);
+        }
+      }
+
+      setLoading(false);
+    }
+
+    fetchProduct();
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-[500px] flex items-center justify-center">
+        <p>Loading product...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-[500px] flex items-center justify-center">
+        <p className="text-red-500">
+          Error: {error}
+        </p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
       <div className="min-h-[500px] flex flex-col items-center justify-center">
-        <h1 className="text-3xl mb-4">
+        <h1 className="text-3xl mb-5">
           Product Not Found
         </h1>
 
@@ -37,87 +77,75 @@ function ProductDetails() {
           to="/shop"
           className="border-b border-black"
         >
-          Back to Shop
+          Back To Shop
         </Link>
       </div>
     );
   }
 
+  const productImages =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.image];
+
   return (
-    <main className="bg-[#f7f5f0]">
+    <main className="bg-background">
 
       <section className="max-w-[1500px] mx-auto px-5 md:px-10 py-10 md:py-16">
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
 
-          {/* Product Image Gallery */}
+          {/* Images */}
           <div>
 
-            {/* Main Image */}
-            <div className="bg-[#efede8] overflow-hidden flex items-center justify-center min-h-[320px] md:min-h-[480px]">
+            <div className="bg-[#efede8] overflow-hidden">
 
               <img
-                src={selectedImage}
+                src={selectedImage || product.image}
                 alt={product.name}
-                className="
-                  w-full
-                  h-auto
-                  max-h-[70vh]
-                  object-contain
-                  transition
-                  duration-300
-                "
+                className="w-full aspect-[4/5] object-cover"
               />
 
             </div>
 
+            {productImages.length > 1 && (
 
-            {/* Thumbnails */}
-            <div className="grid grid-cols-4 gap-3 mt-4">
+              <div className="grid grid-cols-4 gap-3 mt-4">
 
-              {productImages.map((image, index) => (
+                {productImages.map((image, index) => (
 
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(image)}
-                  className={`
-                    overflow-hidden
-                    border
-                    bg-[#efede8]
-                    flex
-                    items-center
-                    justify-center
-                    aspect-square
-                    transition
-                    ${
-                      selectedImage === image
-                        ? "border-black"
-                        : "border-transparent"
-                    }
-                  `}
-                >
+                  <button
+                    key={index}
+                    onClick={() => setSelectedImage(image)}
+                    className={`
+                      overflow-hidden
+                      border
+                      ${
+                        selectedImage === image
+                          ? "border-black"
+                          : "border-transparent"
+                      }
+                    `}
+                  >
 
-                  <img
-                    src={image}
-                    alt={`${product.name} ${index + 1}`}
-                    className="
-                      w-full
-                      h-full
-                      object-contain
-                      p-1
-                    "
-                  />
+                    <img
+                      src={image}
+                      alt={`${product.name} ${index + 1}`}
+                      className="w-full aspect-square object-cover"
+                    />
 
-                </button>
+                  </button>
 
-              ))}
+                ))}
 
-            </div>
+              </div>
+
+            )}
 
           </div>
 
 
-          {/* Product Information */}
+          {/* Information */}
           <div className="lg:py-8">
 
             <p className="text-xs uppercase tracking-[0.2em] text-black/50">
@@ -129,22 +157,17 @@ function ProductDetails() {
             </h1>
 
             <p className="text-xl mt-5">
-              ₹{product.price.toLocaleString("en-IN")}
+              ₹{Number(product.price).toLocaleString("en-IN")}
+            </p>
+
+            <div className="border-t border-black/10 my-8" />
+
+            <p className="text-sm md:text-base leading-7 text-black/60">
+              {product.description}
             </p>
 
 
-            {/* Divider */}
-            <div className="border-t border-black/10 my-8"></div>
-
-
-            {/* Description */}
-            <p className="text-sm md:text-base leading-7 text-black/60 max-w-xl">
-              {product.description ||
-                "Thoughtfully designed furniture crafted with premium materials and timeless details."}
-            </p>
-
-
-            {/* Product Details */}
+            {/* Details */}
             <div className="mt-8 space-y-4 text-sm">
 
               <div className="flex justify-between border-b border-black/10 pb-4">
@@ -153,10 +176,9 @@ function ProductDetails() {
                 </span>
 
                 <span>
-                  {product.material || "Solid Wood"}
+                  {product.material}
                 </span>
               </div>
-
 
               <div className="flex justify-between border-b border-black/10 pb-4">
                 <span className="text-black/50">
@@ -164,21 +186,19 @@ function ProductDetails() {
                 </span>
 
                 <span>
-                  {product.finish || "Natural Finish"}
+                  {product.finish}
                 </span>
               </div>
-
 
               <div className="flex justify-between border-b border-black/10 pb-4">
                 <span className="text-black/50">
                   Dimensions
                 </span>
 
-                <span className="text-right">
-                  {product.dimensions || "Custom dimensions"}
+                <span>
+                  {product.dimensions}
                 </span>
               </div>
-
 
               <div className="flex justify-between border-b border-black/10 pb-4">
                 <span className="text-black/50">
@@ -186,7 +206,7 @@ function ProductDetails() {
                 </span>
 
                 <span>
-                  {product.delivery || "3–5 Weeks"}
+                  {product.delivery}
                 </span>
               </div>
 
@@ -200,17 +220,7 @@ function ProductDetails() {
                 Quantity
               </p>
 
-              <div
-                className="
-                  w-[140px]
-                  h-[50px]
-                  border
-                  border-black/20
-                  flex
-                  items-center
-                  justify-between
-                "
-              >
+              <div className="w-[140px] h-[50px] border border-black/20 flex items-center justify-between">
 
                 <button
                   onClick={() =>
@@ -223,7 +233,7 @@ function ProductDetails() {
                   <Minus size={16} />
                 </button>
 
-                <span className="text-sm">
+                <span>
                   {quantity}
                 </span>
 
@@ -242,7 +252,7 @@ function ProductDetails() {
 
 
             {/* Buttons */}
-            <div className="mt-10 flex gap-3">
+            <div className="mt-8 flex gap-3">
 
               <button
                 onClick={() => addToCart(product, quantity)}
@@ -258,8 +268,6 @@ function ProductDetails() {
                   text-xs
                   uppercase
                   tracking-[0.18em]
-                  hover:bg-black/80
-                  transition
                 "
               >
                 <ShoppingBag size={18} />
@@ -267,42 +275,11 @@ function ProductDetails() {
                 Add To Cart
               </button>
 
-
-              <button
-                className="
-                  w-[56px]
-                  h-[56px]
-                  border
-                  border-black/20
-                  flex
-                  items-center
-                  justify-center
-                  hover:bg-black
-                  hover:text-white
-                  transition
-                "
-              >
+              <button className="w-[56px] h-[56px] border border-black/20 flex items-center justify-center">
                 <Heart size={19} />
               </button>
 
             </div>
-
-
-            {/* Back Link */}
-            <Link
-              to="/shop"
-              className="
-                inline-block
-                mt-8
-                text-xs
-                uppercase
-                tracking-[0.15em]
-                border-b
-                border-black
-              "
-            >
-              Back To Collection
-            </Link>
 
           </div>
 

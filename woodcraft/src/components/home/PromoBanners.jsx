@@ -1,51 +1,72 @@
 import { Link } from "react-router";
-import { ArrowRight } from "lucide-react";
+
+const banners = [
+  {
+    title: "Upto 20% Off\nOn First Order",
+    text: "Use Code: WELCOME20",
+    cta: "Shop Now",
+    to: "/shop",
+    image: "/images/products/living-room/living1.png",
+    overlay: "from-[#3f5a45] via-[#3f5a45]/90 to-transparent",
+    tone: "text-[#e8d5b5]",
+    bg: "bg-[#3f5a45]",
+  },
+  {
+    title: "Handcrafted\nWith Love",
+    text: "Each piece is crafted by skilled artisans with attention to detail.",
+    cta: "Explore Collection",
+    to: "/shop",
+    image: "/images/products/storage/storage1.png",
+    overlay: "from-[#d8c4a4] via-[#d8c4a4]/90 to-transparent",
+    tone: "text-[#4a2c18]",
+    bg: "bg-[#d8c4a4]",
+  },
+  {
+    title: "Solid Wood\nBuilt To Last",
+    text: "Furniture that stays with you for generations.",
+    cta: "Learn More",
+    to: "/about",
+    image: "/images/products/storage/storage.png",
+    overlay: "from-[#b05a3a] via-[#b05a3a]/90 to-transparent",
+    tone: "text-[#f4eadc]",
+    bg: "bg-[#b05a3a]",
+  },
+];
 
 function PromoBanners() {
-  const banners = [
-    {
-      eyebrow: "Weekly Sale",
-      title: "Limited Time Flash Sale",
-      image: "/images/products/living-room/living5.png",
-      link: "/shop",
-    },
-    {
-      eyebrow: "New Arrivals",
-      title: "Modern Furniture Collection",
-      image: "/images/products/office/office1.png",
-      link: "/shop",
-    },
-  ];
-
   return (
-    <section className="bg-white pb-14 md:pb-20">
+    <section className="bg-background py-6 md:py-8">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
-        <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-7">
+        <div className="grid md:grid-cols-3 gap-4 md:gap-5">
           {banners.map((banner) => (
-            <Link
-              key={banner.title}
-              to={banner.link}
-              className="group relative min-h-[240px] sm:min-h-[300px] md:min-h-[380px] overflow-hidden rounded-2xl sm:rounded-3xl"
+            <div
+              key={banner.cta}
+              className={`relative min-h-[240px] sm:min-h-[270px] rounded-2xl overflow-hidden ${banner.bg}`}
             >
               <img
                 src={banner.image}
-                alt={banner.title}
-                className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                alt=""
+                className="absolute right-0 top-0 h-full w-[58%] object-cover object-center"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10" />
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 md:p-10 text-white">
-                <p className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-white/85 mb-2">
-                  {banner.eyebrow}
-                </p>
-                <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-white leading-tight">
+              <div
+                className={`absolute inset-0 bg-gradient-to-r ${banner.overlay}`}
+              />
+
+              <div className={`relative z-10 h-full min-h-[240px] sm:min-h-[270px] px-6 py-8 md:px-7 md:py-9 flex flex-col justify-end items-start text-left ${banner.tone}`}>
+                <h3 className="font-display text-xl sm:text-2xl font-bold leading-snug uppercase tracking-wide whitespace-pre-line">
                   {banner.title}
                 </h3>
-                <span className="inline-flex items-center gap-2 mt-5 text-xs uppercase tracking-[0.18em]">
-                  Shop Now
-                  <ArrowRight size={14} />
-                </span>
+                <p className="mt-2 text-sm leading-6 max-w-[220px]">
+                  {banner.text}
+                </p>
+                <Link
+                  to={banner.to}
+                  className="mt-5 inline-flex px-5 py-2.5 rounded-md bg-[#4a3728] text-white text-[11px] uppercase tracking-[0.14em] font-bold hover:bg-[#3a2a1c] transition"
+                >
+                  {banner.cta}
+                </Link>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

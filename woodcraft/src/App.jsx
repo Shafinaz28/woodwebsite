@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router";
-
+import { useEffect } from "react";
+import { supabase } from "./lib/supabase";
 import Layout from "./components/layout/Layout";
 
 import Home from "./pages/Home";
@@ -10,6 +11,20 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function App() {
+
+  useEffect(() => {
+    async function testSupabase() {
+      const { data, error } = await supabase
+        .from("products")
+        .select("*");
+  
+      console.log("DATA:", data);
+      console.log("ERROR:", error);
+    }
+  
+    testSupabase();
+  }, []);
+
   return (
     <Routes>
 

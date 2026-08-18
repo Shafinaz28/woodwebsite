@@ -1,18 +1,30 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import {
   Menu,
   X,
   Search,
   Heart,
   UserRound,
-  ShoppingBag,
+  ShoppingCart,
+  ChevronDown,
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 
+const NAV_LINKS = [
+  { label: "Home", to: "/", hasDropdown: false },
+  { label: "Shop", to: "/shop", hasDropdown: true },
+  { label: "Living Room", to: "/shop?category=Living%20Room", hasDropdown: true },
+  { label: "Bedroom", to: "/shop?category=Bedroom", hasDropdown: true },
+  { label: "Dining Room", to: "/shop?category=Dining", hasDropdown: true },
+  { label: "Office", to: "/shop?category=Office", hasDropdown: true },
+  { label: "Outdoor", to: "/shop?category=Outdoor", hasDropdown: true },
+  { label: "About Us", to: "/about", hasDropdown: false },
+  { label: "Contact Us", to: "/contact", hasDropdown: false },
+];
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const { cartCount } = useCart();
@@ -21,149 +33,149 @@ function Navbar() {
     e.preventDefault();
     const trimmed = query.trim();
     navigate(trimmed ? `/shop?q=${encodeURIComponent(trimmed)}` : "/shop");
-    setSearchOpen(false);
     setMenuOpen(false);
   }
 
   return (
-    <header className="bg-white border-b border-[#e5ddd2] text-wood sticky top-0 z-50">
-
+    <header className="bg-white text-dark-brown sticky top-0 z-50 border-b border-dark-brown/10">
+      {/* Top: logo / search / utilities */}
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
-
-        <div className="h-[72px] md:h-[96px] flex items-center justify-between gap-3">
-
-          {/* Logo — left on all screens */}
-          <Link
-            to="/"
-            className="flex items-center shrink-0"
-          >
+        <div className="h-[78px] md:h-[92px] flex items-center justify-between gap-4">
+          <Link to="/" className="flex items-center shrink-0">
             <img
               src="/images/logo.png"
               alt="Arileon"
-              className="h-11 sm:h-14 md:h-20 w-auto object-contain"
+              className="h-11 sm:h-14 md:h-[72px] w-auto object-contain"
             />
           </Link>
 
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm flex-1 justify-center">
-            <Link to="/shop">New Arrivals</Link>
-            <Link to="/shop">Living</Link>
-            <Link to="/shop">Dining</Link>
-            <Link to="/shop">Bedroom</Link>
-            <Link to="/shop">Outdoor</Link>
-            <Link to="/about">Our Story</Link>
-          </nav>
-
-
-          {/* Right side icons + menu */}
-          <div className="flex items-center gap-3 sm:gap-4 shrink-0">
-
-            {/* Desktop search */}
-            <form
-              onSubmit={handleSearch}
-              className="hidden md:flex items-center border border-[#d9d0c4] rounded-full px-4 h-11 w-[200px] lg:w-[240px] bg-[#faf8f4]"
-            >
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search furniture..."
-                className="flex-1 bg-transparent outline-none text-sm text-wood placeholder:text-wood-soft"
-              />
-              <button type="submit" aria-label="Search" className="text-wood">
-                <Search size={18} strokeWidth={1.5} />
-              </button>
-            </form>
-
-            {/* Mobile/tablet icon row */}
-            <button
-              className="md:hidden"
-              onClick={() => setSearchOpen(!searchOpen)}
-              aria-label="Search"
-            >
-              <Search size={20} strokeWidth={1.5} />
-            </button>
-
-            <button aria-label="Wishlist">
-              <Heart size={20} strokeWidth={1.5} />
-            </button>
-
-            <button className="hidden xs:block sm:block" aria-label="Account">
-              <UserRound size={20} strokeWidth={1.5} />
-            </button>
-
-            <Link to="/cart" className="relative" aria-label="Cart">
-              <ShoppingBag size={20} strokeWidth={1.5} />
-              <span className="
-                absolute
-                -top-2
-                -right-2
-                bg-[#8b6b45]
-                text-white
-                text-[9px]
-                w-4
-                h-4
-                rounded-full
-                flex
-                items-center
-                justify-center
-              ">
-                {cartCount}
-              </span>
-            </Link>
-
-            {/* Mobile hamburger — far right, wood button like Livora */}
-            <button
-              className="lg:hidden w-10 h-10 rounded-md bg-[#8b6b45] text-white flex items-center justify-center"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
-            >
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-
-          </div>
-
-        </div>
-
-        {/* Mobile search bar */}
-        {searchOpen && (
           <form
             onSubmit={handleSearch}
-            className="md:hidden pb-4 flex items-center border border-[#d9d0c4] rounded-full px-4 h-11 bg-[#faf8f4]"
+            className="hidden md:flex flex-1 max-w-[580px] mx-4 items-stretch h-11 rounded-full border border-dark-brown/20 bg-white overflow-hidden"
           >
             <input
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search furniture..."
-              className="flex-1 bg-transparent outline-none text-sm"
-              autoFocus
+              placeholder="Search for furniture..."
+              className="flex-1 px-5 outline-none text-sm text-brown placeholder:text-wood/55 bg-transparent"
             />
-            <button type="submit" aria-label="Search">
-              <Search size={18} strokeWidth={1.5} />
+            <div className="hidden lg:flex items-center gap-1.5 px-4 border-l border-cream text-xs text-brown/70 shrink-0">
+              All Categories
+              <ChevronDown size={14} strokeWidth={1.5} />
+            </div>
+            <button
+              type="submit"
+              aria-label="Search"
+              className="w-12 bg-dark-brown text-background flex items-center justify-center hover:bg-brown transition"
+            >
+              <Search size={18} strokeWidth={1.6} />
             </button>
           </form>
-        )}
 
+          <div className="flex items-center gap-5 sm:gap-6 shrink-0">
+            <button
+              className="md:hidden text-dark-brown"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
 
-        {/* Mobile Menu */}
-        {menuOpen && (
-          <div className="lg:hidden border-t border-gray-200 py-6">
-            <nav className="flex flex-col gap-5 text-sm">
-              <Link to="/shop" onClick={() => setMenuOpen(false)}>New Arrivals</Link>
-              <Link to="/shop" onClick={() => setMenuOpen(false)}>Living</Link>
-              <Link to="/shop" onClick={() => setMenuOpen(false)}>Dining</Link>
-              <Link to="/shop" onClick={() => setMenuOpen(false)}>Bedroom</Link>
-              <Link to="/shop" onClick={() => setMenuOpen(false)}>Outdoor</Link>
-              <Link to="/about" onClick={() => setMenuOpen(false)}>Our Story</Link>
-              <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
-            </nav>
+            <button
+              className="hidden sm:flex flex-col items-center gap-1 text-dark-brown hover:text-wood transition"
+              aria-label="Wishlist"
+            >
+              <Heart size={20} strokeWidth={1.5} />
+              <span className="hidden lg:block text-[11px]">Wishlist</span>
+            </button>
+
+            <button
+              className="hidden sm:flex flex-col items-center gap-1 text-dark-brown hover:text-wood transition"
+              aria-label="Account"
+            >
+              <UserRound size={20} strokeWidth={1.5} />
+              <span className="hidden lg:block text-[11px]">Account</span>
+            </button>
+
+            <Link
+              to="/cart"
+              className="flex items-center gap-2 text-dark-brown hover:text-wood transition"
+              aria-label={`Cart (${cartCount})`}
+            >
+              <ShoppingCart size={20} strokeWidth={1.5} />
+              <span className="hidden lg:block text-[13px] font-medium">
+                Cart ({cartCount})
+              </span>
+            </Link>
           </div>
-        )}
+        </div>
 
+        {/* Mobile search */}
+        <form
+          onSubmit={handleSearch}
+          className="md:hidden pb-3 flex items-stretch h-11 rounded-full border border-dark-brown/20 bg-white overflow-hidden"
+        >
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search for furniture..."
+            className="flex-1 px-4 outline-none text-sm text-brown bg-transparent"
+          />
+          <button
+            type="submit"
+            aria-label="Search"
+            className="w-11 bg-dark-brown text-background flex items-center justify-center"
+          >
+            <Search size={16} />
+          </button>
+        </form>
       </div>
 
+      {/* Dark brown category nav */}
+      <nav className="bg-dark-brown text-background">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
+          <ul className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 h-12 text-[11px] uppercase tracking-[0.14em]">
+            {NAV_LINKS.map((link) => (
+              <li key={link.label}>
+                <NavLink
+                  to={link.to}
+                  end={link.to === "/"}
+                  className={({ isActive }) =>
+                    `inline-flex items-center gap-1 px-3 xl:px-3.5 h-8 transition ${
+                      isActive && !link.to.includes("?")
+                        ? "bg-brown text-background"
+                        : "text-background/95 hover:bg-brown/70"
+                    }`
+                  }
+                >
+                  {link.label}
+                  {link.hasDropdown && (
+                    <ChevronDown size={12} strokeWidth={2} className="opacity-80" />
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+
+          {menuOpen && (
+            <ul className="lg:hidden flex flex-col gap-1 py-4 text-sm uppercase tracking-[0.12em]">
+              {NAV_LINKS.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.to}
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-3 py-2.5 hover:bg-brown transition"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </nav>
     </header>
   );
 }

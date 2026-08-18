@@ -43,7 +43,7 @@ function Cart() {
   }
 
   return (
-    <main className="bg-[#f7f5f0] min-h-screen">
+    <main className="bg-background min-h-screen">
 
       <div className="max-w-[1400px] mx-auto px-5 md:px-10 py-12 md:py-20">
 
@@ -210,7 +210,7 @@ function Cart() {
 
           {/* Order Summary */}
 
-          <aside className="bg-white p-7 md:p-9 h-fit">
+          <aside className="bg-cream/40 border border-dark-brown/15 p-7 md:p-9 h-fit">
 
             <h2 className="text-2xl font-light">
               Order Summary

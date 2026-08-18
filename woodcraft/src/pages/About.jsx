@@ -17,7 +17,7 @@ function About() {
   ];
 
   return (
-    <div className="bg-[#F7F3EC]">
+    <div className="bg-background">
 
       {/* Hero */}
       <section className="relative min-h-[70vh] md:min-h-[78vh] overflow-hidden bg-[#1a1510]">
