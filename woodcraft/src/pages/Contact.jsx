@@ -33,7 +33,7 @@ function Contact() {
     <div className="bg-background">
 
       {/* Hero with background image */}
-      <section className="relative h-[100svh] min-h-[560px] w-full overflow-hidden bg-[#1a1510]">
+      <section className="relative h-[52svh] sm:h-[60svh] md:h-[70svh] min-h-[320px] sm:min-h-[420px] md:min-h-[520px] w-full overflow-hidden bg-[#1a1510]">
         <img
           src="/images/products/living-room/living2.png"
           alt=""
@@ -41,15 +41,15 @@ function Contact() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-black/25" />
 
-        <div className="relative z-10 mx-auto flex h-full max-w-[1500px] items-end px-5 pb-14 md:px-10 md:pb-20">
+        <div className="relative z-10 mx-auto flex h-full max-w-[1500px] items-end px-5 pb-10 sm:pb-14 md:px-10 md:pb-20">
           <div className="max-w-xl text-white animate-[hero-rise_1s_ease-out]">
-            <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-white/75">
+            <p className="mb-3 sm:mb-4 text-[11px] uppercase tracking-[0.28em] text-white/75">
               Contact
             </p>
-            <h1 className="font-display text-4xl font-semibold leading-[1.08] text-white md:text-5xl lg:text-6xl">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.08] text-white">
               We&apos;d love to hear from you.
             </h1>
-            <p className="mt-5 max-w-md text-sm leading-7 text-white/80 md:text-base">
+            <p className="mt-4 sm:mt-5 max-w-md text-sm leading-7 text-white/80 md:text-base">
               Questions about a piece, an order, or finding the right fit for
               your space — send a note and we&apos;ll get back within one
               business day.

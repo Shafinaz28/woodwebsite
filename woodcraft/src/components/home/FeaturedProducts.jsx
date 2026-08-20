@@ -46,7 +46,7 @@ function FeaturedProducts() {
         <div className="relative flex items-center justify-center mb-6 md:mb-7">
           <div className="flex items-center gap-4 md:gap-6 w-full max-w-2xl mx-auto">
             <span className="flex-1 h-px bg-dark-brown/25" />
-            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold tracking-wide text-dark-brown uppercase text-center whitespace-nowrap">
+            <h2 className="font-display text-xl sm:text-3xl md:text-4xl font-semibold tracking-wide text-dark-brown uppercase text-center">
               Featured Products
             </h2>
             <span className="flex-1 h-px bg-dark-brown/25" />

@@ -115,7 +115,7 @@ function ProductDetails() {
               {product.category}
             </p>
 
-            <h1 className="text-4xl md:text-5xl font-light mt-4">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-light mt-4 leading-tight">
               {product.name}
             </h1>
 
@@ -130,21 +130,21 @@ function ProductDetails() {
             </p>
 
             <div className="mt-8 space-y-4 text-sm">
-              <div className="flex justify-between border-b border-black/10 pb-4">
-                <span className="text-black/50">Material</span>
-                <span>{product.material}</span>
+              <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-start border-b border-black/10 pb-4">
+                <span className="text-black/50 shrink-0">Material</span>
+                <span className="sm:text-right sm:max-w-[60%]">{product.material}</span>
               </div>
-              <div className="flex justify-between border-b border-black/10 pb-4">
-                <span className="text-black/50">Finish</span>
-                <span>{product.finish}</span>
+              <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-start border-b border-black/10 pb-4">
+                <span className="text-black/50 shrink-0">Finish</span>
+                <span className="sm:text-right sm:max-w-[60%]">{product.finish}</span>
               </div>
-              <div className="flex justify-between border-b border-black/10 pb-4">
-                <span className="text-black/50">Dimensions</span>
-                <span>{product.dimensions}</span>
+              <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-start border-b border-black/10 pb-4">
+                <span className="text-black/50 shrink-0">Dimensions</span>
+                <span className="sm:text-right sm:max-w-[60%]">{product.dimensions}</span>
               </div>
-              <div className="flex justify-between border-b border-black/10 pb-4">
-                <span className="text-black/50">Delivery</span>
-                <span>{product.delivery}</span>
+              <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-start border-b border-black/10 pb-4">
+                <span className="text-black/50 shrink-0">Delivery</span>
+                <span className="sm:text-right sm:max-w-[60%]">{product.delivery}</span>
               </div>
             </div>
 

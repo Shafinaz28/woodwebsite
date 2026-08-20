@@ -42,7 +42,7 @@ function RoomCategories() {
         <div className="relative flex items-center justify-center mb-6 md:mb-7">
           <div className="flex items-center gap-4 md:gap-6 w-full max-w-xl mx-auto">
             <span className="flex-1 h-px bg-dark-brown/25" />
-            <h2 className="font-display text-2xl sm:text-3xl md:text-[2rem] font-bold tracking-[0.08em] text-dark-brown uppercase whitespace-nowrap">
+            <h2 className="font-display text-xl sm:text-3xl md:text-[2rem] font-bold tracking-[0.06em] sm:tracking-[0.08em] text-dark-brown uppercase text-center">
               Shop By Room
             </h2>
             <span className="flex-1 h-px bg-dark-brown/25" />
@@ -67,12 +67,14 @@ function RoomCategories() {
         </div>
 
         {/* Room cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
-          {rooms.map((room) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
+          {rooms.map((room, index) => (
             <Link
               key={room.title}
               to={room.link}
-              className="group block bg-cream/60 border border-dark-brown/15 overflow-hidden rounded-t-md"
+              className={`group block bg-cream/60 border border-dark-brown/15 overflow-hidden rounded-t-md ${
+                index === rooms.length - 1 ? "col-span-2 sm:col-span-1" : ""
+              }`}
             >
               <div className="aspect-[4/3] overflow-hidden bg-cream/40">
                 <img

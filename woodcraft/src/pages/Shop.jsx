@@ -78,13 +78,13 @@ function Shop() {
 
       <section className="py-10 md:py-14">
         <div className="max-w-[1500px] mx-auto px-5 md:px-10">
-          <div className="flex gap-3 mb-8 overflow-x-auto">
+          <div className="flex gap-3 mb-8 overflow-x-auto scrollbar-none -mx-5 px-5 md:mx-0 md:px-0">
             {categories.map((category) => (
               <button
                 key={category}
                 type="button"
                 onClick={() => selectCategory(category)}
-                className={`px-5 py-3 text-xs uppercase border whitespace-nowrap font-bold ${
+                className={`px-4 sm:px-5 py-2.5 sm:py-3 text-[11px] sm:text-xs uppercase border whitespace-nowrap font-bold shrink-0 ${
                   selectedCategory === category
                     ? "bg-dark-brown text-white border-dark-brown"
                     : "border-dark-brown/25 text-dark-brown"
@@ -95,7 +95,7 @@ function Shop() {
             ))}
           </div>
 
-          <p className="mb-8 text-sm font-bold text-dark-brown">
+          <p className="mb-6 sm:mb-8 text-sm font-bold text-dark-brown">
             {loading
               ? "Loading products..."
               : `${filteredProducts.length} ${
@@ -103,7 +103,7 @@ function Shop() {
                 }`}
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6">
             {!loading &&
               filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />

@@ -58,12 +58,12 @@ function Hero() {
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-white/55 via-white/20 to-transparent pointer-events-none" />
 
         <div className="absolute inset-0 z-20 flex items-center">
-          <div className="w-full max-w-[1500px] mx-auto pl-16 sm:pl-24 md:pl-32 lg:pl-40 pr-5 sm:pr-8 md:pr-12 lg:pr-16">
+          <div className="w-full max-w-[1500px] mx-auto px-14 sm:pl-24 sm:pr-8 md:pl-32 md:pr-12 lg:pl-40 lg:pr-16">
             <div
               key={index}
               className="max-w-lg animate-[hero-rise_0.7s_ease-out_both]"
             >
-              <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold leading-[1.12]">
+              <h1 className="font-display text-[1.65rem] sm:text-4xl md:text-5xl font-semibold leading-[1.15]">
                 {slide.title.split("\n").map((line, lineIndex) => (
                   <span
                     key={line}
@@ -75,12 +75,12 @@ function Hero() {
                   </span>
                 ))}
               </h1>
-              <p className="mt-4 text-sm text-black leading-7 max-w-md">
+              <p className="mt-3 sm:mt-4 text-sm text-black leading-6 sm:leading-7 max-w-md line-clamp-3 sm:line-clamp-none">
                 {slide.text}
               </p>
               <Link
                 to="/shop"
-                className="inline-flex mt-6 px-7 py-3 rounded-[4px] bg-[#5d3a26] text-white text-[11px] uppercase tracking-[0.18em] font-semibold hover:bg-[#4b2c20] transition"
+                className="inline-flex mt-5 sm:mt-6 px-6 sm:px-7 py-3 rounded-[4px] bg-[#5d3a26] text-white text-[11px] uppercase tracking-[0.18em] font-semibold hover:bg-[#4b2c20] transition"
               >
                 Explore Collection
               </Link>
@@ -92,17 +92,17 @@ function Hero() {
           type="button"
           onClick={goPrev}
           aria-label="Previous slide"
-          className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/55 transition"
+          className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/55 transition"
         >
-          <ChevronLeft size={20} strokeWidth={1.75} />
+          <ChevronLeft size={18} strokeWidth={1.75} />
         </button>
         <button
           type="button"
           onClick={goNext}
           aria-label="Next slide"
-          className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/55 transition"
+          className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/55 transition"
         >
-          <ChevronRight size={20} strokeWidth={1.75} />
+          <ChevronRight size={18} strokeWidth={1.75} />
         </button>
 
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex gap-2.5">

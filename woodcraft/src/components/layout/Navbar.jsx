@@ -40,7 +40,7 @@ function Navbar() {
     <header className="bg-white text-dark-brown sticky top-0 z-50 border-b border-dark-brown/10">
       {/* Top: logo / search / utilities */}
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
-        <div className="h-[78px] md:h-[92px] flex items-center justify-between gap-4">
+        <div className="min-h-[72px] md:h-[92px] py-2 md:py-0 flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center shrink-0">
             <img
               src="/images/logo.png"
@@ -73,9 +73,9 @@ function Navbar() {
             </button>
           </form>
 
-          <div className="flex items-center gap-5 sm:gap-6 shrink-0">
+          <div className="flex items-center gap-3 sm:gap-6 shrink-0">
             <button
-              className="md:hidden text-dark-brown"
+              className="lg:hidden text-dark-brown"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -107,6 +107,9 @@ function Navbar() {
               <span className="hidden lg:block text-[13px] font-medium">
                 Cart ({cartCount})
               </span>
+              <span className="lg:hidden text-[12px] font-medium">
+                ({cartCount})
+              </span>
             </Link>
           </div>
         </div>
@@ -114,19 +117,19 @@ function Navbar() {
         {/* Mobile search */}
         <form
           onSubmit={handleSearch}
-          className="md:hidden pb-3 flex items-stretch h-11 rounded-full border border-dark-brown/20 bg-white overflow-hidden"
+          className="md:hidden mb-4 mt-2 flex items-stretch h-11 rounded-full border border-dark-brown/20 bg-white overflow-hidden shadow-sm"
         >
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search for furniture..."
-            className="flex-1 px-4 outline-none text-sm text-brown bg-transparent"
+            className="flex-1 px-5 outline-none text-sm text-brown bg-transparent"
           />
           <button
             type="submit"
             aria-label="Search"
-            className="w-11 bg-dark-brown text-background flex items-center justify-center"
+            className="w-12 bg-dark-brown text-background flex items-center justify-center"
           >
             <Search size={16} />
           </button>
