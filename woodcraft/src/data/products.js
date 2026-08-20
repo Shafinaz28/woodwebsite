@@ -51,6 +51,15 @@ export const products = [
     price: 145000,
     image: "/images/products/bedroom/bead6.png",
   },
+  {
+    id: 34,
+    name: "Solid Wood Bedroom Suite",
+    slug: "solid-wood-bedroom-suite",
+    category: "Bedroom",
+    price: 128000,
+    image: "/images/products/bedroom/bead7.png",
+    tag: "New",
+  },
 
   // Living Room
   {
@@ -103,6 +112,40 @@ export const products = [
     category: "Living Room",
     price: 135000,
     image: "/images/products/living-room/living5.png",
+  },
+  {
+    id: 35,
+    name: "Warm Living Room Sofa Collection",
+    slug: "warm-living-room-sofa-collection",
+    category: "Living Room",
+    price: 142000,
+    image: "/images/products/living-room/living6.png",
+  },
+  {
+    id: 36,
+    name: "Classic Wooden Living Set",
+    slug: "classic-wooden-living-set",
+    category: "Living Room",
+    price: 118000,
+    image: "/images/products/living-room/living7.png",
+  },
+  {
+    id: 37,
+    name: "Sunlit Sheesham Living Room Set",
+    slug: "sunlit-sheesham-living-room-set",
+    category: "Living Room",
+    price: 156000,
+    image: "/images/products/living-room/living8.png",
+    tag: "Bestseller",
+  },
+  {
+    id: 38,
+    name: "Natural Wood Lounge Collection",
+    slug: "natural-wood-lounge-collection",
+    category: "Living Room",
+    price: 149000,
+    image: "/images/products/living-room/living9.png",
+    tag: "New",
   },
 
   // Dining
@@ -164,6 +207,23 @@ export const products = [
     category: "Dining",
     price: 168000,
     image: "/images/products/dining/dining6.png",
+  },
+  {
+    id: 39,
+    name: "Formal Dining Table with High-Back Chairs",
+    slug: "formal-dining-table-high-back-chairs",
+    category: "Dining",
+    price: 132000,
+    image: "/images/products/dining/dining7.png",
+  },
+  {
+    id: 40,
+    name: "Warm Wood Dining Room Set",
+    slug: "warm-wood-dining-room-set",
+    category: "Dining",
+    price: 154000,
+    image: "/images/products/dining/dining8.png",
+    tag: "New",
   },
 
   // Outdoor

@@ -1,19 +1,36 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router";
 import { Star } from "lucide-react";
-import { products } from "../../data/products";
+import { fetchCatalog, getProductImage, subscribeToCatalog } from "../../lib/catalog";
 
 function NewArrivals() {
-  const items = products.filter((product) => product.tag === "New").slice(0, 4);
+  const [products, setProducts] = useState([]);
 
-  const list =
-    items.length >= 4
-      ? items
-      : products.slice(0, 4);
+  useEffect(() => {
+    let active = true;
+
+    fetchCatalog().then((data) => {
+      if (active) setProducts(data);
+    });
+
+    const unsubscribe = subscribeToCatalog((data) => {
+      if (active) setProducts(data);
+    });
+
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
+  const list = useMemo(() => {
+    const items = products.filter((product) => product.tag === "New").slice(0, 4);
+    return items.length >= 4 ? items : products.slice(0, 4);
+  }, [products]);
 
   return (
     <section className="bg-[#faf8f4] py-14 md:py-24">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
-
         <div className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
           <p className="text-xs uppercase tracking-[0.2em] text-wood-soft mb-3">
             New Arrivals
@@ -35,7 +52,7 @@ function NewArrivals() {
             >
               <div className="bg-[#efede8] rounded-2xl overflow-hidden aspect-square flex items-center justify-center p-2 sm:p-3">
                 <img
-                  src={product.image}
+                  src={getProductImage(product)}
                   alt={product.name}
                   className="w-full h-full object-contain transition duration-700 group-hover:scale-105"
                 />
@@ -58,7 +75,7 @@ function NewArrivals() {
                 </div>
 
                 <p className="mt-2 text-sm font-medium text-wood-deep">
-                  ₹{product.price.toLocaleString("en-IN")}
+                  ₹{Number(product.price).toLocaleString("en-IN")}
                 </p>
               </div>
             </Link>
@@ -73,7 +90,6 @@ function NewArrivals() {
             Best and awesome furniture products. View All Products
           </Link>
         </div>
-
       </div>
     </section>
   );

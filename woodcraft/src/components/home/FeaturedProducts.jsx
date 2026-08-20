@@ -1,12 +1,37 @@
-import { useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "./ProductCard";
-import { products } from "../../data/products";
+import { fetchCatalog, subscribeToCatalog } from "../../lib/catalog";
 
 function FeaturedProducts() {
-  const featured = products.slice(0, 8);
+  const [products, setProducts] = useState([]);
   const scrollerRef = useRef(null);
+
+  useEffect(() => {
+    let active = true;
+
+    fetchCatalog().then((data) => {
+      if (active) setProducts(data);
+    });
+
+    const unsubscribe = subscribeToCatalog((data) => {
+      if (active) setProducts(data);
+    });
+
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
+  const featured = useMemo(() => {
+    const tagged = products.filter(
+      (product) => product.tag === "Bestseller" || product.tag === "New"
+    );
+    const list = tagged.length >= 8 ? tagged : products;
+    return list.slice(0, 8);
+  }, [products]);
 
   function scrollByCard(direction) {
     const el = scrollerRef.current;
@@ -28,14 +53,18 @@ function FeaturedProducts() {
           </div>
           <Link
             to="/shop"
-            className="absolute right-0 top-1/2 -translate-y-1/2 hidden sm:inline-flex text-xs sm:text-sm text-dark-brown/80 hover:text-dark-brown transition"
+            className="absolute right-0 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-dark-brown border border-dark-brown hover:bg-dark-brown/[0.03] transition"
           >
-            View All Products →
+            View All Products
+            <span aria-hidden>→</span>
           </Link>
         </div>
 
         <div className="sm:hidden text-center mb-6">
-          <Link to="/shop" className="text-xs text-dark-brown/80">
+          <Link
+            to="/shop"
+            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-dark-brown border border-dark-brown"
+          >
             View All Products →
           </Link>
         </div>

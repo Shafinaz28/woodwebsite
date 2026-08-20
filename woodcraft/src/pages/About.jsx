@@ -1,157 +1,257 @@
 import { Link } from "react-router";
 
-function About() {
-  const values = [
-    {
-      title: "Materials first",
-      text: "We choose solid woods and honest finishes that age with character, not shortcuts that fade in a season.",
-    },
-    {
-      title: "Quiet design",
-      text: "Forms stay timeless — warm, proportioned, and calm enough to live with for years, not just a trend cycle.",
-    },
-    {
-      title: "Made to last",
-      text: "Joinery, comfort, and finishing are considered together so every piece feels considered in daily use.",
-    },
-  ];
+const stats = [
+  { value: "12+", label: "Years of Craft" },
+  { value: "40+", label: "Skilled Artisans" },
+  { value: "100%", label: "Solid Wood" },
+  { value: "6", label: "Room Collections" },
+];
 
+const steps = [
+  {
+    no: "01",
+    title: "Select the timber",
+    text: "We source seasoned sheesham, teak and oak, checking grain, moisture and strength before a piece is even drawn.",
+  },
+  {
+    no: "02",
+    title: "Shape by hand",
+    text: "Joints are cut, fitted and finished by artisans — mortise, tenon and careful sanding, not shortcuts.",
+  },
+  {
+    no: "03",
+    title: "Finish for life",
+    text: "Natural oils and stains protect the wood so colour deepens with years of use, not peels after a season.",
+  },
+];
+
+const values = [
+  {
+    title: "Honest materials",
+    text: "Solid wood you can see and feel. No veneer pretending to be timber, no finish that hides the grain.",
+  },
+  {
+    title: "Timeless form",
+    text: "Quiet proportions made for Indian homes — rooms you live in every day, not a showroom for one season.",
+  },
+  {
+    title: "Built to stay",
+    text: "Furniture meant to move with you, age with you, and remain part of the house for a generation.",
+  },
+];
+
+function About() {
   return (
     <div className="bg-background">
-
-      {/* Hero */}
-      <section className="relative min-h-[70vh] md:min-h-[78vh] overflow-hidden bg-[#1a1510]">
+      <section className="relative min-h-[520px] md:min-h-[620px] overflow-hidden bg-[#1a120c]">
         <img
-          src="/images/products/dining/dining1.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover scale-105 animate-[hero-zoom_30s_ease-in-out_infinite_alternate]"
+          src="/images/products/living-room/living8.png"
+          alt="Arileon living room furniture"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/45 to-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/35 to-transparent" />
 
-        <div className="relative z-10 max-w-[1500px] mx-auto px-5 md:px-10 min-h-[70vh] md:min-h-[78vh] flex items-end pb-14 md:pb-20">
-          <div className="max-w-xl text-white animate-[hero-rise_1s_ease-out]">
-            <p className="font-display text-3xl md:text-4xl font-medium tracking-wide text-white mb-4">
-              Arileon
+        <div className="relative z-10 max-w-[1500px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 min-h-[520px] md:min-h-[620px] flex items-center">
+          <div className="max-w-xl pl-4 sm:pl-8">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#2b1d0e] mb-4">
+              About Arileon
             </p>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.08] text-white">
-              Furniture shaped by patience and place.
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.12]">
+              <span className="block text-[#2b1d0e]">Authentic Wood.</span>
+              <span className="block text-[#704214]">A Story of Craft.</span>
             </h1>
-            <p className="mt-5 text-sm md:text-base text-white/80 leading-7 max-w-md">
-              Our story is simple: design with intention, craft with care, and
-              furnish homes that feel quietly personal.
+            <p className="mt-5 text-sm md:text-base text-black leading-7 max-w-md">
+              We design and make solid wood furniture in India — for homes that
+              want warmth, strength and pieces that feel true to the timber they
+              came from.
             </p>
             <Link
               to="/shop"
-              className="inline-flex mt-8 text-[11px] uppercase tracking-[0.22em] text-white border-b border-white/80 pb-1 hover:opacity-80 transition"
+              className="inline-flex mt-7 px-7 py-3 rounded-[4px] bg-[#5d3a26] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#4b2c20] transition"
             >
-              Explore the Collection
+              Explore Collection
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Origin */}
-      <section className="max-w-[900px] mx-auto px-5 md:px-10 py-16 md:py-24 text-center">
-        <p className="text-[11px] uppercase tracking-[0.28em] text-wood-soft mb-5">
-          Who we are
-        </p>
-        <h2 className="font-display text-3xl md:text-5xl font-medium text-wood-deep leading-[1.15]">
-          Built for modern homes that still want warmth.
-        </h2>
-        <p className="mt-7 text-sm md:text-base text-wood-muted leading-8">
-          Arileon began with a belief that furniture should feel grounded —
-          natural materials, considered proportions, and finishes that invite
-          touch. We design pieces for living rooms, dining spaces, bedrooms,
-          and work corners that need calm rather than clutter.
-        </p>
+      <section className="bg-[#f9f7f2] border-b border-[#eadfd3]">
+        <div className="max-w-[1500px] mx-auto px-5 md:px-10">
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {stats.map((item, index) => (
+              <div
+                key={item.label}
+                className={`px-5 py-7 text-center border-[#eadfd3] ${
+                  index !== stats.length - 1 ? "lg:border-r" : ""
+                } ${index % 2 === 0 ? "border-r lg:border-r" : ""} ${
+                  index < 2 ? "border-b lg:border-b-0" : ""
+                }`}
+              >
+                <p className="font-display text-3xl md:text-4xl font-bold text-[#2b1d0e]">
+                  {item.value}
+                </p>
+                <p className="mt-1 text-xs uppercase tracking-[0.16em] text-[#704214]">
+                  {item.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
-      {/* Split — intention */}
-      <section className="bg-[#EFE9E0]">
-        <div className="grid lg:grid-cols-2 min-h-[520px] lg:min-h-[620px]">
-          <div className="relative min-h-[320px] lg:min-h-full overflow-hidden">
+      <section className="max-w-[1500px] mx-auto px-5 md:px-10 py-12 md:py-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#704214] mb-4">
+              Our story
+            </p>
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-[#2b1d0e] leading-[1.15]">
+              From timber yard to your home.
+            </h2>
+            <p className="mt-5 text-sm md:text-base text-black leading-7">
+              Arileon started with a simple idea: furniture should feel like
+              wood, not like a photograph of wood. We work with seasoned timber,
+              skilled joiners and finishes that let the grain stay visible.
+            </p>
+            <p className="mt-4 text-sm md:text-base text-black leading-7">
+              Every sofa frame, dining table and bed is made to be used daily —
+              meals, guests, quiet evenings — and to look better as the years
+              add their own mark.
+            </p>
+          </div>
+          <div className="relative min-h-[320px] md:min-h-[420px] overflow-hidden rounded-md">
             <img
-              src="/images/products/living-room/living5.png"
-              alt="Living room furniture by Arileon"
+              src="/images/story/craftsmanship.jpg"
+              alt="Artisan crafting solid wood furniture"
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>
+        </div>
+      </section>
 
-          <div className="flex items-center px-8 sm:px-12 md:px-16 lg:px-20 py-16 lg:py-20">
-            <div className="max-w-md">
-              <p className="text-[11px] uppercase tracking-[0.28em] text-wood-soft mb-6">
-                Our craft
-              </p>
-              <h2 className="font-display text-3xl md:text-4xl xl:text-5xl font-semibold leading-[1.12] text-wood-deep">
-                Made with intention.
-                <br />
-                Built to last.
-              </h2>
-              <p className="mt-7 text-sm md:text-[15px] text-wood-muted leading-7">
-                Every piece starts with thoughtful design and carefully chosen
-                materials. Skilled craftsmanship, natural textures, and
-                timeless forms come together for spaces that feel truly yours.
-              </p>
-            </div>
+      <section className="bg-[#f9f7f2] border-y border-[#eadfd3]">
+        <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-12 md:py-16">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#704214] mb-3">
+              How we work
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#2b1d0e]">
+              Craft you can trust
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {steps.map((step) => (
+              <article
+                key={step.no}
+                className="bg-white border border-[#eadfd3] px-6 py-8"
+              >
+                <p className="font-display text-2xl font-bold text-[#704214]">
+                  {step.no}
+                </p>
+                <h3 className="font-display mt-3 text-xl font-bold text-[#2b1d0e]">
+                  {step.title}
+                </h3>
+                <p className="mt-3 text-sm text-black leading-7">{step.text}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Values */}
-      <section className="max-w-[1500px] mx-auto px-5 md:px-10 py-16 md:py-24">
-        <div className="max-w-2xl mb-12 md:mb-16">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-wood-soft mb-4">
-            What guides us
+      <section className="grid lg:grid-cols-2">
+        <div className="relative min-h-[340px] lg:min-h-[520px]">
+          <img
+            src="/images/products/dining/dining8.png"
+            alt="Solid wood dining collection"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+        <div className="flex items-center bg-[#efe9e0] px-8 sm:px-12 md:px-16 py-14">
+          <div className="max-w-md">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#704214] mb-4">
+              Our promise
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#2b1d0e] leading-tight">
+              Made with intention.
+              <br />
+              Built to last.
+            </h2>
+            <p className="mt-5 text-sm md:text-base text-black leading-7">
+              We furnish living rooms, dining spaces, bedrooms and work corners
+              with the same standard: solid construction, calm design, and wood
+              that still looks honest after years of family life.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-[1500px] mx-auto px-5 md:px-10 py-12 md:py-16">
+        <div className="mb-10">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-[#704214] mb-3">
+            What we stand for
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-medium text-wood-deep">
-            Three promises in every piece.
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-[#2b1d0e]">
+            Three promises in every piece
           </h2>
         </div>
-
-        <div className="grid md:grid-cols-3 gap-10 md:gap-12 border-t border-wood-deep/10 pt-10">
-          {values.map((item, i) => (
-            <div key={item.title}>
-              <p className="text-[11px] tracking-[0.2em] text-wood-soft mb-3">
-                0{i + 1}
+        <div className="grid md:grid-cols-3 gap-6">
+          {values.map((item, index) => (
+            <div
+              key={item.title}
+              className="border border-[#eadfd3] bg-[#f9f7f2] px-6 py-8"
+            >
+              <p className="text-[11px] tracking-[0.2em] text-[#704214] mb-3">
+                0{index + 1}
               </p>
-              <h3 className="font-display text-2xl font-medium text-wood-deep mb-3">
+              <h3 className="font-display text-2xl font-bold text-[#2b1d0e] mb-3">
                 {item.title}
               </h3>
-              <p className="text-sm text-wood-muted leading-7">{item.text}</p>
+              <p className="text-sm text-black leading-7">{item.text}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Closing CTA */}
-      <section className="border-t border-wood-deep/10">
-        <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-16 md:py-20 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+      <section className="grid grid-cols-2 md:grid-cols-4">
+        {[
+          "/images/products/living-room/living9.png",
+          "/images/products/bedroom/bead7.png",
+          "/images/products/dining/dining8.png",
+          "/images/story/made-with-intention.png",
+        ].map((src) => (
+          <div key={src} className="relative aspect-[4/3] overflow-hidden">
+            <img src={src} alt="" className="w-full h-full object-cover" />
+          </div>
+        ))}
+      </section>
+
+      <section className="bg-[#f9f7f2] border-t border-[#eadfd3]">
+        <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-12 md:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="max-w-lg">
-            <h2 className="font-display text-3xl md:text-4xl font-medium text-wood-deep leading-tight">
-              Ready to furnish a space that feels like home?
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#2b1d0e] leading-tight">
+              Ready to furnish a home that feels authentic?
             </h2>
-            <p className="mt-4 text-sm text-wood-muted leading-7">
-              Browse collections for every room, or reach out — we&apos;re happy
-              to help you find the right pieces.
+            <p className="mt-4 text-sm text-black leading-7">
+              Browse collections for every room, or write to us — we will help
+              you choose pieces that belong in your space.
             </p>
           </div>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3">
             <Link
               to="/shop"
-              className="inline-flex items-center justify-center px-7 py-3.5 bg-wood-deep text-white text-[11px] uppercase tracking-[0.2em] hover:bg-wood transition"
+              className="inline-flex items-center justify-center px-7 py-3.5 bg-[#5d3a26] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#4b2c20] transition"
             >
               Shop Furniture
             </Link>
             <Link
               to="/contact"
-              className="inline-flex items-center justify-center px-7 py-3.5 border border-wood-deep/25 text-wood-deep text-[11px] uppercase tracking-[0.2em] hover:border-wood-deep transition"
+              className="inline-flex items-center justify-center px-7 py-3.5 border border-[#2b1d0e] text-[#2b1d0e] text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#2b1d0e] hover:text-white transition"
             >
               Contact Us
             </Link>
           </div>
         </div>
       </section>
-
     </div>
   );
 }

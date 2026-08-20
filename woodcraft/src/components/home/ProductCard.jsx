@@ -1,11 +1,13 @@
 import { Link } from "react-router";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { getProductImage } from "../../lib/catalog";
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
-  const compareAt = Math.round(product.price * 1.18);
+  const compareAt = Math.round(Number(product.price || 0) * 1.18);
   const reviews = product.reviews ?? 128;
+  const image = getProductImage(product);
 
   function handleAdd(e) {
     e.preventDefault();
@@ -21,9 +23,13 @@ function ProductCard({ product }) {
           className="block w-full h-full"
         >
           <img
-            src={product.image}
+            src={image}
             alt={product.name}
             className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+            onError={(event) => {
+              event.currentTarget.src =
+                "/images/products/living-room/living8.png";
+            }}
           />
         </Link>
 
