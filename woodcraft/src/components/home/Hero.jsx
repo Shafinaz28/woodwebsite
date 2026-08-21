@@ -55,7 +55,7 @@ function Hero() {
           />
         ))}
 
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-white/55 via-white/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/55 via-black/25 to-transparent pointer-events-none" />
 
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="w-full max-w-[1500px] mx-auto px-14 sm:pl-24 sm:pr-8 md:pl-32 md:pr-12 lg:pl-40 lg:pr-16">
@@ -63,24 +63,26 @@ function Hero() {
               key={index}
               className="max-w-lg animate-[hero-rise_0.7s_ease-out_both]"
             >
-              <h1 className="font-display text-[1.65rem] sm:text-4xl md:text-5xl font-semibold leading-[1.15]">
-                {slide.title.split("\n").map((line, lineIndex) => (
-                  <span
-                    key={line}
-                    className={`block ${
-                      lineIndex === 0 ? "text-[#2b1d0e]" : "text-[#704214]"
-                    }`}
-                  >
+              <h1
+                className="font-display text-[1.65rem] sm:text-4xl md:text-5xl font-semibold leading-[1.15]"
+                style={{ color: "#ffffff" }}
+              >
+                {slide.title.split("\n").map((line) => (
+                  <span key={line} className="block" style={{ color: "#ffffff" }}>
                     {line}
                   </span>
                 ))}
               </h1>
-              <p className="mt-3 sm:mt-4 text-sm text-black leading-6 sm:leading-7 max-w-md line-clamp-3 sm:line-clamp-none">
+              <p
+                className="mt-3 sm:mt-4 text-sm leading-6 sm:leading-7 max-w-md line-clamp-3 sm:line-clamp-none"
+                style={{ color: "rgba(255,255,255,0.9)" }}
+              >
                 {slide.text}
               </p>
               <Link
                 to="/shop"
-                className="inline-flex mt-5 sm:mt-6 px-6 sm:px-7 py-3 rounded-[4px] bg-[#5d3a26] text-white text-[11px] uppercase tracking-[0.18em] font-semibold hover:bg-[#4b2c20] transition"
+                className="inline-flex mt-5 sm:mt-6 px-6 sm:px-7 py-3 rounded-[4px] text-white text-[11px] uppercase tracking-[0.18em] font-semibold hover:opacity-90 transition"
+                style={{ backgroundColor: "#454B1B" }}
               >
                 Explore Collection
               </Link>

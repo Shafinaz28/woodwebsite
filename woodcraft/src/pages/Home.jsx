@@ -3,9 +3,14 @@ import ValueBar from "../components/home/ValueBar";
 import RoomCategories from "../components/home/RoomCategories";
 import FeaturedProducts from "../components/home/FeaturedProducts";
 import PromoBanners from "../components/home/PromoBanners";
+import NewArrivals from "../components/home/NewArrivals";
+import LifestyleBanner from "../components/home/LifestyleBanner";
+import InspirationRow from "../components/home/InspirationRow";
+import Craftsmanship from "../components/home/Craftsmanship";
 import WhyChooseUs from "../components/home/WhyChooseUs";
 import Testimonials from "../components/home/Testimonials";
 import BlogSection from "../components/home/BlogSection";
+import Benefits from "../components/home/Benefits";
 
 function Home() {
   return (
@@ -15,9 +20,14 @@ function Home() {
       <RoomCategories />
       <FeaturedProducts />
       <PromoBanners />
+      <NewArrivals />
+      <LifestyleBanner />
+      <InspirationRow />
+      <Craftsmanship />
       <WhyChooseUs />
       <Testimonials />
       <BlogSection />
+      <Benefits />
     </>
   );
 }

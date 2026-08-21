@@ -212,19 +212,6 @@ function About() {
         </div>
       </section>
 
-      <section className="grid grid-cols-2 md:grid-cols-4">
-        {[
-          "/images/products/living-room/living9.png",
-          "/images/products/bedroom/bead7.png",
-          "/images/products/dining/dining8.png",
-          "/images/story/made-with-intention.png",
-        ].map((src) => (
-          <div key={src} className="relative aspect-[4/3] overflow-hidden">
-            <img src={src} alt="" className="w-full h-full object-cover" />
-          </div>
-        ))}
-      </section>
-
       <section className="bg-[#f9f7f2] border-t border-[#eadfd3]">
         <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-12 md:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <div className="max-w-lg">

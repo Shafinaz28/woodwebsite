@@ -120,7 +120,7 @@ function Footer() {
               <div className="flex flex-col gap-3 text-sm text-white/60">
                 <Link to="/" className="hover:text-white transition">Home</Link>
                 <Link to="/shop" className="hover:text-white transition">Shop</Link>
-                <Link to="/about" className="hover:text-white transition">About Us</Link>
+                <Link to="/about" className="hover:text-white transition">Our Story</Link>
                 <Link to="/contact" className="hover:text-white transition">Contact Us</Link>
                 <Link to="/contact" className="hover:text-white transition">Track Order</Link>
                 <Link to="/contact" className="hover:text-white transition">Help & Support</Link>
@@ -159,17 +159,23 @@ function Footer() {
                 Contact Us
               </h3>
               <div className="flex flex-col gap-4 text-sm text-white/60">
-                <a href="tel:+919876543210" className="inline-flex items-start gap-2 hover:text-white transition">
+                <a href="tel:+919980085805" className="inline-flex items-start gap-2 hover:text-white transition">
                   <Phone size={15} className="mt-0.5 shrink-0" />
-                  +91 98765 43210
+                  +91 99800 85805
                 </a>
-                <a href="mailto:info@arileon.com" className="inline-flex items-start gap-2 hover:text-white transition">
+                <a href="mailto:arileoninfo@gmail.com" className="inline-flex items-start gap-2 hover:text-white transition">
                   <Mail size={15} className="mt-0.5 shrink-0" />
-                  info@arileon.com
+                  arileoninfo@gmail.com
                 </a>
                 <p className="inline-flex items-start gap-2">
                   <MapPin size={15} className="mt-0.5 shrink-0" />
-                  123, Greenwood Street, Bangalore, Karnataka - 560001
+                  <span>
+                    Wood Masters, 1st Cross,
+                    <br />
+                    Nelagadarana Halli, Nagasandra Post,
+                    <br />
+                    Bengaluru 560073
+                  </span>
                 </p>
               </div>
 

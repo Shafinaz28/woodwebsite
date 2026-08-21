@@ -113,8 +113,9 @@ export function subscribeToCatalog(onChange) {
     return () => {};
   }
 
+  const channelName = `products-catalog-${Math.random().toString(36).slice(2)}`;
   const channel = supabase
-    .channel("products-catalog")
+    .channel(channelName)
     .on(
       "postgres_changes",
       { event: "*", schema: "public", table: "products" },

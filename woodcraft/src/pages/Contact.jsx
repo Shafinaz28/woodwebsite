@@ -13,19 +13,20 @@ function Contact() {
     {
       icon: MapPin,
       label: "Visit",
-      value: "12 Timber Lane, Bengaluru, Karnataka",
+      value:
+        "Wood Masters, 1st Cross, Nelagadarana Halli, Nagasandra Post, Bengaluru 560073",
     },
     {
       icon: Mail,
       label: "Email",
-      value: "hello@arileon.com",
-      href: "mailto:hello@arileon.com",
+      value: "arileoninfo@gmail.com",
+      href: "mailto:arileoninfo@gmail.com",
     },
     {
       icon: Phone,
       label: "Call",
-      value: "+91 98765 43210",
-      href: "tel:+919876543210",
+      value: "+91 99800 85805",
+      href: "tel:+919980085805",
     },
   ];
 
@@ -113,7 +114,7 @@ function Contact() {
                 </h2>
                 <p className="mt-4 text-sm text-wood-muted leading-7 max-w-md">
                   Your note is with our team. If your enquiry is urgent, email
-                  hello@arileon.com directly.
+                  arileoninfo@gmail.com directly.
                 </p>
                 <button
                   type="button"

@@ -57,7 +57,7 @@ function ProductCard({ product }) {
 
         <div className="mt-3 flex items-baseline gap-2">
           <span className="text-lg font-bold text-dark-brown">
-            ₹{product.price.toLocaleString("en-IN")}
+            ₹{Number(product.price || 0).toLocaleString("en-IN")}
           </span>
           <span className="text-sm font-bold text-dark-brown/40 line-through">
             ₹{compareAt.toLocaleString("en-IN")}
