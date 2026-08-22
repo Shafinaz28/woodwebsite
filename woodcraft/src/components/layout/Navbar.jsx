@@ -30,7 +30,6 @@ const PRODUCT_FOLDERS = [
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState([]);
   const [listOpen, setListOpen] = useState(false);
@@ -39,7 +38,6 @@ function Navbar() {
   const { cartCount } = useCart();
   const searchRef = useRef(null);
   const productsRef = useRef(null);
-  const mobileSearchRef = useRef(null);
 
   useEffect(() => {
     let active = true;
@@ -63,12 +61,6 @@ function Navbar() {
       if (productsRef.current && !productsRef.current.contains(e.target)) {
         setProductsOpen(false);
       }
-      if (
-        mobileSearchRef.current &&
-        !mobileSearchRef.current.contains(e.target)
-      ) {
-        setMobileSearchOpen(false);
-      }
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
@@ -78,7 +70,6 @@ function Navbar() {
     function handleResize() {
       if (window.innerWidth >= 1024) {
         setMenuOpen(false);
-        setMobileSearchOpen(false);
         setMobileProductsOpen(false);
       }
     }
@@ -110,13 +101,11 @@ function Navbar() {
     setListOpen(false);
     setProductsOpen(false);
     setMenuOpen(false);
-    setMobileSearchOpen(false);
   }
 
   function closeMobile() {
     setMenuOpen(false);
     setMobileProductsOpen(false);
-    setMobileSearchOpen(false);
   }
 
   function ProductsTree({ onPick }) {
@@ -262,18 +251,6 @@ function Navbar() {
 
             <button
               type="button"
-              aria-label="Search"
-              onClick={() => {
-                setMobileSearchOpen((open) => !open);
-                setMenuOpen(false);
-              }}
-              className="md:hidden p-1.5 text-dark-brown hover:opacity-70 transition"
-            >
-              <Search size={20} strokeWidth={1.5} />
-            </button>
-
-            <button
-              type="button"
               aria-label="Account"
               className="hidden sm:inline-flex p-1.5 text-dark-brown hover:opacity-70 transition"
             >
@@ -295,10 +272,7 @@ function Navbar() {
             <button
               type="button"
               className="lg:hidden p-1.5 text-dark-brown"
-              onClick={() => {
-                setMenuOpen((open) => !open);
-                setMobileSearchOpen(false);
-              }}
+              onClick={() => setMenuOpen((open) => !open)}
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
             >
@@ -306,30 +280,6 @@ function Navbar() {
             </button>
           </div>
         </div>
-
-        {mobileSearchOpen && (
-          <div
-            ref={mobileSearchRef}
-            className="md:hidden border-t border-[#eadfd3] py-3"
-          >
-            <form onSubmit={handleSearch} className="flex gap-2">
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search products..."
-                autoFocus
-                className="flex-1 min-w-0 h-11 px-3 rounded-md border border-[#cfc5b8] outline-none text-sm text-dark-brown placeholder:text-[#3a4550]/50"
-              />
-              <button
-                type="submit"
-                className="h-11 px-4 rounded-md bg-[#6B4423] text-white text-sm font-medium"
-              >
-                Search
-              </button>
-            </form>
-          </div>
-        )}
 
         {menuOpen && (
           <nav className="lg:hidden border-t border-[#eadfd3] py-2 max-h-[calc(100dvh-64px)] overflow-y-auto overscroll-contain">

@@ -49,25 +49,26 @@ function About() {
           alt="Arileon living room furniture"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/35 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent" />
 
         <div className="relative z-10 max-w-[1500px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 min-h-[520px] md:min-h-[620px] flex items-center">
           <div className="max-w-xl pl-4 sm:pl-8">
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#2b1d0e] mb-4">
-              About Arileon
+            <p className="text-[11px] uppercase tracking-[0.22em] text-white/90 mb-4">
+              Our Story
             </p>
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.12]">
-              <span className="block text-[#2b1d0e]">Authentic Wood.</span>
-              <span className="block text-[#704214]">A Story of Craft.</span>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.12] text-white">
+              <span className="block">Authentic Wood.</span>
+              <span className="block text-white/90">A Story of Craft.</span>
             </h1>
-            <p className="mt-5 text-sm md:text-base text-black leading-7 max-w-md">
+            <p className="mt-5 text-sm md:text-base text-white/90 leading-7 max-w-md">
               We design and make solid wood furniture in India — for homes that
               want warmth, strength and pieces that feel true to the timber they
               came from.
             </p>
             <Link
               to="/shop"
-              className="inline-flex mt-7 px-7 py-3 rounded-[4px] bg-[#5d3a26] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#4b2c20] transition"
+              className="inline-flex mt-7 px-7 py-3 rounded-[4px] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:opacity-90 transition"
+              style={{ backgroundColor: "#454B1B" }}
             >
               Explore Collection
             </Link>
