@@ -22,6 +22,7 @@ const PRODUCT_FOLDERS = [
   { key: "bedroom", label: "Bedroom", category: "Bedroom" },
   { key: "dining", label: "Dining", category: "Dining" },
   { key: "living-room", label: "Living Room", category: "Living Room" },
+  { key: "tables", label: "Tables", category: "Tables" },
   { key: "office", label: "Office", category: "Office" },
   { key: "outdoor", label: "Outdoor", category: "Outdoor" },
   { key: "storage", label: "Storage", category: "Storage" },

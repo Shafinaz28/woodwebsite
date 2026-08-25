@@ -8,6 +8,7 @@ const categories = [
   "Living Room",
   "Bedroom",
   "Dining",
+  "Tables",
   "Office",
   "Outdoor",
   "Storage",

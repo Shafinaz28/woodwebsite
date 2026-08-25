@@ -135,6 +135,7 @@ function Footer() {
                 <Link to="/shop?category=Living%20Room" className="hover:text-white transition">Living Room</Link>
                 <Link to="/shop?category=Bedroom" className="hover:text-white transition">Bedroom</Link>
                 <Link to="/shop?category=Dining" className="hover:text-white transition">Dining Room</Link>
+                <Link to="/shop?category=Tables" className="hover:text-white transition">Tables</Link>
                 <Link to="/shop?category=Office" className="hover:text-white transition">Office Furniture</Link>
                 <Link to="/shop?category=Outdoor" className="hover:text-white transition">Outdoor Furniture</Link>
                 <Link to="/shop" className="hover:text-white transition">All Furniture</Link>

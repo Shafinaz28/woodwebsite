@@ -55,7 +55,7 @@ function Hero() {
           />
         ))}
 
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/55 via-black/25 to-transparent pointer-events-none" />
+    <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/55 via-black/25 to-transparent pointer-events-none" />
 
         <div className="absolute inset-0 z-20 flex items-center">
           <div className="w-full max-w-[1500px] mx-auto px-14 sm:pl-24 sm:pr-8 md:pl-32 md:pr-12 lg:pl-40 lg:pr-16">

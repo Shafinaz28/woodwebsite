@@ -53,25 +53,34 @@ export function normalizeProduct(row = {}) {
 }
 
 export async function fetchCatalog() {
+  const local = localProducts.map(normalizeProduct);
+
   if (!isSupabaseConfigured) {
     console.warn("Supabase not configured — using local products");
-    return localProducts.map(normalizeProduct);
+    return local;
   }
 
   try {
     const { data, error } = await supabase.from("products").select("*");
     if (error) {
       console.error("Supabase products error:", error);
-      return localProducts.map(normalizeProduct);
+      return local;
     }
     if (!data?.length) {
       console.warn("Supabase products empty — using local products");
-      return localProducts.map(normalizeProduct);
+      return local;
     }
-    return data.map(normalizeProduct);
+
+    // Merge: keep all local products, overlay matching Supabase rows by slug
+    const bySlug = new Map(local.map((item) => [item.slug, item]));
+    for (const row of data) {
+      const normalized = normalizeProduct(row);
+      if (normalized.slug) bySlug.set(normalized.slug, normalized);
+    }
+    return Array.from(bySlug.values());
   } catch (err) {
     console.error("Supabase fetch failed:", err);
-    return localProducts.map(normalizeProduct);
+    return local;
   }
 }
 
