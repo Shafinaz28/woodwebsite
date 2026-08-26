@@ -4,20 +4,20 @@ import { ArrowRight } from "lucide-react";
 function InspirationRow() {
   const rooms = [
     {
-      title: "Explore Workspace Product Styles",
-      image: "/images/products/office/office1.png",
+      title: "Warm Living Room Furniture Styles",
+      image: "/images/products/living-room/living12.png",
     },
     {
       title: "Modern Dining Room Furniture Styles",
-      image: "/images/products/dining/dining1.png",
+      image: "/images/products/dining/dining11.png",
     },
     {
       title: "Calm Bedroom Furniture Styles",
-      image: "/images/products/bedroom/bead2.png",
+      image: "/images/products/bedroom/bead13.png",
     },
     {
-      title: "Warm Living Room Furniture Styles",
-      image: "/images/products/living-room/living1.png",
+      title: "Coffee Table & Side Table Styles",
+      image: "/images/products/tables/tablee1.png",
     },
   ];
 

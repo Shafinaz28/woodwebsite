@@ -25,11 +25,7 @@ function ProductCard({ product }) {
           <img
             src={image}
             alt={product.name}
-            className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
-            onError={(event) => {
-              event.currentTarget.src =
-                "/images/products/living-room/living8.png";
-            }}
+            className="w-full h-full object-contain p-2 transition duration-700 group-hover:scale-[1.02]"
           />
         </Link>
 

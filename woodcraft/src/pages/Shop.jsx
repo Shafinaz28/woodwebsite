@@ -9,9 +9,6 @@ const categories = [
   "Bedroom",
   "Dining",
   "Tables",
-  "Office",
-  "Outdoor",
-  "Storage",
 ];
 
 function Shop() {

@@ -82,7 +82,7 @@ function ProductDetails() {
               <img
                 src={mainImage}
                 alt={product.name}
-                className="w-full aspect-[4/5] object-cover"
+                className="w-full aspect-[4/5] object-contain p-3"
               />
             </div>
 
@@ -93,7 +93,7 @@ function ProductDetails() {
                     key={index}
                     type="button"
                     onClick={() => setSelectedImage(image)}
-                    className={`overflow-hidden border ${
+                    className={`overflow-hidden border bg-[#efede8] ${
                       selectedImage === image
                         ? "border-black"
                         : "border-transparent"
@@ -102,7 +102,7 @@ function ProductDetails() {
                     <img
                       src={image}
                       alt={`${product.name} ${index + 1}`}
-                      className="w-full aspect-square object-cover"
+                      className="w-full aspect-square object-contain p-1"
                     />
                   </button>
                 ))}

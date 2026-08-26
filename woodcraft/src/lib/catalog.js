@@ -24,7 +24,7 @@ export function getProductImage(product) {
     localBySlug.get(product?.slug) ||
     localByName.get(product?.name?.toLowerCase?.() || "");
 
-  return local?.image || "/images/products/living-room/living8.png";
+  return local?.image || "/images/products/bedroom/bead10.jpg";
 }
 
 export function normalizeProduct(row = {}) {
@@ -39,7 +39,12 @@ export function normalizeProduct(row = {}) {
     slug: row.slug || local.slug,
     category: row.category || local.category,
     price: Number(row.price ?? local.price ?? 0),
-    image: getProductImage({ ...local, ...row }),
+    image: getProductImage({
+      ...row,
+      ...local,
+      // Prefer local catalog images so edited files always show on the site
+      image: local.image || row.image || row.image_url,
+    }),
     tag: row.tag || local.tag,
     description:
       row.description ||
@@ -71,11 +76,13 @@ export async function fetchCatalog() {
       return local;
     }
 
-    // Merge: keep all local products, overlay matching Supabase rows by slug
+    // Keep website catalog = local products only; overlay matching Supabase rows
     const bySlug = new Map(local.map((item) => [item.slug, item]));
     for (const row of data) {
       const normalized = normalizeProduct(row);
-      if (normalized.slug) bySlug.set(normalized.slug, normalized);
+      if (normalized.slug && bySlug.has(normalized.slug)) {
+        bySlug.set(normalized.slug, normalized);
+      }
     }
     return Array.from(bySlug.values());
   } catch (err) {

@@ -1,36 +1,25 @@
 import { Link } from "react-router";
 
-import living6 from "../../assets/hero/living6.png";
-import bead7 from "../../assets/hero/bead7.png";
-import dining7 from "../../assets/hero/dining7.png";
-import office1 from "../../assets/hero/office1.png";
-import outdoor from "../../assets/hero/outdoor.png";
-
 const rooms = [
   {
     title: "Living Room",
-    image: living6,
+    image: "/images/products/living-room/living12.png",
     link: "/shop?category=Living%20Room",
   },
   {
     title: "Bedroom",
-    image: bead7,
+    image: "/images/products/bedroom/bead13.png",
     link: "/shop?category=Bedroom",
   },
   {
     title: "Dining Room",
-    image: dining7,
+    image: "/images/products/dining/dining11.png",
     link: "/shop?category=Dining",
   },
   {
-    title: "Office",
-    image: office1,
-    link: "/shop?category=Office",
-  },
-  {
-    title: "Outdoor",
-    image: outdoor,
-    link: "/shop?category=Outdoor",
+    title: "Tables",
+    image: "/images/products/tables/tablee1.png",
+    link: "/shop?category=Tables",
   },
 ];
 
@@ -38,7 +27,6 @@ function RoomCategories() {
   return (
     <section className="bg-background py-8 md:py-10">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
-        {/* Header: centered title with lines + view all button */}
         <div className="relative flex items-center justify-center mb-6 md:mb-7">
           <div className="flex items-center gap-4 md:gap-6 w-full max-w-xl mx-auto">
             <span className="flex-1 h-px bg-dark-brown/25" />
@@ -66,21 +54,18 @@ function RoomCategories() {
           </Link>
         </div>
 
-        {/* Room cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
-          {rooms.map((room, index) => (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+          {rooms.map((room) => (
             <Link
               key={room.title}
               to={room.link}
-              className={`group block bg-cream/60 border border-dark-brown/15 overflow-hidden rounded-t-md ${
-                index === rooms.length - 1 ? "col-span-2 sm:col-span-1" : ""
-              }`}
+              className="group block bg-cream/60 border border-dark-brown/15 overflow-hidden rounded-t-md"
             >
               <div className="aspect-[4/3] overflow-hidden bg-cream/40">
                 <img
                   src={room.image}
                   alt={room.title}
-                  className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                  className="w-full h-full object-contain transition duration-700 group-hover:scale-105"
                 />
               </div>
               <div className="px-3 py-4 text-center bg-cream/60">
