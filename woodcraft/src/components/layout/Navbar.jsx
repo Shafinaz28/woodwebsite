@@ -11,12 +11,13 @@ import {
 import { useCart } from "../../context/CartContext";
 import { fetchCatalog, subscribeToCatalog } from "../../lib/catalog";
 
-const NAV_LINKS = [
+const NAV_LINKS_BEFORE = [
   { label: "Home", to: "/" },
   { label: "Shop", to: "/shop" },
   { label: "Our Story", to: "/about" },
-  { label: "Contact", to: "/contact" },
 ];
+
+const NAV_LINKS_AFTER = [{ label: "Contact", to: "/contact" }];
 
 const PRODUCT_FOLDERS = [
   { key: "bedroom", label: "Bedroom", category: "Bedroom" },
@@ -139,9 +140,9 @@ function Navbar() {
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center justify-center">
-            <ul className="flex items-center gap-1 xl:gap-2 text-[14px] xl:text-[15px] text-[#3a4550]">
-              {NAV_LINKS.map((link) => (
+          <nav className="hidden lg:flex items-center justify-center justify-self-center">
+            <ul className="flex items-center justify-center gap-1 xl:gap-2 text-[14px] xl:text-[15px] text-[#3a4550]">
+              {NAV_LINKS_BEFORE.map((link) => (
                 <li key={link.label}>
                   <NavLink
                     to={link.to}
@@ -183,6 +184,23 @@ function Navbar() {
                   </div>
                 )}
               </li>
+
+              {NAV_LINKS_AFTER.map((link) => (
+                <li key={link.label}>
+                  <NavLink
+                    to={link.to}
+                    className={({ isActive }) =>
+                      `inline-flex items-center gap-1 px-2.5 xl:px-3 py-2 transition hover:text-dark-brown ${
+                        isActive
+                          ? "text-dark-brown font-semibold"
+                          : "font-medium"
+                      }`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -282,7 +300,7 @@ function Navbar() {
         {menuOpen && (
           <nav className="lg:hidden border-t border-[#eadfd3] py-2 max-h-[calc(100dvh-64px)] overflow-y-auto overscroll-contain">
             <ul className="flex flex-col text-[15px] text-[#3a4550]">
-              {NAV_LINKS.map((link) => (
+              {NAV_LINKS_BEFORE.map((link) => (
                 <li key={link.label}>
                   <Link
                     to={link.to}
@@ -314,6 +332,18 @@ function Navbar() {
                   </div>
                 )}
               </li>
+
+              {NAV_LINKS_AFTER.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    to={link.to}
+                    onClick={closeMobile}
+                    className="block px-1 py-3.5 border-b border-[#eadfd3]/80 hover:text-dark-brown transition"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         )}

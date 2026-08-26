@@ -65,7 +65,7 @@ function RoomCategories() {
                 <img
                   src={room.image}
                   alt={room.title}
-                  className="w-full h-full object-contain transition duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover object-center transition duration-700 group-hover:scale-105"
                 />
               </div>
               <div className="px-3 py-4 text-center bg-cream/60">

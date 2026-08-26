@@ -82,7 +82,7 @@ function ProductDetails() {
               <img
                 src={mainImage}
                 alt={product.name}
-                className="w-full aspect-[4/5] object-contain p-3"
+                className="w-full aspect-[4/5] object-cover object-center"
               />
             </div>
 
@@ -102,7 +102,7 @@ function ProductDetails() {
                     <img
                       src={image}
                       alt={`${product.name} ${index + 1}`}
-                      className="w-full aspect-square object-contain p-1"
+                      className="w-full aspect-square object-cover object-center"
                     />
                   </button>
                 ))}

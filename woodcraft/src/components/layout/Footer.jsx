@@ -37,51 +37,9 @@ function PinterestIcon({ size = 18 }) {
 }
 
 function Footer() {
-  function handleSubscribe(e) {
-    e.preventDefault();
-  }
-
   return (
     <footer className="bg-[#1a120c] text-[#f5f0e8]">
       <div>
-        {/* Newsletter bar */}
-        <div
-          className="relative border-b border-white/10 overflow-hidden bg-[#1a120c] bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/products/image.png')" }}
-        >
-          <div className="absolute inset-0 bg-black/45 pointer-events-none" />
-          <div className="relative max-w-[1500px] mx-auto px-5 md:px-10 py-10 md:py-12">
-            <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-10">
-              <div className="flex-1 w-full">
-                <h2 className="font-display text-xl md:text-2xl font-semibold tracking-[0.12em] uppercase text-white">
-                  Stay Updated
-                </h2>
-                <p className="mt-1 text-sm text-white/65 max-w-md">
-                  Subscribe to get updates on new arrivals, exclusive offers and more.
-                </p>
-              </div>
-
-              <form
-                onSubmit={handleSubscribe}
-                className="flex w-full lg:max-w-xl items-stretch h-12 overflow-hidden"
-              >
-                <input
-                  type="email"
-                  required
-                  placeholder="Enter your email address"
-                  className="flex-1 px-4 text-sm text-dark-brown outline-none bg-white placeholder:text-dark-brown/45"
-                />
-                <button
-                  type="submit"
-                  className="px-6 bg-[#8b4513] text-white text-[11px] uppercase tracking-[0.16em] hover:bg-[#6f3610] transition shrink-0"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-
         {/* Main footer columns */}
         <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-14 md:py-16">
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">

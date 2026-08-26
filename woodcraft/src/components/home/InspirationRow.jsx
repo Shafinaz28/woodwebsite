@@ -42,13 +42,12 @@ function InspirationRow() {
               to="/shop"
               className="group block"
             >
-              <div className="relative aspect-[5/4] sm:aspect-[16/10] overflow-hidden rounded-2xl sm:rounded-3xl">
+              <div className="relative aspect-[5/4] sm:aspect-[16/10] overflow-hidden rounded-2xl sm:rounded-3xl bg-[#f5f1ea] flex items-center justify-center p-3 sm:p-4">
                 <img
                   src={room.image}
                   alt={room.title}
-                  className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                  className="max-h-full max-w-full h-auto w-auto object-contain transition duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/15 group-hover:bg-black/25 transition" />
               </div>
               <div className="mt-4 flex items-center justify-between gap-3">
                 <h3 className="text-base sm:text-lg font-medium text-wood-deep">

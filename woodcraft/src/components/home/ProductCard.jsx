@@ -17,15 +17,15 @@ function ProductCard({ product }) {
 
   return (
     <div className="group flex flex-col h-full bg-cream/70 border border-dark-brown/10 rounded-xl overflow-hidden shadow-[0_1px_3px_rgba(42,24,8,0.06)]">
-      <div className="relative overflow-hidden bg-[#f3ebe0] aspect-[4/3]">
+      <div className="relative overflow-hidden bg-[#f3ebe0] aspect-[4/3] flex items-center justify-center p-2">
         <Link
           to={`/product/${product.slug}`}
-          className="block w-full h-full"
+          className="block w-full h-full flex items-center justify-center"
         >
           <img
             src={image}
             alt={product.name}
-            className="w-full h-full object-contain p-2 transition duration-700 group-hover:scale-[1.02]"
+            className="max-h-full max-w-full h-auto w-auto object-contain transition duration-700 group-hover:scale-105"
           />
         </Link>
 
@@ -45,6 +45,9 @@ function ProductCard({ product }) {
       </div>
 
       <div className="flex flex-col flex-1 p-4 pt-3">
+        <p className="text-[10px] uppercase tracking-[0.16em] text-[#6B4423]/80 mb-1.5">
+          {product.category}
+        </p>
         <Link to={`/product/${product.slug}`}>
           <h3 className="font-display text-base md:text-lg font-bold text-dark-brown line-clamp-2 min-h-[2.75rem] leading-snug">
             {product.name}
