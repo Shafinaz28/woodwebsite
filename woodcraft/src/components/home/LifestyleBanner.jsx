@@ -22,13 +22,13 @@ function LifestyleBanner() {
         muted
         loop
         playsInline
-        poster="/images/story/craftsmanship.jpg"
+        poster="/images/story/craftsmanship.avif"
       >
         <source src="/videos/products-living.mp4" type="video/mp4" />
       </video>
 
       <img
-        src="/images/story/craftsmanship.jpg"
+        src="/images/story/craftsmanship.avif"
         alt=""
         aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover -z-10"

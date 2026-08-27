@@ -47,7 +47,7 @@ function About() {
       {/* Hero — centered text over full background image */}
       <section className="relative min-h-[380px] md:min-h-[420px] lg:min-h-[460px] overflow-hidden bg-[#2d1f16]">
         <img
-          src="/images/about/hero-dining.png"
+          src="/images/about/hero-dining.avif"
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
@@ -84,7 +84,7 @@ function About() {
             {/* Story collage */}
             <div className="overflow-hidden bg-[#ebe4da] h-[420px] sm:h-[480px] lg:h-[520px]">
               <img
-                src="/images/about/story-collage.jpg"
+                src="/images/about/story-collage.avif"
                 alt="Handcrafting wood, precise joinery, and finished Arileon furniture"
                 className="h-full w-full object-cover object-center"
               />
@@ -176,7 +176,7 @@ function About() {
         </div>
         <div className="relative min-h-[360px] lg:min-h-full overflow-hidden">
           <img
-            src="/images/about/craftsmanship.jpg"
+            src="/images/about/craftsmanship.avif"
             alt="Hands carving solid wood with a chisel"
             className="absolute inset-0 h-full w-full object-cover object-center"
           />
@@ -237,7 +237,7 @@ function About() {
             <div className="lg:col-span-3">
               <div className="overflow-hidden bg-[#f5f3f0]">
                 <img
-                  src="/images/about/team-collage.jpg"
+                  src="/images/about/team-collage.avif"
                   alt="Crafting, finishing, and living with Arileon furniture"
                   className="w-full h-auto object-cover object-center"
                 />

@@ -3,22 +3,22 @@ import { Link } from "react-router";
 const rooms = [
   {
     title: "Living Room",
-    image: "/images/products/living-room/living12.png",
+    image: "/images/products/living-room/living12.avif",
     link: "/shop?category=Living%20Room",
   },
   {
     title: "Bedroom",
-    image: "/images/products/bedroom/bead13.png",
+    image: "/images/products/bedroom/bead13.avif",
     link: "/shop?category=Bedroom",
   },
   {
     title: "Dining Room",
-    image: "/images/products/dining/dining11.png",
+    image: "/images/products/dining/dining11.avif",
     link: "/shop?category=Dining",
   },
   {
     title: "Tables",
-    image: "/images/products/tables/tablee1.png",
+    image: "/images/products/tables/tablee1.avif",
     link: "/shop?category=Tables",
   },
 ];

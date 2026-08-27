@@ -5,19 +5,19 @@ function InspirationRow() {
   const rooms = [
     {
       title: "Warm Living Room Furniture Styles",
-      image: "/images/products/living-room/living12.png",
+      image: "/images/products/living-room/living12.avif",
     },
     {
       title: "Modern Dining Room Furniture Styles",
-      image: "/images/products/dining/dining11.png",
+      image: "/images/products/dining/dining11.avif",
     },
     {
       title: "Calm Bedroom Furniture Styles",
-      image: "/images/products/bedroom/bead13.png",
+      image: "/images/products/bedroom/bead13.avif",
     },
     {
       title: "Coffee Table & Side Table Styles",
-      image: "/images/products/tables/tablee1.png",
+      image: "/images/products/tables/tablee1.avif",
     },
   ];
 

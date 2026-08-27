@@ -13,7 +13,7 @@ public/images/products/
 ## How to add a new product image
 
 1. Drop the image into the correct folder, e.g.:
-   `public/images/products/bedroom/my-bed.jpg`
+   `public/images/products/bedroom/my-bed.avif`
 
 2. In `src/data/products.js`, add:
 
@@ -24,11 +24,11 @@ public/images/products/
   slug: "my-bed",
   category: "Bedroom",
   price: 75000,
-  image: "/images/products/bedroom/my-bed.jpg",
+  image: "/images/products/bedroom/my-bed.avif",
 }
 ```
 
 ## Cover images
 
-Each folder has `cover.jpg` used for category circles on the homepage.
+Each folder has a cover image used for category circles on the homepage.
 Replace that file to change the category picture.

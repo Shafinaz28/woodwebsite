@@ -7,7 +7,7 @@ function Cart() {
     cart,
     updateQuantity,
     removeFromCart,
-    cartTotal,
+    cartCount,
   } = useCart();
 
   if (cart.length === 0) {
@@ -119,10 +119,6 @@ function Cart() {
 
                     </Link>
 
-                    <p className="mt-2 text-sm">
-                      ₹{item.price.toLocaleString("en-IN")}
-                    </p>
-
                   </div>
 
 
@@ -222,11 +218,11 @@ function Cart() {
               <div className="flex justify-between text-sm">
 
                 <span className="text-black/50">
-                  Subtotal
+                  Items
                 </span>
 
                 <span>
-                  ₹{cartTotal.toLocaleString("en-IN")}
+                  {cartCount}
                 </span>
 
               </div>
@@ -250,23 +246,19 @@ function Cart() {
             <div className="border-t border-black/10 my-7"></div>
 
 
-            <div className="flex justify-between items-center">
-
-              <span className="text-lg">
-                Total
-              </span>
-
-              <span className="text-xl">
-                ₹{cartTotal.toLocaleString("en-IN")}
-              </span>
-
-            </div>
+            <p className="text-sm text-black/55 leading-6">
+              Pricing is confirmed with our team at checkout.
+            </p>
 
 
-            <button
+            <Link
+              to="/checkout"
               className="
                 mt-8
                 w-full
+                inline-flex
+                items-center
+                justify-center
                 bg-black
                 text-white
                 py-5
@@ -278,7 +270,7 @@ function Cart() {
               "
             >
               Proceed To Checkout
-            </button>
+            </Link>
 
 
             <Link

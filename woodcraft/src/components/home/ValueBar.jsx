@@ -11,7 +11,7 @@ const values = [
   { icon: Leaf, title: "100% Solid Wood", subtitle: "Premium Quality" },
   { icon: HandHeart, title: "Handcrafted", subtitle: "By Skilled Artisans" },
   { icon: Sprout, title: "Eco Friendly", subtitle: "Sustainable Choice" },
-  { icon: Truck, title: "Free Delivery", subtitle: "Above ₹10,000" },
+  { icon: Truck, title: "Free Delivery", subtitle: "On selected orders" },
   { icon: RefreshCw, title: "Easy Returns", subtitle: "Hassle Free" },
   { icon: ShieldCheck, title: "Secure Payments", subtitle: "100% Safe" },
 ];

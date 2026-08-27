@@ -1,11 +1,11 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { getProductImage } from "../../lib/catalog";
 
 function ProductCard({ product }) {
+  const navigate = useNavigate();
   const { addToCart } = useCart();
-  const compareAt = Math.round(Number(product.price || 0) * 1.18);
   const reviews = product.reviews ?? 128;
   const image = getProductImage(product);
 
@@ -13,6 +13,7 @@ function ProductCard({ product }) {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product);
+    navigate("/cart");
   }
 
   return (
@@ -53,15 +54,6 @@ function ProductCard({ product }) {
             {product.name}
           </h3>
         </Link>
-
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-lg font-bold text-dark-brown">
-            ₹{Number(product.price || 0).toLocaleString("en-IN")}
-          </span>
-          <span className="text-sm font-bold text-dark-brown/40 line-through">
-            ₹{compareAt.toLocaleString("en-IN")}
-          </span>
-        </div>
 
         <div className="mt-2.5 flex items-center gap-1.5">
           <div className="flex items-center gap-0.5 text-[#c4a35a]">

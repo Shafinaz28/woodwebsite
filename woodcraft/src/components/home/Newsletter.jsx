@@ -1,3 +1,5 @@
+import Logo from "../layout/Logo";
+
 function Newsletter() {
   function handleSubmit(e) {
     e.preventDefault();
@@ -8,11 +10,7 @@ function Newsletter() {
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10 py-12 md:py-14">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
           <div className="flex items-center gap-5 flex-1 w-full">
-            <img
-              src="/images/logo.png"
-              alt="Arileon"
-              className="h-14 md:h-16 w-auto object-contain brightness-0 invert opacity-95 shrink-0"
-            />
+            <Logo to={null} size="md" invert className="shrink-0" />
             <div>
               <h2 className="font-display text-2xl md:text-3xl font-semibold tracking-wide uppercase">
                 Stay Updated
@@ -42,7 +40,7 @@ function Newsletter() {
           </form>
 
           <img
-            src="/images/story/made-with-intention.png"
+            src="/images/story/made-with-intention.avif"
             alt=""
             aria-hidden
             className="hidden xl:block h-24 w-24 object-cover opacity-90 shrink-0"

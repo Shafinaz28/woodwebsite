@@ -5,32 +5,32 @@ function CircleCategories() {
   const categories = [
     {
       title: "Bedroom",
-      image: "/images/products/bedroom/bead1.png",
+      image: "/images/products/bedroom/bead1.avif",
       link: "/shop?category=Bedroom",
     },
     {
       title: "Living Room",
-      image: "/images/products/living-room/living.png",
+      image: "/images/products/living-room/living.avif",
       link: "/shop?category=Living%20Room",
     },
     {
       title: "Dining",
-      image: "/images/products/dining/dining.jpg",
+      image: "/images/products/dining/dining.avif",
       link: "/shop?category=Dining",
     },
     {
       title: "Outdoor",
-      image: "/images/products/outdoor/outdoor.png",
+      image: "/images/products/outdoor/outdoor.avif",
       link: "/shop?category=Outdoor",
     },
     {
       title: "Office",
-      image: "/images/products/office/office.jpg",
+      image: "/images/products/office/office.avif",
       link: "/shop?category=Office",
     },
     {
       title: "Storage",
-      image: "/images/products/storage/storage.png",
+      image: "/images/products/storage/storage.avif",
       link: "/shop?category=Storage",
     },
   ];

@@ -6,7 +6,7 @@ export const products = [
     slug: "white-bunk-bed-storage-drawer",
     category: "Bedroom",
     price: 58000,
-    image: "/images/products/bedroom/bead10.jpg",
+    image: "/images/products/bedroom/bead10.avif",
     tag: "New",
   },
   {
@@ -15,7 +15,7 @@ export const products = [
     slug: "dark-wood-storage-bed-drawers",
     category: "Bedroom",
     price: 82000,
-    image: "/images/products/bedroom/bead11.jpg",
+    image: "/images/products/bedroom/bead11.avif",
   },
   {
     id: 58,
@@ -23,7 +23,7 @@ export const products = [
     slug: "light-oak-slat-bed-frame",
     category: "Bedroom",
     price: 64000,
-    image: "/images/products/bedroom/bead12.png",
+    image: "/images/products/bedroom/bead12.avif",
     tag: "New",
   },
   {
@@ -32,7 +32,7 @@ export const products = [
     slug: "colonial-four-poster-canopy-bed",
     category: "Bedroom",
     price: 158000,
-    image: "/images/products/bedroom/bead13.png",
+    image: "/images/products/bedroom/bead13.avif",
     tag: "Bestseller",
   },
   {
@@ -41,7 +41,7 @@ export const products = [
     slug: "antique-carved-canopy-bed",
     category: "Bedroom",
     price: 172000,
-    image: "/images/products/bedroom/bead14.png",
+    image: "/images/products/bedroom/bead14.avif",
   },
   {
     id: 61,
@@ -49,7 +49,7 @@ export const products = [
     slug: "ornate-spindle-wooden-bed",
     category: "Bedroom",
     price: 98000,
-    image: "/images/products/bedroom/bead15.png",
+    image: "/images/products/bedroom/bead15.avif",
   },
   {
     id: 62,
@@ -57,7 +57,7 @@ export const products = [
     slug: "mission-style-platform-bed",
     category: "Bedroom",
     price: 72000,
-    image: "/images/products/bedroom/bead16.png",
+    image: "/images/products/bedroom/bead16.avif",
     tag: "New",
   },
   {
@@ -66,7 +66,7 @@ export const products = [
     slug: "light-wood-grooved-headboard-bed",
     category: "Bedroom",
     price: 68000,
-    image: "/images/products/bedroom/bead17.png",
+    image: "/images/products/bedroom/bead17.avif",
   },
   {
     id: 64,
@@ -74,7 +74,7 @@ export const products = [
     slug: "panel-headboard-floral-bed",
     category: "Bedroom",
     price: 76000,
-    image: "/images/products/bedroom/bead18.png",
+    image: "/images/products/bedroom/bead18.avif",
   },
   {
     id: 65,
@@ -82,7 +82,7 @@ export const products = [
     slug: "tufted-headboard-bedroom-set",
     category: "Bedroom",
     price: 115000,
-    image: "/images/products/bedroom/bead19.png",
+    image: "/images/products/bedroom/bead19.avif",
     tag: "New",
   },
 
@@ -93,7 +93,7 @@ export const products = [
     slug: "striped-chaise-longue",
     category: "Living Room",
     price: 72000,
-    image: "/images/products/living-room/living10.png",
+    image: "/images/products/living-room/living10.avif",
     tag: "New",
   },
   {
@@ -102,7 +102,7 @@ export const products = [
     slug: "yellow-fainting-couch",
     category: "Living Room",
     price: 78000,
-    image: "/images/products/living-room/living11.png",
+    image: "/images/products/living-room/living11.avif",
   },
   {
     id: 45,
@@ -110,7 +110,7 @@ export const products = [
     slug: "white-upholstered-living-suite",
     category: "Living Room",
     price: 165000,
-    image: "/images/products/living-room/living12.png",
+    image: "/images/products/living-room/living12.avif",
     tag: "Bestseller",
   },
   {
@@ -119,7 +119,7 @@ export const products = [
     slug: "spindle-back-wooden-daybed",
     category: "Living Room",
     price: 68000,
-    image: "/images/products/living-room/living13.png",
+    image: "/images/products/living-room/living13.avif",
   },
   {
     id: 47,
@@ -127,7 +127,7 @@ export const products = [
     slug: "patterned-diwan-chaise",
     category: "Living Room",
     price: 64000,
-    image: "/images/products/living-room/living14.png",
+    image: "/images/products/living-room/living14.avif",
     tag: "New",
   },
   {
@@ -136,7 +136,7 @@ export const products = [
     slug: "low-wooden-divan-frame",
     category: "Living Room",
     price: 42000,
-    image: "/images/products/living-room/living15.png",
+    image: "/images/products/living-room/living15.avif",
   },
   {
     id: 49,
@@ -144,7 +144,7 @@ export const products = [
     slug: "cream-daybed-yellow-cushions",
     category: "Living Room",
     price: 86000,
-    image: "/images/products/living-room/living16.png",
+    image: "/images/products/living-room/living16.avif",
   },
   {
     id: 50,
@@ -152,7 +152,7 @@ export const products = [
     slug: "red-floral-chaise-longue",
     category: "Living Room",
     price: 75000,
-    image: "/images/products/living-room/living17.png",
+    image: "/images/products/living-room/living17.avif",
     tag: "New",
   },
 
@@ -163,7 +163,7 @@ export const products = [
     slug: "white-floral-dining-set-bench",
     category: "Dining",
     price: 128000,
-    image: "/images/products/dining/dining10.png",
+    image: "/images/products/dining/dining10.avif",
     tag: "New",
   },
   {
@@ -172,7 +172,7 @@ export const products = [
     slug: "mahogany-dining-set-red-chairs",
     category: "Dining",
     price: 175000,
-    image: "/images/products/dining/dining11.png",
+    image: "/images/products/dining/dining11.avif",
     tag: "Bestseller",
   },
   {
@@ -181,7 +181,7 @@ export const products = [
     slug: "mission-style-dark-wood-dining-set",
     category: "Dining",
     price: 142000,
-    image: "/images/products/dining/dining12.png",
+    image: "/images/products/dining/dining12.avif",
   },
   {
     id: 54,
@@ -189,7 +189,7 @@ export const products = [
     slug: "glass-top-4-seater-dining-set",
     category: "Dining",
     price: 98000,
-    image: "/images/products/dining/dining13.png",
+    image: "/images/products/dining/dining13.avif",
     tag: "New",
   },
   {
@@ -198,7 +198,7 @@ export const products = [
     slug: "glass-top-6-seater-dining-set",
     category: "Dining",
     price: 118000,
-    image: "/images/products/dining/dining14.png",
+    image: "/images/products/dining/dining14.avif",
   },
 
   // Tables — edited images only
@@ -208,7 +208,7 @@ export const products = [
     slug: "glass-top-curved-leg-coffee-table",
     category: "Tables",
     price: 42000,
-    image: "/images/products/tables/tablee1.png",
+    image: "/images/products/tables/tablee1.avif",
     tag: "New",
   },
   {
@@ -217,7 +217,7 @@ export const products = [
     slug: "square-polished-coffee-table",
     category: "Tables",
     price: 38000,
-    image: "/images/products/tables/tablee2.png",
+    image: "/images/products/tables/tablee2.avif",
   },
   {
     id: 68,
@@ -225,7 +225,7 @@ export const products = [
     slug: "three-drawer-console-table",
     category: "Tables",
     price: 52000,
-    image: "/images/products/tables/tablee3.png",
+    image: "/images/products/tables/tablee3.avif",
     tag: "New",
   },
   {
@@ -234,7 +234,7 @@ export const products = [
     slug: "glossy-slatted-coffee-table",
     category: "Tables",
     price: 40000,
-    image: "/images/products/tables/tablee4.png",
+    image: "/images/products/tables/tablee4.avif",
   },
   {
     id: 70,
@@ -242,7 +242,7 @@ export const products = [
     slug: "glass-top-slatted-coffee-table",
     category: "Tables",
     price: 45000,
-    image: "/images/products/tables/tablee5.png",
+    image: "/images/products/tables/tablee5.avif",
   },
   {
     id: 71,
@@ -250,7 +250,7 @@ export const products = [
     slug: "pebble-inlay-glass-coffee-table",
     category: "Tables",
     price: 48000,
-    image: "/images/products/tables/tablee6.png",
+    image: "/images/products/tables/tablee6.avif",
     tag: "Bestseller",
   },
   {
@@ -259,7 +259,7 @@ export const products = [
     slug: "dual-pebble-glass-coffee-table",
     category: "Tables",
     price: 49000,
-    image: "/images/products/tables/tablee7.png",
+    image: "/images/products/tables/tablee7.avif",
   },
   {
     id: 73,
@@ -267,7 +267,7 @@ export const products = [
     slug: "living-room-glass-coffee-table",
     category: "Tables",
     price: 46000,
-    image: "/images/products/tables/tablee8.png",
+    image: "/images/products/tables/tablee8.avif",
   },
   {
     id: 74,
@@ -275,7 +275,7 @@ export const products = [
     slug: "spindle-gallery-side-table",
     category: "Tables",
     price: 28000,
-    image: "/images/products/tables/tablee9.png",
+    image: "/images/products/tables/tablee9.avif",
     tag: "New",
   },
 ];

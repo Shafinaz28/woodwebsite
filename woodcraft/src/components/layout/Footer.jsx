@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
+import Logo from "./Logo";
 
 function InstagramIcon({ size = 18 }) {
   return (
@@ -44,13 +45,7 @@ function Footer() {
         <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-14 md:py-16">
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
             <div>
-              <Link to="/" className="inline-block">
-                <img
-                  src="/images/logo.png"
-                  alt="Arileon"
-                  className="h-14 md:h-16 w-auto object-contain brightness-0 invert"
-                />
-              </Link>
+              <Logo to="/" size="md" invert />
               <p className="mt-5 text-sm leading-7 text-white/60">
                 Crafting authentic wooden furniture that blends beauty, durability
                 and functionality to bring nature closer to your home.

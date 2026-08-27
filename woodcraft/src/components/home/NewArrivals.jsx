@@ -73,10 +73,6 @@ function NewArrivals() {
                     />
                   ))}
                 </div>
-
-                <p className="mt-2 text-sm font-medium text-wood-deep">
-                  ₹{Number(product.price || 0).toLocaleString("en-IN")}
-                </p>
               </div>
             </Link>
           ))}

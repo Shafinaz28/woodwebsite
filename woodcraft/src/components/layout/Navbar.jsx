@@ -9,7 +9,9 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 import { fetchCatalog, subscribeToCatalog } from "../../lib/catalog";
+import Logo from "./Logo";
 
 const NAV_LINKS_BEFORE = [
   { label: "Home", to: "/" },
@@ -35,8 +37,10 @@ function Navbar() {
   const [productsOpen, setProductsOpen] = useState(false);
   const navigate = useNavigate();
   const { cartCount } = useCart();
+  const { user, isAdmin } = useAuth();
   const searchRef = useRef(null);
   const productsRef = useRef(null);
+  const accountTo = user && isAdmin ? "/admin" : "/admin/login";
 
   useEffect(() => {
     let active = true;
@@ -128,17 +132,12 @@ function Navbar() {
     <header className="bg-white text-dark-brown sticky top-0 z-50 border-b border-[#eadfd3]">
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 lg:px-10">
         <div className="h-[64px] sm:h-[76px] lg:h-[96px] grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
-          <Link
+          <Logo
             to="/"
             onClick={closeMobile}
-            className="flex items-center shrink-0 justify-self-start"
-          >
-            <img
-              src="/images/logo.png"
-              alt="Arileon"
-              className="h-11 sm:h-14 lg:h-[72px] w-auto max-w-[110px] sm:max-w-[140px] lg:max-w-[180px] object-contain object-left"
-            />
-          </Link>
+            size="md"
+            className="justify-self-start sm:scale-105 lg:scale-110 origin-left"
+          />
 
           <nav className="hidden lg:flex items-center justify-center justify-self-center">
             <ul className="flex items-center justify-center gap-1 xl:gap-2 text-[14px] xl:text-[15px] text-[#3a4550]">
@@ -250,13 +249,10 @@ function Navbar() {
                           setListOpen(false);
                           setQuery("");
                         }}
-                        className="flex items-start justify-between gap-3 px-3 py-2.5 text-xs border-b border-[#eadfd3]/70 last:border-b-0 hover:bg-[#faf8f4]"
+                        className="flex items-start gap-3 px-3 py-2.5 text-xs border-b border-[#eadfd3]/70 last:border-b-0 hover:bg-[#faf8f4]"
                       >
                         <span className="text-dark-brown leading-snug">
                           {product.name}
-                        </span>
-                        <span className="shrink-0 text-[#3a4550]/70">
-                          ₹{Number(product.price || 0).toLocaleString("en-IN")}
                         </span>
                       </Link>
                     ))
@@ -265,13 +261,15 @@ function Navbar() {
               )}
             </div>
 
-            <button
-              type="button"
-              aria-label="Account"
+            <Link
+              to={accountTo}
+              aria-label={user && isAdmin ? "Admin dashboard" : "Admin login"}
+              onClick={closeMobile}
               className="hidden sm:inline-flex p-1.5 text-dark-brown hover:opacity-70 transition"
+              title={user && isAdmin ? "Admin dashboard" : "Admin login"}
             >
               <UserRound size={20} strokeWidth={1.5} />
-            </button>
+            </Link>
 
             <Link
               to="/cart"

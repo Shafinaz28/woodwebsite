@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 
-import living6 from "../../assets/hero/living6.png";
-import bead7 from "../../assets/hero/bead7.png";
-import dining7 from "../../assets/hero/dining7.png";
-import outdoor from "../../assets/hero/outdoor.png";
+import living6 from "../../assets/hero/living6.avif";
+import bead7 from "../../assets/hero/bead7.avif";
+import dining7 from "../../assets/hero/dining7.avif";
+import outdoor from "../../assets/hero/outdoor.avif";
 
 const posts = [
   {

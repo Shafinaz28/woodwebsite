@@ -27,7 +27,6 @@ function Shop() {
   const [material, setMaterial] = useState("All");
   const [finish, setFinish] = useState("All");
   const [availability, setAvailability] = useState("all");
-  const [priceMax, setPriceMax] = useState(200000);
   const [view, setView] = useState("grid");
 
   useEffect(() => {
@@ -51,19 +50,6 @@ function Shop() {
     };
   }, []);
 
-  const priceBounds = useMemo(() => {
-    if (!products.length) return { min: 0, max: 200000 };
-    const prices = products.map((p) => Number(p.price) || 0);
-    return {
-      min: Math.min(...prices),
-      max: Math.max(...prices),
-    };
-  }, [products]);
-
-  useEffect(() => {
-    if (products.length) setPriceMax(priceBounds.max);
-  }, [products.length, priceBounds.max]);
-
   const filteredProducts = useMemo(() => {
     let list = products.filter((product) => {
       const matchesCategory =
@@ -80,7 +66,6 @@ function Shop() {
       const matchesFinish =
         finish === "All" ||
         (product.finish || "Natural").toLowerCase() === finish.toLowerCase();
-      const matchesPrice = Number(product.price || 0) <= priceMax;
       const matchesAvailability =
         availability === "all" ||
         (availability === "new" && product.tag === "New") ||
@@ -91,16 +76,11 @@ function Shop() {
         matchesQuery &&
         matchesMaterial &&
         matchesFinish &&
-        matchesPrice &&
         matchesAvailability
       );
     });
 
-    if (sortBy === "price-asc") {
-      list = [...list].sort((a, b) => Number(a.price) - Number(b.price));
-    } else if (sortBy === "price-desc") {
-      list = [...list].sort((a, b) => Number(b.price) - Number(a.price));
-    } else if (sortBy === "name") {
+    if (sortBy === "name") {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     }
 
@@ -111,7 +91,6 @@ function Shop() {
     query,
     material,
     finish,
-    priceMax,
     availability,
     sortBy,
   ]);
@@ -141,7 +120,6 @@ function Shop() {
     setMaterial("All");
     setFinish("All");
     setAvailability("all");
-    setPriceMax(priceBounds.max);
     setSortBy("featured");
     const next = new URLSearchParams(searchParams);
     next.delete("category");
@@ -157,7 +135,7 @@ function Shop() {
       {/* Hero */}
       <section className="relative min-h-[280px] md:min-h-[340px] overflow-hidden bg-[#1a120c]">
         <img
-          src="/images/shop/hero-bg.jpg"
+          src="/images/shop/hero-bg.avif"
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
@@ -259,24 +237,6 @@ function Shop() {
                     </li>
                   ))}
                 </ul>
-              </FilterBlock>
-
-              <FilterBlock title="Price Range">
-                <div className="pt-1">
-                  <input
-                    type="range"
-                    min={priceBounds.min}
-                    max={priceBounds.max}
-                    step={1000}
-                    value={priceMax}
-                    onChange={(e) => setPriceMax(Number(e.target.value))}
-                    className="w-full accent-[#4a2c18]"
-                  />
-                  <div className="mt-2 flex justify-between text-xs text-[#2b1d0e]/70">
-                    <span>₹{priceBounds.min.toLocaleString("en-IN")}</span>
-                    <span>Up to ₹{priceMax.toLocaleString("en-IN")}</span>
-                  </div>
-                </div>
               </FilterBlock>
 
               <FilterBlock title="Availability">
@@ -386,8 +346,6 @@ function Shop() {
                       className="bg-transparent border border-[#4a2c18]/20 px-3 py-2 text-sm text-[#2b1d0e] outline-none"
                     >
                       <option value="featured">Featured</option>
-                      <option value="price-asc">Price: Low to High</option>
-                      <option value="price-desc">Price: High to Low</option>
                       <option value="name">Name</option>
                     </select>
                   </label>
@@ -417,7 +375,7 @@ function Shop() {
               {!loading && filteredProducts.length > 0 && (
                 <div
                   className="relative mt-12 md:mt-16 min-h-[220px] md:min-h-[280px] overflow-hidden bg-[#2d1f16] bg-cover bg-center"
-                  style={{ backgroundImage: "url('/images/shop/hero-bg.jpg')" }}
+                  style={{ backgroundImage: "url('/images/shop/hero-bg.avif')" }}
                 >
                   <div className="absolute inset-0 bg-[#1a120c]/45" />
                   <div className="relative z-10 flex min-h-[220px] md:min-h-[280px] items-center justify-center px-8 md:px-12">

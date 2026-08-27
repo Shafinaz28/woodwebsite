@@ -5,7 +5,6 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
-  // Add product
   function addToCart(product, quantity = 1) {
     setCart((currentCart) => {
       const existingProduct = currentCart.find(
@@ -33,7 +32,6 @@ export function CartProvider({ children }) {
     });
   }
 
-  // Increase / decrease quantity
   function updateQuantity(productId, newQuantity) {
     if (newQuantity < 1) {
       return;
@@ -51,25 +49,20 @@ export function CartProvider({ children }) {
     );
   }
 
-  // Remove product
   function removeFromCart(productId) {
     setCart((currentCart) =>
-      currentCart.filter(
-        (item) => item.id !== productId
-      )
+      currentCart.filter((item) => item.id !== productId)
     );
   }
 
-  // Total item count
-  const cartCount = cart.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  function clearCart() {
+    setCart([]);
+  }
 
-  // Cart total
+  const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
   const cartTotal = cart.reduce(
-    (total, item) =>
-      total + item.price * item.quantity,
+    (total, item) => total + item.price * item.quantity,
     0
   );
 
@@ -80,6 +73,7 @@ export function CartProvider({ children }) {
         addToCart,
         updateQuantity,
         removeFromCart,
+        clearCart,
         cartCount,
         cartTotal,
       }}

@@ -9,7 +9,7 @@ function AnnouncementBar() {
           className="hidden lg:inline-flex items-center gap-2 shrink-0 hover:text-cream transition"
         >
           <Truck size={13} strokeWidth={1.7} />
-          <span>Free Delivery on orders above ₹10,000</span>
+          <span>Free Delivery Across Bengaluru</span>
         </a>
 
         <div className="hidden md:flex items-center gap-4 lg:gap-6 flex-1 justify-center text-background/90">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import {
   ShoppingBag,
   Heart,
@@ -12,6 +12,7 @@ import { useCart } from "../context/CartContext";
 
 function ProductDetails() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const { addToCart } = useCart();
 
   const [product, setProduct] = useState(null);
@@ -119,10 +120,6 @@ function ProductDetails() {
               {product.name}
             </h1>
 
-            <p className="text-xl mt-5">
-              ₹{Number(product.price).toLocaleString("en-IN")}
-            </p>
-
             <div className="border-t border-black/10 my-8" />
 
             <p className="text-sm md:text-base leading-7 text-black/60">
@@ -176,7 +173,10 @@ function ProductDetails() {
             <div className="mt-8 flex gap-3">
               <button
                 type="button"
-                onClick={() => addToCart(product, quantity)}
+                onClick={() => {
+                  addToCart(product, quantity);
+                  navigate("/cart");
+                }}
                 className="flex-1 bg-black text-white h-[56px] flex items-center justify-center gap-3 text-xs uppercase tracking-[0.18em]"
               >
                 <ShoppingBag size={18} />

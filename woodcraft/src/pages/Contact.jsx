@@ -9,6 +9,8 @@ import {
   UserRound,
   Zap,
   CheckCircle2,
+  Tag,
+  MessageSquare,
 } from "lucide-react";
 
 const ADDRESS =
@@ -78,7 +80,10 @@ function Contact() {
   }
 
   const fieldClass =
-    "w-full border border-[#eadfd3] bg-[#faf8f4] px-4 py-3 text-sm text-[#2b1d0e] outline-none focus:border-[#6B4423]/45 focus:bg-white transition";
+    "w-full border border-[#eadfd3] bg-[#faf8f4] py-3 pl-11 pr-4 text-sm text-[#2b1d0e] outline-none focus:border-[#6B4423]/45 focus:bg-white transition";
+
+  const iconClass =
+    "pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B4423]/70";
 
   return (
     <div className="bg-[#F8F4F0] text-[#2b1d0e]">
@@ -238,27 +243,41 @@ function Contact() {
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Your Name
                         </span>
-                        <input
-                          required
-                          name="name"
-                          type="text"
-                          autoComplete="name"
-                          className={`${fieldClass} mt-2`}
-                          placeholder="Your name"
-                        />
+                        <div className="relative mt-2">
+                          <UserRound
+                            size={16}
+                            strokeWidth={1.6}
+                            className={iconClass}
+                          />
+                          <input
+                            required
+                            name="name"
+                            type="text"
+                            autoComplete="name"
+                            className={fieldClass}
+                            placeholder="Your name"
+                          />
+                        </div>
                       </label>
                       <label className="block">
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Your Email
                         </span>
-                        <input
-                          required
-                          name="email"
-                          type="email"
-                          autoComplete="email"
-                          className={`${fieldClass} mt-2`}
-                          placeholder="you@email.com"
-                        />
+                        <div className="relative mt-2">
+                          <Mail
+                            size={16}
+                            strokeWidth={1.6}
+                            className={iconClass}
+                          />
+                          <input
+                            required
+                            name="email"
+                            type="email"
+                            autoComplete="email"
+                            className={fieldClass}
+                            placeholder="you@email.com"
+                          />
+                        </div>
                       </label>
                     </div>
 
@@ -267,25 +286,39 @@ function Contact() {
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Phone Number
                         </span>
-                        <input
-                          name="phone"
-                          type="tel"
-                          autoComplete="tel"
-                          className={`${fieldClass} mt-2`}
-                          placeholder="+91"
-                        />
+                        <div className="relative mt-2">
+                          <Phone
+                            size={16}
+                            strokeWidth={1.6}
+                            className={iconClass}
+                          />
+                          <input
+                            name="phone"
+                            type="tel"
+                            autoComplete="tel"
+                            className={fieldClass}
+                            placeholder="+91"
+                          />
+                        </div>
                       </label>
                       <label className="block">
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Subject
                         </span>
-                        <input
-                          required
-                          name="subject"
-                          type="text"
-                          className={`${fieldClass} mt-2`}
-                          placeholder="Order, product, or enquiry"
-                        />
+                        <div className="relative mt-2">
+                          <Tag
+                            size={16}
+                            strokeWidth={1.6}
+                            className={iconClass}
+                          />
+                          <input
+                            required
+                            name="subject"
+                            type="text"
+                            className={fieldClass}
+                            placeholder="Order, product, or enquiry"
+                          />
+                        </div>
                       </label>
                     </div>
 
@@ -293,13 +326,20 @@ function Contact() {
                       <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                         Your Message
                       </span>
-                      <textarea
-                        required
-                        name="message"
-                        rows={5}
-                        className={`${fieldClass} mt-2 resize-y min-h-[140px]`}
-                        placeholder="How can we help?"
-                      />
+                      <div className="relative mt-2">
+                        <MessageSquare
+                          size={16}
+                          strokeWidth={1.6}
+                          className="pointer-events-none absolute left-3.5 top-3.5 text-[#6B4423]/70"
+                        />
+                        <textarea
+                          required
+                          name="message"
+                          rows={5}
+                          className={`${fieldClass} resize-y min-h-[140px]`}
+                          placeholder="How can we help?"
+                        />
+                      </div>
                     </label>
 
                     <button

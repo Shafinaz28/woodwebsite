@@ -6,6 +6,13 @@ const localByName = new Map(
   localProducts.map((item) => [item.name.toLowerCase(), item])
 );
 
+function toAvifIfLocal(src) {
+  if (!src || typeof src !== "string") return src;
+  // Never rewrite remote CDN/Storage URLs (real uploads stay .jpg/.png)
+  if (/^https?:\/\//i.test(src)) return src;
+  return src.replace(/\.(png|jpe?g)(\?.*)?$/i, ".avif$2");
+}
+
 export function getProductImage(product) {
   const raw =
     product?.image ||
@@ -14,17 +21,21 @@ export function getProductImage(product) {
     "";
 
   if (typeof raw === "string" && raw.trim()) {
-    if (raw.startsWith("http://") || raw.startsWith("https://") || raw.startsWith("/")) {
-      return raw;
+    let src = raw.trim();
+    if (src.startsWith("http://") || src.startsWith("https://") || src.startsWith("/")) {
+      return toAvifIfLocal(src);
     }
-    return `/${raw.replace(/^\.?\//, "")}`;
+    src = `/${src.replace(/^\.?\//, "")}`;
+    return toAvifIfLocal(src);
   }
 
   const local =
     localBySlug.get(product?.slug) ||
     localByName.get(product?.name?.toLowerCase?.() || "");
 
-  return local?.image || "/images/products/bedroom/bead10.jpg";
+  return toAvifIfLocal(
+    local?.image || "/images/products/bedroom/bead10.avif"
+  );
 }
 
 export function normalizeProduct(row = {}) {
@@ -33,6 +44,9 @@ export function normalizeProduct(row = {}) {
     localByName.get(row.name?.toLowerCase?.() || "") ||
     {};
 
+  // Prefer Supabase/uploaded image when present
+  const imageSource = row.image || row.image_url || local.image || "";
+
   return {
     id: row.id ?? local.id,
     name: row.name || local.name,
@@ -40,10 +54,9 @@ export function normalizeProduct(row = {}) {
     category: row.category || local.category,
     price: Number(row.price ?? local.price ?? 0),
     image: getProductImage({
-      ...row,
       ...local,
-      // Prefer local catalog images so edited files always show on the site
-      image: local.image || row.image || row.image_url,
+      ...row,
+      image: imageSource,
     }),
     tag: row.tag || local.tag,
     description:
@@ -58,7 +71,7 @@ export function normalizeProduct(row = {}) {
 }
 
 export async function fetchCatalog() {
-  const local = localProducts.map(normalizeProduct);
+  const local = localProducts.map((item) => normalizeProduct(item));
 
   if (!isSupabaseConfigured) {
     console.warn("Supabase not configured — using local products");
@@ -76,15 +89,19 @@ export async function fetchCatalog() {
       return local;
     }
 
-    // Keep website catalog = local products only; overlay matching Supabase rows
+    // Start with local catalog, overlay matches, put new Supabase products first
     const bySlug = new Map(local.map((item) => [item.slug, item]));
+    const newlyAdded = [];
     for (const row of data) {
       const normalized = normalizeProduct(row);
-      if (normalized.slug && bySlug.has(normalized.slug)) {
+      if (!normalized.slug) continue;
+      if (bySlug.has(normalized.slug)) {
         bySlug.set(normalized.slug, normalized);
+      } else {
+        newlyAdded.push(normalized);
       }
     }
-    return Array.from(bySlug.values());
+    return [...newlyAdded, ...Array.from(bySlug.values())];
   } catch (err) {
     console.error("Supabase fetch failed:", err);
     return local;

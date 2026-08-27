@@ -8,7 +8,7 @@ function Craftsmanship() {
         {/* Left — full-bleed image */}
         <div className="relative min-h-[320px] sm:min-h-[400px] lg:min-h-full overflow-hidden">
           <img
-            src="/images/story/craftsmanship.jpg"
+            src="/images/story/craftsmanship.avif"
             alt="Handmade craft and materials"
             className="absolute inset-0 w-full h-full object-cover"
           />
