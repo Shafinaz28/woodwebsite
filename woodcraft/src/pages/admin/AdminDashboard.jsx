@@ -20,7 +20,6 @@ import {
 import { adminFetchOrders, adminFetchProducts } from "../../lib/admin";
 import { getProductImage } from "../../lib/catalog";
 import { products as localProducts } from "../../data/products";
-import Logo from "../../components/layout/Logo";
 
 function formatINR(value) {
   return `₹${Number(value || 0).toLocaleString("en-IN")}`;
@@ -492,16 +491,13 @@ function AdminDashboard() {
     <div className="space-y-5">
       {/* Title + date */}
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <Logo to={null} size="sm" />
-          <div>
-            <h1 className="text-xl md:text-2xl font-bold text-[#111827]">
-              Dashboard
-            </h1>
-            <p className="mt-1 text-sm text-[#6b7280]">
-              Overview of your furniture store performance
-            </p>
-          </div>
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold text-[#111827]">
+            Dashboard
+          </h1>
+          <p className="mt-1 text-sm text-[#6b7280]">
+            Overview of your furniture store performance
+          </p>
         </div>
         <div className="inline-flex items-center gap-2 rounded-xl border border-[#e5e7eb] bg-white px-3.5 py-2 text-sm text-[#4b5563] shadow-sm">
           <CalendarDays size={15} className="text-[#9ca3af]" />

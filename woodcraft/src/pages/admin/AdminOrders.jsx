@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { adminFetchOrders } from "../../lib/admin";
-import Logo from "../../components/layout/Logo";
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
@@ -33,14 +32,11 @@ function AdminOrders() {
 
   return (
     <div>
-      <div className="flex items-center gap-3">
-        <Logo to={null} size="sm" />
-        <div>
-          <h1 className="text-2xl font-bold text-[#111827]">Orders</h1>
-          <p className="mt-1 text-sm text-[#6b7280]">
-            {loading ? "Loading…" : `${orders.length} orders`}
-          </p>
-        </div>
+      <div>
+        <h1 className="text-2xl font-bold text-[#111827]">Orders</h1>
+        <p className="mt-1 text-sm text-[#6b7280]">
+          {loading ? "Loading…" : `${orders.length} orders`}
+        </p>
       </div>
 
       <div className="mt-6 space-y-4">

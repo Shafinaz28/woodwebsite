@@ -191,9 +191,7 @@ function AdminLayout() {
               >
                 <Menu size={20} />
               </button>
-              <Logo to="/admin" size="sm" className="md:hidden" />
-              <div className="hidden sm:flex items-center gap-3 min-w-0">
-                <Logo to="/admin" size="sm" className="hidden md:inline-flex" />
+              <div className="hidden sm:block min-w-0">
                 <p className="truncate text-[15px] font-semibold text-[#1f2937]">
                   Welcome back, Admin! 👋
                 </p>
@@ -244,9 +242,6 @@ function AdminLayout() {
                     role="menu"
                     className="absolute right-0 z-50 mt-2 w-52 rounded-xl border border-[#e5e7eb] bg-white p-2 shadow-lg"
                   >
-                    <div className="px-3 py-2 border-b border-[#f0f1f3] mb-1">
-                      <Logo to={null} size="sm" />
-                    </div>
                     <p className="truncate px-3 py-2 text-xs text-[#6b7280]">
                       {user.email}
                     </p>

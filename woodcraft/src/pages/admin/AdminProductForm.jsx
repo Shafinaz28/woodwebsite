@@ -7,7 +7,6 @@ import {
   adminUpsertProduct,
   slugify,
 } from "../../lib/admin";
-import Logo from "../../components/layout/Logo";
 
 const CATEGORIES = ["Living Room", "Bedroom", "Dining", "Tables"];
 
@@ -145,12 +144,9 @@ function AdminProductForm() {
       >
         ← Products
       </Link>
-      <div className="mt-3 flex items-center gap-3">
-        <Logo to={null} size="sm" />
-        <h1 className="text-2xl font-bold text-[#111827]">
-          {isNew ? "Add product" : "Edit product"}
-        </h1>
-      </div>
+      <h1 className="mt-3 text-2xl font-bold text-[#111827]">
+        {isNew ? "Add product" : "Edit product"}
+      </h1>
 
       {error && (
         <p className="mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700">

@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import { Pencil, Trash2, Plus } from "lucide-react";
 import { adminDeleteProduct, adminFetchProducts } from "../../lib/admin";
 import { getProductImage } from "../../lib/catalog";
-import Logo from "../../components/layout/Logo";
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);
@@ -40,14 +39,11 @@ function AdminProducts() {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <Logo to={null} size="sm" />
-          <div>
-            <h1 className="text-2xl font-bold text-[#111827]">Products</h1>
-            <p className="mt-1 text-sm text-[#6b7280]">
-              {loading ? "Loading…" : `${products.length} products in Supabase`}
-            </p>
-          </div>
+        <div>
+          <h1 className="text-2xl font-bold text-[#111827]">Products</h1>
+          <p className="mt-1 text-sm text-[#6b7280]">
+            {loading ? "Loading…" : `${products.length} products in Supabase`}
+          </p>
         </div>
         <Link
           to="/admin/products/new"
