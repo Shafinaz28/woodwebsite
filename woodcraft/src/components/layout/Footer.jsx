@@ -20,6 +20,82 @@ function FacebookIcon({ size = 18 }) {
   );
 }
 
+function VisaMark() {
+  return (
+    <svg viewBox="0 0 48 16" className="h-3.5 w-auto" aria-hidden>
+      <text
+        x="0"
+        y="13"
+        fill="#1A1F71"
+        fontFamily="Arial, Helvetica, sans-serif"
+        fontWeight="800"
+        fontSize="14"
+        letterSpacing="0.5"
+      >
+        VISA
+      </text>
+    </svg>
+  );
+}
+
+function MastercardMark() {
+  return (
+    <svg viewBox="0 0 40 24" className="h-5 w-auto" aria-hidden>
+      <circle cx="15" cy="12" r="9" fill="#EB001B" />
+      <circle cx="25" cy="12" r="9" fill="#F79E1B" />
+      <path
+        d="M20 5.2a9 9 0 0 1 0 13.6 9 9 0 0 1 0-13.6z"
+        fill="#FF5F00"
+      />
+    </svg>
+  );
+}
+
+function RuPayMark() {
+  return (
+    <svg viewBox="0 0 56 16" className="h-3.5 w-auto" aria-hidden>
+      <text
+        x="0"
+        y="12.5"
+        fill="#097A4B"
+        fontFamily="Arial, Helvetica, sans-serif"
+        fontWeight="800"
+        fontSize="12"
+        letterSpacing="0.2"
+      >
+        RuPay
+      </text>
+      <circle cx="50" cy="8" r="3.2" fill="#F7A81B" />
+      <circle cx="53.5" cy="8" r="3.2" fill="#E35205" opacity="0.9" />
+    </svg>
+  );
+}
+
+function UpiMark() {
+  return (
+    <svg viewBox="0 0 40 16" className="h-3.5 w-auto" aria-hidden>
+      <text
+        x="0"
+        y="12.5"
+        fill="#097939"
+        fontFamily="Arial, Helvetica, sans-serif"
+        fontWeight="800"
+        fontSize="13"
+        letterSpacing="1"
+      >
+        UPI
+      </text>
+    </svg>
+  );
+}
+
+const PAYMENT_METHODS = [
+  { name: "Visa", mark: VisaMark },
+  { name: "Mastercard", mark: MastercardMark },
+  { name: "RuPay", mark: RuPayMark },
+  { name: "UPI", mark: UpiMark },
+];
+
 function YoutubeIcon({ size = 18 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -135,9 +211,19 @@ function Footer() {
                 <p className="text-[11px] uppercase tracking-[0.16em] text-white mb-3">
                   We Accept
                 </p>
-                <p className="text-xs text-white/50 tracking-wide">
-                  Visa · Mastercard · RuPay · UPI
-                </p>
+                <ul className="flex flex-wrap items-center gap-2">
+                  {PAYMENT_METHODS.map(({ name, mark: Mark }) => (
+                    <li key={name}>
+                      <span
+                        title={name}
+                        className="inline-flex h-9 min-w-[58px] items-center justify-center rounded-md border border-white/10 bg-[#f7f4ef] px-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]"
+                      >
+                        <Mark />
+                        <span className="sr-only">{name}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>

@@ -59,6 +59,7 @@ export function normalizeProduct(row = {}) {
       image: imageSource,
     }),
     tag: row.tag || local.tag,
+    subcategory: row.subcategory || local.subcategory || null,
     description:
       row.description ||
       local.description ||

@@ -4,6 +4,7 @@ import AnnouncementBar from "./AnnouncementBar";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
+import WhatsAppButton from "./WhatsAppButton";
 
 function Layout() {
   return (
@@ -19,6 +20,7 @@ function Layout() {
       </main>
 
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }

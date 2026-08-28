@@ -47,7 +47,7 @@ function ProductCard({ product }) {
 
       <div className="flex flex-col flex-1 p-4 pt-3">
         <p className="text-[10px] uppercase tracking-[0.16em] text-[#6B4423]/80 mb-1.5">
-          {product.category}
+          {product.subcategory || product.category}
         </p>
         <Link to={`/product/${product.slug}`}>
           <h3 className="font-display text-base md:text-lg font-bold text-dark-brown line-clamp-2 min-h-[2.75rem] leading-snug">

@@ -15,6 +15,7 @@ const empty = {
   name: "",
   slug: "",
   category: "Living Room",
+  subcategory: "Centre and Side Tables",
   price: "",
   image: "",
   tag: "",
@@ -50,6 +51,7 @@ function AdminProductForm() {
           name: found.name || "",
           slug: found.slug || "",
           category: found.category || "Living Room",
+          subcategory: found.subcategory || "",
           price: found.price ?? "",
           image: found.image || found.image_url || "",
           tag: found.tag || "",
@@ -194,6 +196,24 @@ function AdminProductForm() {
               ))}
             </select>
           </label>
+          <label className="block">
+            <span className="text-sm font-semibold text-[#374151]">
+              Subcategory
+            </span>
+            <select
+              value={form.subcategory || ""}
+              onChange={(e) => update("subcategory", e.target.value)}
+              className={field}
+            >
+              <option value="">None</option>
+              <option value="Centre and Side Tables">
+                Centre and Side Tables
+              </option>
+            </select>
+          </label>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2">
           <label className="block">
             <span className="text-sm font-semibold text-[#374151]">
               Price (₹)

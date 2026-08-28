@@ -18,6 +18,7 @@ const PAGE_SIZE = 9;
 function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get("category") || "All";
+  const selectedSubcategory = searchParams.get("subcategory") || "";
   const query = (searchParams.get("q") || "").trim().toLowerCase();
   const page = Math.max(1, Number(searchParams.get("page") || 1));
 
@@ -54,10 +55,16 @@ function Shop() {
     let list = products.filter((product) => {
       const matchesCategory =
         selectedCategory === "All" || product.category === selectedCategory;
+      const matchesSubcategory =
+        !selectedSubcategory ||
+        product.subcategory === selectedSubcategory;
       const matchesQuery =
         !query ||
         product.name.toLowerCase().includes(query) ||
-        product.category.toLowerCase().includes(query);
+        product.category.toLowerCase().includes(query) ||
+        String(product.subcategory || "")
+          .toLowerCase()
+          .includes(query);
       const matchesMaterial =
         material === "All" ||
         (product.material || "Solid wood")
@@ -73,6 +80,7 @@ function Shop() {
         availability === "instock";
       return (
         matchesCategory &&
+        matchesSubcategory &&
         matchesQuery &&
         matchesMaterial &&
         matchesFinish &&
@@ -88,6 +96,7 @@ function Shop() {
   }, [
     products,
     selectedCategory,
+    selectedSubcategory,
     query,
     material,
     finish,
@@ -104,6 +113,16 @@ function Shop() {
     const next = new URLSearchParams(searchParams);
     if (category === "All") next.delete("category");
     else next.set("category", category);
+    next.delete("subcategory");
+    next.delete("page");
+    setSearchParams(next);
+  }
+
+  function selectSubcategory(subcategory) {
+    const next = new URLSearchParams(searchParams);
+    next.set("category", "Living Room");
+    if (!subcategory) next.delete("subcategory");
+    else next.set("subcategory", subcategory);
     next.delete("page");
     setSearchParams(next);
   }
@@ -123,6 +142,7 @@ function Shop() {
     setSortBy("featured");
     const next = new URLSearchParams(searchParams);
     next.delete("category");
+    next.delete("subcategory");
     next.delete("page");
     setSearchParams(next);
   }
@@ -185,6 +205,51 @@ function Shop() {
                   ))}
                 </ul>
               </FilterBlock>
+
+              {(selectedCategory === "All" ||
+                selectedCategory === "Living Room") && (
+                <FilterBlock title="Centre & Side Tables">
+                  <ul className="space-y-2.5">
+                    <li>
+                      <label className="flex items-center gap-2.5 cursor-pointer text-sm">
+                        <input
+                          type="radio"
+                          name="subcategory"
+                          checked={
+                            selectedCategory === "Living Room" &&
+                            selectedSubcategory === "Centre and Side Tables"
+                          }
+                          onChange={() =>
+                            selectSubcategory("Centre and Side Tables")
+                          }
+                          className="accent-[#4a2c18]"
+                        />
+                        <span
+                          className={
+                            selectedSubcategory === "Centre and Side Tables"
+                              ? "font-semibold text-[#2b1d0e]"
+                              : "text-[#2b1d0e]/75"
+                          }
+                        >
+                          Centre and Side Tables
+                        </span>
+                      </label>
+                    </li>
+                    <li>
+                      <label className="flex items-center gap-2.5 cursor-pointer text-sm text-[#2b1d0e]/75">
+                        <input
+                          type="radio"
+                          name="subcategory"
+                          checked={!selectedSubcategory}
+                          onChange={() => selectSubcategory("")}
+                          className="accent-[#4a2c18]"
+                        />
+                        All living room
+                      </label>
+                    </li>
+                  </ul>
+                </FilterBlock>
+              )}
 
               <FilterBlock title="Room Type">
                 <ul className="space-y-2.5">

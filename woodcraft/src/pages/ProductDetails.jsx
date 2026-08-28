@@ -113,7 +113,9 @@ function ProductDetails() {
 
           <div className="lg:py-8">
             <p className="text-xs uppercase tracking-[0.2em] text-black/50">
-              {product.category}
+              {product.subcategory
+                ? `${product.category} · ${product.subcategory}`
+                : product.category}
             </p>
 
             <h1 className="text-2xl sm:text-4xl md:text-5xl font-light mt-4 leading-tight">

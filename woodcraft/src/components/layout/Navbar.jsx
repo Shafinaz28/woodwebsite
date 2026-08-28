@@ -25,6 +25,12 @@ const PRODUCT_FOLDERS = [
   { key: "bedroom", label: "Bedroom", category: "Bedroom" },
   { key: "dining", label: "Dining", category: "Dining" },
   { key: "living-room", label: "Living Room", category: "Living Room" },
+  {
+    key: "centre-side",
+    label: "Centre and Side Tables",
+    category: "Living Room",
+    subcategory: "Centre and Side Tables",
+  },
   { key: "tables", label: "Tables", category: "Tables" },
 ];
 
@@ -117,7 +123,11 @@ function Navbar() {
         {PRODUCT_FOLDERS.map((folder) => (
           <Link
             key={folder.key}
-            to={`/shop?category=${encodeURIComponent(folder.category)}`}
+            to={
+              folder.subcategory
+                ? `/shop?category=${encodeURIComponent(folder.category)}&subcategory=${encodeURIComponent(folder.subcategory)}`
+                : `/shop?category=${encodeURIComponent(folder.category)}`
+            }
             onClick={onPick}
             className="block px-4 py-2.5 sm:py-2 hover:bg-[#6B4423]/8 active:bg-[#6B4423]/10"
           >
