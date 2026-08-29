@@ -1,3 +1,4 @@
+import { products as localProducts } from "../data/products";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 const PRODUCT_BUCKET = "products";
@@ -92,6 +93,47 @@ export async function adminDeleteProduct(id) {
   }
   const { error } = await supabase.from("products").delete().eq("id", id);
   if (error) throw error;
+}
+
+/** Insert local catalog products that are missing from Supabase (by slug). */
+export async function adminSyncLocalProducts() {
+  if (!isSupabaseConfigured) {
+    throw new Error("Supabase is not configured");
+  }
+
+  const existing = await adminFetchProducts();
+  const existingSlugs = new Set(
+    (existing || []).map((row) => String(row.slug || "").toLowerCase())
+  );
+
+  const missing = localProducts.filter(
+    (item) => item.slug && !existingSlugs.has(String(item.slug).toLowerCase())
+  );
+
+  if (!missing.length) {
+    return { inserted: 0, skipped: existing.length, totalLocal: localProducts.length };
+  }
+
+  const rows = missing.map((item) => ({
+    name: item.name,
+    slug: item.slug,
+    category: item.category || null,
+    price: Number(item.price) || 0,
+    image: item.image || null,
+    tag: item.tag || null,
+    description: item.description || null,
+    material: item.material || null,
+    finish: item.finish || null,
+  }));
+
+  const { data, error } = await supabase.from("products").insert(rows).select();
+  if (error) throw error;
+
+  return {
+    inserted: data?.length || 0,
+    skipped: existing.length,
+    totalLocal: localProducts.length,
+  };
 }
 
 export async function adminFetchOrders() {
