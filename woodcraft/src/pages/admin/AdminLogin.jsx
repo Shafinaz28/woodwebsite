@@ -202,29 +202,6 @@ function AdminLogin() {
           </button>
         </form>
 
-        <div className="mt-7 flex items-center gap-3">
-          <span className="h-px flex-1 bg-[#ddd5cb]" />
-          <span className="text-xs text-[#9a9289]">or</span>
-          <span className="h-px flex-1 bg-[#ddd5cb]" />
-        </div>
-
-        <button
-          type="button"
-          onClick={handleGoogle}
-          disabled={googleLoading || !isSupabaseConfigured}
-          className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-[#ddd5cb] bg-white py-3.5 text-sm font-medium text-[#3f3a36] transition hover:bg-[#faf8f4] disabled:opacity-50"
-        >
-          <GoogleMark />
-          {googleLoading ? "Redirecting…" : "Sign in with Google"}
-        </button>
-
-        <div className="mt-10 flex items-center justify-center gap-2 text-[12px] text-[#9a9289]">
-          <span className="grid size-5 place-items-center rounded-full border border-[#ddd5cb] text-[#8a7460]">
-            <Shield size={11} strokeWidth={2} />
-          </span>
-          Secure access protected by 256-bit SSL encryption
-        </div>
-
         <Link
           to="/"
           className="mt-6 block text-center text-xs text-[#8b8178] hover:text-[#5c4033]"

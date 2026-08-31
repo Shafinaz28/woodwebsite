@@ -56,10 +56,35 @@ function AdminLayout() {
 
   if (loading) {
     return (
-      <div className="min-h-screen grid place-items-center bg-[#f4f5f7]">
-        <div className="text-center">
-          <Logo to={null} size="lg" />
-          <p className="mt-4 text-sm text-[#6b7280]">Loading admin…</p>
+      <div className="min-h-screen flex items-center justify-center bg-[#3d2a20]">
+        <style>{`
+          @keyframes slideIn {
+            0% { width: 0; }
+            50% { width: 64px; }
+            100% { width: 64px; }
+          }
+          @keyframes slideOut {
+            0% { width: 64px; }
+            50% { width: 64px; }
+            100% { width: 0; }
+          }
+          .line-left {
+            animation: slideIn 1.5s ease-in-out infinite;
+          }
+          .line-right {
+            animation: slideOut 1.5s ease-in-out infinite;
+          }
+        `}</style>
+        <div className="text-center flex flex-col items-center justify-center">
+          <Logo to={null} size="lg" invert className="flex justify-center" />
+          <p className="mt-8 text-xs uppercase tracking-[0.2em] text-[#c4a574]">
+            Crafting Your Space
+          </p>
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <div className="line-left h-px bg-[#c4a574]" />
+            <div className="line-right h-px bg-[#c4a574]" />
+          </div>
+          <p className="mt-10 text-sm text-[#9a9289]">Loading admin…</p>
         </div>
       </div>
     );
