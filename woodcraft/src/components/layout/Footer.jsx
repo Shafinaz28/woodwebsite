@@ -175,9 +175,9 @@ function Footer() {
               </h3>
               <div className="flex flex-col gap-3 text-sm text-white/60">
                 <Link to="/contact" className="hover:text-white transition">Shipping & Delivery</Link>
-                <Link to="/contact" className="hover:text-white transition">Returns & Refunds</Link>
-                <Link to="/contact" className="hover:text-white transition">Terms & Conditions</Link>
-                <Link to="/contact" className="hover:text-white transition">Privacy Policy</Link>
+                <Link to="/returns" className="hover:text-white transition">Return Policy</Link>
+                <Link to="/terms" className="hover:text-white transition">Terms & Conditions</Link>
+                <Link to="/privacy" className="hover:text-white transition">Privacy Policy</Link>
                 <Link to="/contact" className="hover:text-white transition">FAQ&apos;s</Link>
               </div>
             </div>
@@ -228,8 +228,8 @@ function Footer() {
             </div>
           </div>
 
-          <div className="border-t border-white/10 mt-12 pt-6 text-center">
-            <p className="text-xs text-white/40">
+          <div className="border-t border-white/10 mt-12 pt-8">
+            <p className="text-center text-xs text-white/40">
               © 2026 Arileon Furniture. All Rights Reserved.
             </p>
           </div>

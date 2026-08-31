@@ -180,8 +180,19 @@ function Checkout() {
             </button>
 
             <p className="text-xs text-[#2b1d0e]/55 text-center">
-              Secure payment via Razorpay. Use test keys while developing.
+              Payments are processed securely via Razorpay.
             </p>
+            <div className="mt-4 flex flex-col items-center gap-3 text-[15px] text-[#374151]">
+              <Link to="/terms" className="hover:text-[#111827]">
+                Terms &amp; Conditions
+              </Link>
+              <Link to="/privacy" className="hover:text-[#111827]">
+                Privacy Policy
+              </Link>
+              <Link to="/returns" className="hover:text-[#111827]">
+                Return Policy
+              </Link>
+            </div>
           </form>
 
           <aside className="bg-white border border-[#eadfd3] p-6 h-fit">

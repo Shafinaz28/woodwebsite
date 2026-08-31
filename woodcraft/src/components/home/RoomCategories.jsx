@@ -8,7 +8,7 @@ const rooms = [
   },
   {
     title: "Bedroom",
-    image: "/images/products/bedroom/bead13.avif",
+    image: "/images/products/bedroom/bead14.avif",
     link: "/shop?category=Bedroom",
   },
   {
