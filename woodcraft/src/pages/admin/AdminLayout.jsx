@@ -26,14 +26,14 @@ const navItems = [
   { to: "/admin", end: true, label: "Dashboard", icon: LayoutDashboard },
   { to: "/admin/orders", end: false, label: "Orders", icon: ShoppingBag },
   { to: "/admin/products", end: false, label: "Products", icon: Package },
-  { to: null, label: "Categories", icon: Tags },
-  { to: null, label: "Customers", icon: Users },
-  { to: null, label: "Coupons", icon: Ticket },
-  { to: null, label: "Reviews", icon: Star },
-  { to: null, label: "Stock", icon: Boxes },
-  { to: null, label: "Media", icon: ImageIcon },
-  { to: null, label: "Pages", icon: FileText },
-  { to: null, label: "Settings", icon: Settings },
+  { to: "/admin/categories", end: false, label: "Categories", icon: Tags },
+  { to: "/admin/customers", end: false, label: "Customers", icon: Users },
+  { to: "/admin/coupons", end: false, label: "Coupons", icon: Ticket },
+  { to: "/admin/reviews", end: false, label: "Reviews", icon: Star },
+  { to: "/admin/stock", end: false, label: "Stock", icon: Boxes },
+  { to: "/admin/media", end: false, label: "Media", icon: ImageIcon },
+  { to: "/admin/pages", end: false, label: "Pages", icon: FileText },
+  { to: "/admin/settings", end: false, label: "Settings", icon: Settings },
 ];
 
 function AdminLayout() {
@@ -109,11 +109,11 @@ function AdminLayout() {
 
   const sidebar = (
     <div className="flex h-full flex-col">
-      <div className="border-b border-white/10 px-4 pt-6 pb-5 flex justify-center">
+      <div className="border-b border-white/10 px-4 py-3 flex justify-center">
         <Logo to="/admin" size="md" invert />
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
+      <nav className="flex-1 overflow-hidden px-3 py-4 space-y-0.5">
         {navItems.map(({ to, end, label, icon: Icon }) =>
           to ? (
             <NavLink
@@ -140,8 +140,7 @@ function AdminLayout() {
       </nav>
 
       <div className="mx-3 mb-5 rounded-2xl bg-[#3d2a20] p-4 flex flex-col items-center text-center">
-        <Logo to={null} size="sm" invert />
-        <p className="mt-3 text-[13px] font-semibold text-white leading-snug">
+        <p className="text-[13px] font-semibold text-white leading-snug">
           Premium Furniture.
           <br />
           Timeless Designs.
@@ -152,8 +151,8 @@ function AdminLayout() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f4f5f7] text-[#1f2937] md:flex">
-      <aside className="hidden md:flex md:w-[248px] md:shrink-0 md:flex-col bg-[#4a3428]">
+    <div className="h-dvh overflow-hidden bg-[#f4f5f7] text-[#1f2937] md:flex">
+      <aside className="hidden h-full md:flex md:w-[248px] md:shrink-0 md:flex-col overflow-hidden bg-[#4a3428]">
         {sidebar}
       </aside>
 
@@ -179,8 +178,8 @@ function AdminLayout() {
         </div>
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-40 border-b border-[#e8eaed] bg-white/95 backdrop-blur">
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col">
+        <header className="z-40 shrink-0 border-b border-[#e8eaed] bg-white/95 backdrop-blur">
           <div className="flex items-center justify-between gap-4 px-4 py-3 md:px-6 lg:px-8">
             <div className="flex items-center gap-3 min-w-0">
               <button
@@ -266,7 +265,7 @@ function AdminLayout() {
           </div>
         </header>
 
-        <main className="flex-1 px-4 py-5 md:px-6 md:py-6 lg:px-8">
+        <main className="min-h-0 flex-1 overflow-y-auto px-4 py-5 md:px-6 md:py-6 lg:px-8">
           <div className="mx-auto max-w-[1400px]">
             <Outlet />
           </div>

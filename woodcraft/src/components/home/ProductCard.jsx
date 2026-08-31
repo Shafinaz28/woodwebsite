@@ -26,7 +26,7 @@ function ProductCard({ product }) {
           <img
             src={image}
             alt={product.name}
-            className="max-h-full max-w-full h-auto w-auto object-contain transition duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
           />
         </Link>
 

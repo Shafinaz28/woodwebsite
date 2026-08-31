@@ -18,7 +18,7 @@ const rooms = [
   },
   {
     title: "Tables",
-    image: "/images/products/tables/tablee1.avif",
+    image: "/images/products/living-room/centre-side/cst12.avif",
     link: "/shop?category=Tables",
   },
 ];
@@ -65,7 +65,7 @@ function RoomCategories() {
                 <img
                   src={room.image}
                   alt={room.title}
-                  className="w-full h-full object-cover object-center transition duration-700 group-hover:scale-105"
+                  className="w-full h-full object-contain object-center transition duration-700 group-hover:scale-105"
                 />
               </div>
               <div className="px-3 py-4 text-center bg-cream/60">

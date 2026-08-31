@@ -1,18 +1,11 @@
 import { useMemo, useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router";
-import { Grid2x2, LayoutList, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "../components/home/ProductCard";
 import { fetchCatalog, subscribeToCatalog } from "../lib/catalog";
 
 const CATEGORIES = ["All", "Living Room", "Bedroom", "Dining", "Tables"];
 const MATERIALS = ["Solid wood", "Teak", "Oak", "Sheesham"];
-const FINISHES = [
-  { id: "Natural", color: "#c4a574" },
-  { id: "Walnut", color: "#5c4033" },
-  { id: "Espresso", color: "#2d1f16" },
-  { id: "Honey", color: "#b89560" },
-  { id: "Whitewash", color: "#e8e0d4" },
-];
 const PAGE_SIZE = 9;
 
 function Shop() {
@@ -26,9 +19,7 @@ function Shop() {
   const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState("featured");
   const [material, setMaterial] = useState("All");
-  const [finish, setFinish] = useState("All");
   const [availability, setAvailability] = useState("all");
-  const [view, setView] = useState("grid");
 
   useEffect(() => {
     let active = true;
@@ -70,20 +61,16 @@ function Shop() {
         (product.material || "Solid wood")
           .toLowerCase()
           .includes(material.toLowerCase().split(" ")[0]);
-      const matchesFinish =
-        finish === "All" ||
-        (product.finish || "Natural").toLowerCase() === finish.toLowerCase();
       const matchesAvailability =
         availability === "all" ||
         (availability === "new" && product.tag === "New") ||
         (availability === "bestseller" && product.tag === "Bestseller") ||
         availability === "instock";
-      return (
+    return (
         matchesCategory &&
         matchesSubcategory &&
         matchesQuery &&
         matchesMaterial &&
-        matchesFinish &&
         matchesAvailability
       );
     });
@@ -99,7 +86,7 @@ function Shop() {
     selectedSubcategory,
     query,
     material,
-    finish,
+
     availability,
     sortBy,
   ]);
@@ -137,7 +124,6 @@ function Shop() {
 
   function clearFilters() {
     setMaterial("All");
-    setFinish("All");
     setAvailability("all");
     setSortBy("featured");
     const next = new URLSearchParams(searchParams);
@@ -164,7 +150,7 @@ function Shop() {
           <div className="max-w-xl text-center text-white">
             <h1 className="font-display text-4xl md:text-5xl lg:text-[3.25rem] font-semibold leading-[1.1]">
               Shop Furniture
-            </h1>
+        </h1>
             <p className="mt-4 text-sm md:text-[15px] leading-7 text-white/85 mx-auto max-w-md">
               Timeless designs, premium materials, and craftsmanship made for
               the way you live.
@@ -328,37 +314,6 @@ function Shop() {
                 </ul>
               </FilterBlock>
 
-              <FilterBlock title="Color / Finish">
-                <div className="flex flex-wrap gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => setFinish("All")}
-                    className={`h-8 px-3 text-[11px] uppercase tracking-wider border ${
-                      finish === "All"
-                        ? "border-[#4a2c18] bg-[#4a2c18] text-white"
-                        : "border-[#4a2c18]/25 text-[#2b1d0e]"
-                    }`}
-                  >
-                    All
-                  </button>
-                  {FINISHES.map((f) => (
-                    <button
-                      key={f.id}
-                      type="button"
-                      title={f.id}
-                      onClick={() => setFinish(f.id)}
-                      className={`h-8 w-8 rounded-full border-2 ${
-                        finish === f.id
-                          ? "border-[#4a2c18] scale-110"
-                          : "border-transparent"
-                      }`}
-                      style={{ backgroundColor: f.color }}
-                      aria-label={f.id}
-                    />
-                  ))}
-                </div>
-              </FilterBlock>
-
               <button
                 type="button"
                 onClick={clearFilters}
@@ -377,32 +332,6 @@ function Shop() {
                     : `Showing ${showingFrom}–${showingTo} of ${filteredProducts.length} products`}
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="hidden sm:flex items-center gap-1 border border-[#4a2c18]/15 p-0.5">
-                    <button
-                      type="button"
-                      onClick={() => setView("grid")}
-                      className={`p-2 ${
-                        view === "grid"
-                          ? "bg-[#4a2c18] text-white"
-                          : "text-[#2b1d0e]/60"
-                      }`}
-                      aria-label="Grid view"
-                    >
-                      <Grid2x2 size={16} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setView("list")}
-                      className={`p-2 ${
-                        view === "list"
-                          ? "bg-[#4a2c18] text-white"
-                          : "text-[#2b1d0e]/60"
-                      }`}
-                      aria-label="List view"
-                    >
-                      <LayoutList size={16} />
-                    </button>
-                  </div>
                   <label className="flex items-center gap-2 text-sm text-[#2b1d0e]/75">
                     <span className="whitespace-nowrap">Sort by:</span>
                     <select
@@ -417,13 +346,7 @@ function Shop() {
                 </div>
               </div>
 
-              <div
-                className={
-                  view === "list"
-                    ? "grid grid-cols-1 gap-5"
-                    : "grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5 md:gap-6"
-                }
-              >
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
                 {!loading &&
                   pageProducts.map((product) => (
                     <ProductCard key={product.id} product={product} />
@@ -517,7 +440,7 @@ function FilterBlock({ title, children }) {
       </h3>
       {children}
     </div>
-  );
-}
-
-export default Shop;
+    );
+  }
+  
+  export default Shop;

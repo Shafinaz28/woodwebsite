@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { adminFetchOrders } from "../../lib/admin";
+import { Edit, X } from "lucide-react";
 
 function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState(null);
+  const [editStatus, setEditStatus] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -29,6 +32,31 @@ function AdminOrders() {
       active = false;
     };
   }, []);
+
+  function handleEditClick(order) {
+    setEditingId(order.id);
+    setEditStatus(order.status || "pending");
+  }
+
+  function handleSaveStatus() {
+    setOrders(
+      orders.map((order) =>
+        order.id === editingId ? { ...order, status: editStatus } : order
+      )
+    );
+    // Save to localStorage
+    const local = JSON.parse(localStorage.getItem("arileon_orders") || "[]");
+    const updated = local.map((o) =>
+      String(o.id) === String(editingId) ? { ...o, status: editStatus } : o
+    );
+    localStorage.setItem("arileon_orders", JSON.stringify(updated));
+    setEditingId(null);
+  }
+
+  function handleCancel() {
+    setEditingId(null);
+    setEditStatus("");
+  }
 
   return (
     <div>
@@ -66,18 +94,57 @@ function AdminOrders() {
                 </p>
               </div>
               <div className="text-right">
-                <span
-                  className={`inline-block px-2.5 py-1 text-[10px] uppercase tracking-wider ${
-                    order.status === "paid"
-                      ? "bg-[#434f23] text-white"
-                      : "bg-[#eadfd3] text-[#2b1d0e]"
-                  }`}
-                >
-                  {order.status || "pending"}
-                </span>
-                <p className="mt-2 font-semibold">
-                  ₹{Number(order.total || 0).toLocaleString("en-IN")}
-                </p>
+                {editingId === order.id ? (
+                  <div className="flex flex-col gap-2">
+                    <select
+                      value={editStatus}
+                      onChange={(e) => setEditStatus(e.target.value)}
+                      className="border border-[#cfc5b8] px-2.5 py-1.5 text-sm rounded"
+                    >
+                      <option value="pending">Pending</option>
+                      <option value="processing">Processing</option>
+                      <option value="shipped">Shipped</option>
+                      <option value="paid">Paid</option>
+                      <option value="cancelled">Cancelled</option>
+                    </select>
+                    <div className="flex gap-2 justify-end">
+                      <button
+                        onClick={handleSaveStatus}
+                        className="px-3 py-1 bg-[#434f23] text-white text-xs font-semibold rounded hover:bg-[#363f1c] transition"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={handleCancel}
+                        className="px-3 py-1 bg-[#eadfd3] text-[#2b1d0e] text-xs font-semibold rounded hover:bg-[#d9c9bd] transition"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <span
+                      className={`inline-block px-2.5 py-1 text-[10px] uppercase tracking-wider ${
+                        order.status === "paid"
+                          ? "bg-[#434f23] text-white"
+                          : "bg-[#eadfd3] text-[#2b1d0e]"
+                      }`}
+                    >
+                      {order.status || "pending"}
+                    </span>
+                    <button
+                      onClick={() => handleEditClick(order)}
+                      className="ml-2 inline-flex items-center gap-1 px-2.5 py-1 text-xs font-semibold text-[#2b1d0e] border border-[#cfc5b8] rounded hover:bg-[#f9f6f1] transition"
+                    >
+                      <Edit size={14} />
+                      Edit
+                    </button>
+                    <p className="mt-2 font-semibold">
+                      ₹{Number(order.total || 0).toLocaleString("en-IN")}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
 

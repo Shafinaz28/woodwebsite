@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { Pencil, Trash2, Plus, RefreshCw } from "lucide-react";
+import { Pencil, Trash2, Plus } from "lucide-react";
 import {
   adminDeleteProduct,
   adminFetchProducts,
-  adminSyncLocalProducts,
 } from "../../lib/admin";
 import { getProductImage } from "../../lib/catalog";
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [syncing, setSyncing] = useState(false);
   const [error, setError] = useState("");
 
   async function load() {
@@ -41,26 +39,7 @@ function AdminProducts() {
     }
   }
 
-  async function handleSync() {
-    setSyncing(true);
-    try {
-      const result = await adminSyncLocalProducts();
-      await load();
-      if (result.inserted === 0) {
-        alert(
-          `Already up to date. ${result.skipped} in Supabase, ${result.totalLocal} in local catalog.`
-        );
-      } else {
-        alert(
-          `Synced ${result.inserted} missing product(s) into Supabase (${result.totalLocal} local total).`
-        );
-      }
-    } catch (err) {
-      alert(err.message || "Sync failed — check Supabase RLS policies");
-    } finally {
-      setSyncing(false);
-    }
-  }
+
 
   return (
     <div>
@@ -72,15 +51,6 @@ function AdminProducts() {
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={handleSync}
-            disabled={syncing || loading}
-            className="inline-flex items-center gap-2 border border-[#434f23] px-5 py-3 text-[11px] uppercase tracking-wider text-[#434f23] disabled:opacity-50"
-          >
-            <RefreshCw size={14} className={syncing ? "animate-spin" : ""} />
-            {syncing ? "Syncing…" : "Sync local catalog"}
-          </button>
           <Link
             to="/admin/products/new"
             className="inline-flex items-center gap-2 px-5 py-3 bg-[#434f23] text-white text-[11px] uppercase tracking-wider"

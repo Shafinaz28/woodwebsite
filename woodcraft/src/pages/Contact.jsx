@@ -85,14 +85,14 @@ function Contact() {
   const iconClass =
     "pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B4423]/70";
 
-  return (
+    return (
     <div className="bg-[#F8F4F0] text-[#2b1d0e]">
       {/* Hero */}
       <section className="bg-[#2d1f16]">
         <div className="max-w-[1280px] mx-auto px-8 sm:px-12 py-16 md:py-20 text-center">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.25rem] font-semibold leading-[1.1] text-white">
-            Contact Us
-          </h1>
+          Contact Us
+        </h1>
           <p className="mt-3 text-lg text-[#d4b896] font-display italic">
             We&apos;d love to hear from you.
           </p>
@@ -391,7 +391,7 @@ function Contact() {
         </div>
       </section>
     </div>
-  );
-}
-
-export default Contact;
+    );
+  }
+  
+  export default Contact;

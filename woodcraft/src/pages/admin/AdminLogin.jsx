@@ -104,7 +104,14 @@ function AdminLogin() {
         <form onSubmit={handleSubmit} className="mt-9">
           {!isSupabaseConfigured && (
             <p className="mb-5 rounded-xl bg-red-50 px-3 py-2.5 text-sm text-red-700">
-              Supabase env vars are missing. Add them in `.env.local`.
+              Supabase is not configured on this host. In Vercel → Project →
+              Settings → Environment Variables, add{" "}
+              <code className="text-xs">VITE_SUPABASE_URL</code>,{" "}
+              <code className="text-xs">VITE_SUPABASE_PUBLISHABLE_KEY</code>{" "}
+              (or <code className="text-xs">VITE_SUPABASE_ANON_KEY</code>), and{" "}
+              <code className="text-xs">VITE_ADMIN_EMAIL</code>, then{" "}
+              <strong>Redeploy</strong>. Locally, put the same keys in{" "}
+              <code className="text-xs">.env.local</code>.
             </p>
           )}
 

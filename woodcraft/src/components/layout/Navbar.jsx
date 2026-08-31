@@ -22,6 +22,7 @@ const NAV_LINKS_BEFORE = [
 const NAV_LINKS_AFTER = [{ label: "Contact", to: "/contact" }];
 
 const PRODUCT_FOLDERS = [
+  { key: "all", label: "All Products", category: null },
   { key: "bedroom", label: "Bedroom", category: "Bedroom" },
   { key: "dining", label: "Dining", category: "Dining" },
   { key: "living-room", label: "Living Room", category: "Living Room" },
@@ -124,7 +125,9 @@ function Navbar() {
           <Link
             key={folder.key}
             to={
-              folder.subcategory
+              folder.category === null
+                ? "/shop"
+                : folder.subcategory
                 ? `/shop?category=${encodeURIComponent(folder.category)}&subcategory=${encodeURIComponent(folder.subcategory)}`
                 : `/shop?category=${encodeURIComponent(folder.category)}`
             }

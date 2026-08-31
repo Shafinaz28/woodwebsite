@@ -22,6 +22,14 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminProductForm from "./pages/admin/AdminProductForm";
 import AdminOrders from "./pages/admin/AdminOrders";
+import AdminCategories from "./pages/admin/AdminCategories";
+import AdminCustomers from "./pages/admin/AdminCustomers";
+import AdminCoupons from "./pages/admin/AdminCoupons";
+import AdminReviews from "./pages/admin/AdminReviews";
+import AdminStock from "./pages/admin/AdminStock";
+import AdminMedia from "./pages/admin/AdminMedia";
+import AdminPages from "./pages/admin/AdminPages";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 function App() {
   const [booting, setBooting] = useState(true);
@@ -59,6 +67,14 @@ function App() {
             <Route path="products/new" element={<AdminProductForm />} />
             <Route path="products/:id" element={<AdminProductForm />} />
             <Route path="orders" element={<AdminOrders />} />
+            <Route path="categories" element={<AdminCategories />} />
+            <Route path="customers" element={<AdminCustomers />} />
+            <Route path="coupons" element={<AdminCoupons />} />
+            <Route path="reviews" element={<AdminReviews />} />
+            <Route path="stock" element={<AdminStock />} />
+            <Route path="media" element={<AdminMedia />} />
+            <Route path="pages" element={<AdminPages />} />
+            <Route path="settings" element={<AdminSettings />} />
           </Route>
         </Routes>
       </div>

@@ -12,9 +12,9 @@ function Logo({
   invert = false,
 }) {
   const heights = {
-    sm: "h-9",
-    md: "h-11 sm:h-12",
-    lg: "h-14 md:h-16",
+    sm: "h-12 w-40",
+    md: "h-14 sm:h-16 sm:w-48",
+    lg: "h-20 md:h-24 md:w-64",
   };
 
   const img = (
