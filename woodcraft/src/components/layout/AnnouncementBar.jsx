@@ -3,7 +3,7 @@ import SocialIcons from "./SocialIcons";
 
 function AnnouncementBar() {
   return (
-    <div className="bg-dark-brown text-background">
+    <div data-gsap-bar className="bg-dark-brown text-background">
       <div className="mx-auto flex h-10 max-w-[1500px] items-center justify-between gap-4 px-4 text-[10px] sm:px-5 sm:text-[11px] md:px-10">
         <a
           href="#shipping"

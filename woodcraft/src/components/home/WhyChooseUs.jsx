@@ -106,6 +106,7 @@ function WhyChooseUs() {
             {reasons.map(({ icon: Icon, title, text }, index) => (
               <div
                 key={title}
+                data-gsap-item
                 className={`flex items-center gap-3 px-6 py-8 border-[#eadfd3] border-b last:border-b-0 lg:border-b-0 ${
                   index !== reasons.length - 1 ? "lg:border-r" : ""
                 } ${index % 2 === 0 ? "sm:border-r lg:border-r" : ""}`}

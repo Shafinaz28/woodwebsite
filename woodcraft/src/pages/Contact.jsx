@@ -140,6 +140,7 @@ function Contact() {
               <a
                 key={title}
                 href={href}
+                data-gsap-item
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noreferrer" : undefined}
                 className="group flex flex-col items-center px-2 text-center"
@@ -409,6 +410,7 @@ function Contact() {
             {values.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
+                data-gsap-item
                 className="flex flex-col items-center px-2 text-center"
               >
                 <span className="mb-3 inline-flex h-11 w-11 items-center justify-center text-[#6B4423] sm:mb-4">

@@ -87,7 +87,7 @@ function ProductDetails() {
               <img
                 src={mainImage}
                 alt={product.name}
-                className="w-full h-[420px] md:h-[540px] object-cover object-center"
+                className="w-full h-[420px] md:h-[540px] object-contain object-center"
               />
             </div>
 
@@ -107,7 +107,7 @@ function ProductDetails() {
                       <img
                         src={image}
                         alt={`${product.name} ${index + 1}`}
-                        className="w-full h-20 md:h-24 object-cover object-center"
+                        className="w-full h-20 md:h-24 object-contain object-center"
                       />
                     </button>
                     <p className="text-[11px] leading-4 text-[#2b1d0e] text-left font-medium opacity-0">

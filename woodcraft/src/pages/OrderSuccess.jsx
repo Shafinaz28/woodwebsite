@@ -8,7 +8,7 @@ function OrderSuccess() {
 
   return (
     <main className="min-h-[70vh] grid place-items-center bg-[#f7f4ef] px-5 text-[#2b1d0e]">
-      <div className="max-w-lg text-center">
+      <section data-gsap-block className="max-w-lg text-center">
         <CheckCircle2 size={48} className="mx-auto text-[#434f23]" />
         <h1 className="font-display text-4xl font-semibold mt-5">
           Payment successful
@@ -29,7 +29,7 @@ function OrderSuccess() {
         >
           Continue shopping
         </Link>
-      </div>
+      </section>
     </main>
   );
 }

@@ -82,7 +82,7 @@ function Checkout() {
 
   return (
     <main className="bg-[#f7f4ef] min-h-screen text-[#2b1d0e]">
-      <div className="max-w-[1100px] mx-auto px-5 md:px-10 py-12 md:py-16">
+      <section data-gsap-block className="max-w-[1100px] mx-auto px-5 md:px-10 py-12 md:py-16">
         <p className="text-[11px] uppercase tracking-[0.22em] text-[#6B4423]">
           Checkout
         </p>
@@ -215,7 +215,7 @@ function Checkout() {
             </Link>
           </aside>
         </div>
-      </div>
+      </section>
     </main>
   );
 }

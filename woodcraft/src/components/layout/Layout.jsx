@@ -9,7 +9,7 @@ import PageReveal from "./PageReveal";
 
 function Layout() {
   return (
-    <>
+    <div data-site-gsap>
       <ScrollToTop />
 
       <AnnouncementBar />
@@ -24,7 +24,7 @@ function Layout() {
 
       <Footer />
       <WhatsAppButton />
-    </>
+    </div>
   );
 }
 

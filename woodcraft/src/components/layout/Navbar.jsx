@@ -145,7 +145,10 @@ function Navbar() {
   }
 
   return (
-    <header className="bg-white text-dark-brown sticky top-0 z-50 border-b border-[#eadfd3]">
+    <header
+      data-gsap-nav
+      className="bg-white text-dark-brown sticky top-0 z-50 border-b border-[#eadfd3]"
+    >
       <div className="max-w-[1500px] mx-auto px-3 sm:px-6 lg:px-10">
         <div className="h-[64px] sm:h-[76px] lg:h-[96px] grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
           <Logo

@@ -74,7 +74,7 @@ const PAYMENT_METHODS = [
 
 function Footer() {
   return (
-    <footer className="bg-[#1a120c] text-[#f5f0e8]">
+    <footer data-gsap-footer className="bg-[#1a120c] text-[#f5f0e8]">
       <div>
         {/* Main footer columns */}
         <div className="max-w-[1500px] mx-auto px-5 md:px-10 py-10 md:py-12">

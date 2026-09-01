@@ -132,6 +132,7 @@ function About() {
             {reasons.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
+                data-gsap-item
                 className="flex flex-col items-center text-center px-2"
               >
                 <span className="mb-4 inline-flex h-11 w-11 items-center justify-center text-[#6B4423]">

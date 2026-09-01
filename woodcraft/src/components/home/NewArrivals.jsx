@@ -54,7 +54,7 @@ function NewArrivals() {
                 <img
                   src={getProductImage(product)}
                   alt={product.name}
-                  className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+                  className="w-full h-full object-contain object-center transition duration-700 group-hover:scale-105"
                 />
               </div>
 

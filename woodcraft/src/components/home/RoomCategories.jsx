@@ -59,6 +59,7 @@ function RoomCategories() {
             <Link
               key={room.title}
               to={room.link}
+              data-gsap-item
               className="group block bg-cream/60 border border-dark-brown/15 overflow-hidden rounded-t-md"
             >
               <div className="aspect-[4/3] overflow-hidden bg-cream/40">
