@@ -7,19 +7,28 @@ import {
   adminUpsertProduct,
   slugify,
 } from "../../lib/admin";
+import { getCategories } from "../../lib/categories";
+import { isProductListed, setProductListedLocal } from "../../lib/listing";
+import {
+  MATERIALS,
+  TAGS,
+  getSubcategories,
+} from "../../lib/productOptions";
 
-const CATEGORIES = ["Living Room", "Bedroom", "Dining", "Tables"];
+const CATEGORIES = getCategories();
 
 const empty = {
   name: "",
   slug: "",
   category: "Living Room",
+  subcategory: "",
   price: "",
   images: [],
   tag: "",
   description: "",
   material: "Solid wood",
   finish: "Natural",
+  listed: true,
 };
 
 function AdminProductForm() {
@@ -44,17 +53,35 @@ function AdminProductForm() {
           setError("Product not found");
           return;
         }
+
+        const imageList = Array.isArray(found.images)
+          ? found.images.filter(Boolean).map(String)
+          : [];
+
+        const parsedImageField = typeof found.image === "string" && found.image.trim().startsWith("[")
+          ? (() => {
+              try {
+                const parsed = JSON.parse(found.image);
+                return Array.isArray(parsed) ? parsed.filter(Boolean).map(String) : [];
+              } catch {
+                return [];
+              }
+            })()
+          : [];
+
         setForm({
           id: found.id,
           name: found.name || "",
           slug: found.slug || "",
           category: found.category || "Living Room",
+          subcategory: found.subcategory || "",
           price: found.price ?? "",
-          images: found.images && Array.isArray(found.images) ? found.images : (found.image || found.image_url ? [found.image || found.image_url] : []),
+          images: imageList.length ? imageList : (parsedImageField.length ? parsedImageField : (found.image || found.image_url ? [found.image || found.image_url] : [])),
           tag: found.tag || "",
           description: found.description || "",
           material: found.material || "Solid wood",
           finish: found.finish || "Natural",
+          listed: isProductListed(found),
         });
       } catch (err) {
         if (active) setError(err.message);
@@ -72,6 +99,10 @@ function AdminProductForm() {
       const next = { ...prev, [field]: value };
       if (field === "name" && (isNew || !prev.slugLocked)) {
         next.slug = slugify(value);
+      }
+      if (field === "category") {
+        const allowed = getSubcategories(value);
+        if (!allowed.includes(prev.subcategory)) next.subcategory = "";
       }
       return next;
     });
@@ -124,17 +155,50 @@ function AdminProductForm() {
     });
   }
 
+  async function ensureUniqueSlug(nextSlug, currentId = null) {
+    const base = String(nextSlug || slugify(form.name) || "product").trim();
+    if (!base) return "product";
+
+    const list = await adminFetchProducts();
+    let candidate = base;
+    let suffix = 2;
+
+    while (
+      list.some(
+        (item) =>
+          String(item.slug || "").toLowerCase() === candidate.toLowerCase() &&
+          String(item.id) !== String(currentId)
+      )
+    ) {
+      candidate = `${base}-${suffix}`;
+      suffix += 1;
+    }
+
+    return candidate;
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setSaving(true);
     setError("");
     try {
+      const resolvedSlug = await ensureUniqueSlug(
+        form.slug || slugify(form.name),
+        form.id || null
+      );
+
+      if (resolvedSlug !== form.slug) {
+        setForm((prev) => ({ ...prev, slug: resolvedSlug }));
+      }
+
       await adminUpsertProduct({
         ...form,
         price: Number(form.price) || 0,
-        slug: form.slug || slugify(form.name),
+        slug: resolvedSlug,
         image: form.images[0] || "",
+        listed: form.listed !== false,
       });
+      setProductListedLocal({ ...form, slug: resolvedSlug }, form.listed !== false);
       navigate("/admin/products");
     } catch (err) {
       setError(
@@ -208,6 +272,30 @@ function AdminProductForm() {
                 </option>
               ))}
             </select>
+          </label>
+          <label className="block">
+            <span className="text-sm font-semibold text-[#374151]">
+              Type / subcategory
+            </span>
+            <select
+              value={form.subcategory}
+              onChange={(e) => update("subcategory", e.target.value)}
+              className={field}
+            >
+              <option value="">None</option>
+              {getSubcategories(form.category).map((sub) => (
+                <option key={sub} value={sub}>
+                  {sub}
+                </option>
+              ))}
+              {form.subcategory &&
+                !getSubcategories(form.category).includes(form.subcategory) && (
+                  <option value={form.subcategory}>{form.subcategory}</option>
+                )}
+            </select>
+            <p className="mt-1 text-xs text-[#6b7280]">
+              Used by shop filters (e.g. Centre and Side Tables).
+            </p>
           </label>
         </div>
 
@@ -313,12 +401,20 @@ function AdminProductForm() {
 
         <label className="block">
           <span className="text-sm font-semibold text-[#374151]">Tag</span>
-          <input
+          <select
             value={form.tag}
             onChange={(e) => update("tag", e.target.value)}
-            placeholder="New / Bestseller"
             className={field}
-          />
+          >
+            {TAGS.map((tag) => (
+              <option key={tag || "none"} value={tag}>
+                {tag || "None"}
+              </option>
+            ))}
+            {form.tag && !TAGS.includes(form.tag) && (
+              <option value={form.tag}>{form.tag}</option>
+            )}
+          </select>
         </label>
 
         <div className="grid gap-5 sm:grid-cols-2">
@@ -326,11 +422,20 @@ function AdminProductForm() {
             <span className="text-sm font-semibold text-[#374151]">
               Material
             </span>
-            <input
+            <select
               value={form.material}
               onChange={(e) => update("material", e.target.value)}
               className={field}
-            />
+            >
+              {MATERIALS.map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+              {form.material && !MATERIALS.includes(form.material) && (
+                <option value={form.material}>{form.material}</option>
+              )}
+            </select>
           </label>
           <label className="block">
             <span className="text-sm font-semibold text-[#374151]">Finish</span>
@@ -353,6 +458,20 @@ function AdminProductForm() {
             className={`${field} resize-y`}
           />
         </label>
+
+        <label className="flex items-center gap-3 text-sm font-semibold text-[#374151]">
+          <input
+            type="checkbox"
+            checked={form.listed !== false}
+            onChange={(e) => update("listed", e.target.checked)}
+            className="accent-[#5c4033]"
+          />
+          Listed on shop
+        </label>
+        <p className="-mt-3 text-xs text-[#6b7280]">
+          Uncheck to unlist. The product stays in admin but is hidden from the
+          shop.
+        </p>
 
         <button
           type="submit"

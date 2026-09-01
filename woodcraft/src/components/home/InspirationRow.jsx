@@ -27,10 +27,10 @@ function InspirationRow() {
 
         <div className="text-center mb-10 md:mb-14">
           <p className="text-xs uppercase tracking-[0.2em] text-wood-soft mb-3">
-            Trending Space
+            Inspiration
           </p>
           <h2 className="font-display text-3xl md:text-5xl font-medium text-wood-deep">
-            Trending Space Inspiration
+            Room Inspiration
           </h2>
         </div>
 

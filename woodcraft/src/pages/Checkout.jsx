@@ -5,7 +5,7 @@ import { createOrder, markOrderPaid } from "../lib/orders";
 import { openRazorpayCheckout } from "../lib/razorpay";
 
 function Checkout() {
-  const { cart, cartTotal, clearCart } = useCart();
+  const { cart, cartTotal, payableTotal, coupon, discount, clearCart } = useCart();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -50,13 +50,15 @@ function Checkout() {
         pincode: form.pincode.trim(),
         items,
         subtotal: cartTotal,
-        total: cartTotal,
+        total: payableTotal,
+        coupon_code: coupon?.code || null,
+        discount,
         status: "pending",
         payment_method: "razorpay",
       });
 
       const payment = await openRazorpayCheckout({
-        amountInr: cartTotal,
+        amountInr: payableTotal,
         orderId: order.id,
         customer: {
           name: form.name.trim(),
@@ -176,23 +178,8 @@ function Checkout() {
               disabled={submitting}
               className="w-full py-4 bg-[#434f23] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#363f1c] disabled:opacity-50"
             >
-              {submitting ? "Opening Razorpay…" : "Pay with Razorpay"}
+              {submitting ? "Processing…" : "Pay"}
             </button>
-
-            <p className="text-xs text-[#2b1d0e]/55 text-center">
-              Payments are processed securely via Razorpay.
-            </p>
-            <div className="mt-4 flex flex-col items-center gap-3 text-[15px] text-[#374151]">
-              <Link to="/terms" className="hover:text-[#111827]">
-                Terms &amp; Conditions
-              </Link>
-              <Link to="/privacy" className="hover:text-[#111827]">
-                Privacy Policy
-              </Link>
-              <Link to="/returns" className="hover:text-[#111827]">
-                Return Policy
-              </Link>
-            </div>
           </form>
 
           <aside className="bg-white border border-[#eadfd3] p-6 h-fit">
@@ -206,8 +193,19 @@ function Checkout() {
                 </li>
               ))}
             </ul>
-            <div className="border-t border-[#eadfd3] mt-5 pt-5 text-sm text-[#2b1d0e]/60">
-              Final pricing is confirmed during payment.
+            <div className="border-t border-[#eadfd3] mt-5 pt-5 text-sm space-y-2">
+              {coupon && (
+                <div className="flex justify-between text-[#434f23]">
+                  <span>
+                    {coupon.code} ({coupon.percent}% off)
+                  </span>
+                  <span>−₹{discount.toLocaleString("en-IN")}</span>
+                </div>
+              )}
+              <div className="flex justify-between font-medium text-[#2b1d0e]">
+                <span>To pay</span>
+                <span>₹{payableTotal.toLocaleString("en-IN")}</span>
+              </div>
             </div>
             <Link
               to="/cart"

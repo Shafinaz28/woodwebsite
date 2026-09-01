@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "../context/CartContext";
@@ -8,7 +9,30 @@ function Cart() {
     updateQuantity,
     removeFromCart,
     cartCount,
+    cartTotal,
+    coupon,
+    applyCoupon,
+    removeCoupon,
+    discount,
+    payableTotal,
   } = useCart();
+  const [code, setCode] = useState("");
+  const [couponError, setCouponError] = useState("");
+
+  function handleApplyCoupon(e) {
+    e.preventDefault();
+    setCouponError("");
+    try {
+      applyCoupon(code);
+      setCode("");
+    } catch (err) {
+      setCouponError(
+        err.message === "Invalid or inactive coupon code"
+          ? "Code not found. Create it in Admin → Coupons, or try WELCOME10."
+          : err.message || "Could not apply coupon"
+      );
+    }
+  }
 
   if (cart.length === 0) {
     return (
@@ -239,6 +263,57 @@ function Cart() {
                 </span>
 
               </div>
+
+              <form onSubmit={handleApplyCoupon} className="pt-2">
+                <p className="text-xs uppercase tracking-[0.15em] text-black/45 mb-2">
+                  Coupon code
+                </p>
+                <div className="flex gap-2">
+                  <input
+                    value={code}
+                    onChange={(e) => setCode(e.target.value.toUpperCase())}
+                    placeholder="WELCOME10"
+                    className="min-w-0 flex-1 border border-black/20 bg-white px-3 py-2 text-sm outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="shrink-0 bg-[#434f23] px-4 py-2 text-[11px] uppercase tracking-wider text-white"
+                  >
+                    Apply
+                  </button>
+                </div>
+                {couponError && (
+                  <p className="mt-2 text-xs text-red-700">{couponError}</p>
+                )}
+                {coupon && (
+                  <div className="mt-2 flex items-center justify-between text-sm text-[#434f23]">
+                    <span>
+                      {coupon.code} · {coupon.percent}% off
+                    </span>
+                    <button
+                      type="button"
+                      onClick={removeCoupon}
+                      className="text-xs uppercase tracking-wider text-black/50"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </form>
+
+              {discount > 0 && (
+                <div className="flex justify-between text-sm">
+                  <span className="text-black/50">Discount</span>
+                  <span>−₹{discount.toLocaleString("en-IN")}</span>
+                </div>
+              )}
+
+              {cartTotal > 0 && (
+                <div className="flex justify-between text-sm font-medium">
+                  <span>To pay</span>
+                  <span>₹{payableTotal.toLocaleString("en-IN")}</span>
+                </div>
+              )}
 
             </div>
 

@@ -5,7 +5,7 @@ import FeaturedProducts from "../components/home/FeaturedProducts";
 import PromoBanners from "../components/home/PromoBanners";
 import NewArrivals from "../components/home/NewArrivals";
 import LifestyleBanner from "../components/home/LifestyleBanner";
-import InspirationRow from "../components/home/InspirationRow";
+// import InspirationRow from "../components/home/InspirationRow";
 import Craftsmanship from "../components/home/Craftsmanship";
 import WhyChooseUs from "../components/home/WhyChooseUs";
 import Testimonials from "../components/home/Testimonials";
@@ -22,7 +22,7 @@ function Home() {
       <PromoBanners />
       <NewArrivals />
       <LifestyleBanner />
-      <InspirationRow />
+      {/* <InspirationRow /> */}
       <Craftsmanship />
       <WhyChooseUs />
       <Testimonials />

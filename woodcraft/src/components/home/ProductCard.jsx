@@ -21,7 +21,7 @@ function ProductCard({ product }) {
       <div className="relative overflow-hidden bg-[#f3ebe0] aspect-[4/3] flex items-center justify-center p-2">
         <Link
           to={`/product/${product.slug}`}
-          className="block w-full h-full flex items-center justify-center"
+          className="flex h-full w-full items-center justify-center"
         >
           <img
             src={image}

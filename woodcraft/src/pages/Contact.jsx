@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { submitContactToSheet } from "../lib/contactSheet";
 import {
   Mail,
   MapPin,
@@ -73,10 +74,30 @@ const values = [
 
 function Contact() {
   const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setSent(true);
+    setError("");
+    setSubmitting(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    try {
+      await submitContactToSheet({
+        name: data.get("name"),
+        email: data.get("email"),
+        phone: data.get("phone"),
+        subject: data.get("subject"),
+        message: data.get("message"),
+      });
+      form.reset();
+      setSent(true);
+    } catch (err) {
+      setError(err.message || "Could not send your message. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const fieldClass =
@@ -342,11 +363,16 @@ function Contact() {
                       </div>
                     </label>
 
+                    {error ? (
+                      <p className="text-sm text-red-700">{error}</p>
+                    ) : null}
+
                     <button
                       type="submit"
-                      className="inline-flex px-8 py-3.5 bg-[#4a2c18] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#3a2212] transition"
+                      disabled={submitting}
+                      className="inline-flex px-8 py-3.5 bg-[#4a2c18] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#3a2212] transition disabled:opacity-60"
                     >
-                      Send Message
+                      {submitting ? "Sending…" : "Send Message"}
                     </button>
                   </form>
                 </>

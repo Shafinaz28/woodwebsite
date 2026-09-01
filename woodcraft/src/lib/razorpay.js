@@ -47,6 +47,12 @@ export async function openRazorpayCheckout({
       notes: {
         local_order_id: String(orderId),
       },
+      method: {
+        card: true,
+        upi: true,
+        netbanking: true,
+        wallet: true,
+      },
       theme: {
         color: "#4a2c18",
       },

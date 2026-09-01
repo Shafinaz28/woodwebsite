@@ -1,4 +1,5 @@
 import { products as localProducts } from "../data/products";
+import { setProductListedLocal } from "./listing";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 const PRODUCT_BUCKET = "products";
@@ -53,36 +54,52 @@ export async function adminUpsertProduct(product) {
     throw new Error("Supabase is not configured");
   }
 
-  const imageValue = String(product.image || "").trim();
+  const images = Array.isArray(product.images)
+    ? product.images.filter(Boolean).map(String)
+    : [];
+  const imageValue = images.length > 0
+    ? (images.length === 1 ? images[0] : JSON.stringify(images))
+    : String(product.image || "").trim();
 
   const payload = {
     name: product.name,
     slug: product.slug,
     category: product.category,
+    subcategory: product.subcategory || null,
     price: Number(product.price) || 0,
     image: imageValue,
     tag: product.tag || null,
     description: product.description || null,
     material: product.material || null,
     finish: product.finish || null,
+    listed: product.listed !== false,
   };
 
-  if (product.id) {
-    const { data, error } = await supabase
-      .from("products")
-      .update(payload)
-      .eq("id", product.id)
-      .select()
-      .single();
-    if (error) throw error;
-    return data;
+  async function write(omit = []) {
+    const body = Object.fromEntries(
+      Object.entries(payload).filter(([key]) => !omit.includes(key))
+    );
+    if (product.id) {
+      return supabase
+        .from("products")
+        .update(body)
+        .eq("id", product.id)
+        .select()
+        .single();
+    }
+    return supabase.from("products").insert(body).select().single();
   }
 
-  const { data, error } = await supabase
-    .from("products")
-    .insert(payload)
-    .select()
-    .single();
+  let omit = [];
+  let { data, error } = await write(omit);
+  if (error && /subcategory/i.test(error.message || "")) {
+    omit = [...omit, "subcategory"];
+    ({ data, error } = await write(omit));
+  }
+  if (error && /listed/i.test(error.message || "")) {
+    omit = [...omit, "listed"];
+    ({ data, error } = await write(omit));
+  }
   if (error) throw error;
   return data;
 }
@@ -93,6 +110,22 @@ export async function adminDeleteProduct(id) {
   }
   const { error } = await supabase.from("products").delete().eq("id", id);
   if (error) throw error;
+}
+
+export async function adminSetListed(product, listed) {
+  setProductListedLocal(product, listed);
+  if (!isSupabaseConfigured || !product?.id) return { ...product, listed };
+  const { data, error } = await supabase
+    .from("products")
+    .update({ listed: Boolean(listed) })
+    .eq("id", product.id)
+    .select()
+    .single();
+  if (error && /listed/i.test(error.message || "")) {
+    return { ...product, listed: Boolean(listed) };
+  }
+  if (error) throw error;
+  return data;
 }
 
 /** Insert local catalog products that are missing from Supabase (by slug). */
@@ -118,6 +151,7 @@ export async function adminSyncLocalProducts() {
     name: item.name,
     slug: item.slug,
     category: item.category || null,
+    subcategory: item.subcategory || null,
     price: Number(item.price) || 0,
     image: item.image || null,
     tag: item.tag || null,

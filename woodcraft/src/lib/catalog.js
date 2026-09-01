@@ -1,4 +1,5 @@
 import { products as localProducts } from "../data/products";
+import { isProductListed } from "./listing";
 import { isSupabaseConfigured, supabase } from "./supabase";
 
 const localBySlug = new Map(localProducts.map((item) => [item.slug, item]));
@@ -13,12 +14,34 @@ function toAvifIfLocal(src) {
   return src.replace(/\.(png|jpe?g)(\?.*)?$/i, ".avif$2");
 }
 
+function parseProductImages(product = {}) {
+  const direct = Array.isArray(product?.images)
+    ? product.images.filter(Boolean).map(String)
+    : [];
+
+  if (direct.length) return direct;
+
+  const raw = product?.image || product?.image_url || "";
+  if (typeof raw !== "string" || !raw.trim()) return [];
+
+  const trimmed = raw.trim();
+  if (trimmed.startsWith("[") && trimmed.endsWith("]")) {
+    try {
+      const parsed = JSON.parse(trimmed);
+      if (Array.isArray(parsed)) {
+        return parsed.filter(Boolean).map(String);
+      }
+    } catch {
+      return [];
+    }
+  }
+
+  return [trimmed];
+}
+
 export function getProductImage(product) {
-  const raw =
-    product?.image ||
-    product?.image_url ||
-    (Array.isArray(product?.images) ? product.images[0] : "") ||
-    "";
+  const images = parseProductImages(product);
+  const raw = images[0] || product?.image || product?.image_url || "";
 
   if (typeof raw === "string" && raw.trim()) {
     let src = raw.trim();
@@ -47,6 +70,8 @@ export function normalizeProduct(row = {}) {
   // Prefer Supabase/uploaded image when present
   const imageSource = row.image || row.image_url || local.image || "";
 
+  const images = parseProductImages({ ...local, ...row, image: imageSource });
+
   return {
     id: row.id ?? local.id,
     name: row.name || local.name,
@@ -58,6 +83,7 @@ export function normalizeProduct(row = {}) {
       ...row,
       image: imageSource,
     }),
+    images,
     tag: row.tag || local.tag,
     subcategory: row.subcategory || local.subcategory || null,
     description:
@@ -68,6 +94,7 @@ export function normalizeProduct(row = {}) {
     finish: row.finish || local.finish || "Natural",
     dimensions: row.dimensions || local.dimensions || "As shown",
     delivery: row.delivery || local.delivery || "7–14 days",
+    listed: isProductListed({ ...local, ...row }),
   };
 }
 
@@ -76,18 +103,18 @@ export async function fetchCatalog() {
 
   if (!isSupabaseConfigured) {
     console.warn("Supabase not configured — using local products");
-    return local;
+    return local.filter((item) => item.listed !== false);
   }
 
   try {
     const { data, error } = await supabase.from("products").select("*");
     if (error) {
       console.error("Supabase products error:", error);
-      return local;
+      return local.filter((item) => item.listed !== false);
     }
     if (!data?.length) {
       console.warn("Supabase products empty — using local products");
-      return local;
+      return local.filter((item) => item.listed !== false);
     }
 
     // Start with local catalog, overlay matches, put new Supabase products first
@@ -102,10 +129,12 @@ export async function fetchCatalog() {
         newlyAdded.push(normalized);
       }
     }
-    return [...newlyAdded, ...Array.from(bySlug.values())];
+    return [...newlyAdded, ...Array.from(bySlug.values())].filter(
+      (item) => item.listed !== false
+    );
   } catch (err) {
     console.error("Supabase fetch failed:", err);
-    return local;
+    return local.filter((item) => item.listed !== false);
   }
 }
 
@@ -129,7 +158,8 @@ export async function fetchProductBySlug(slug) {
     }
 
     if (data) {
-      return normalizeProduct(data);
+      const product = normalizeProduct(data);
+      return product.listed === false ? null : product;
     }
 
     const local = localProducts.find((item) => item.slug === slug);

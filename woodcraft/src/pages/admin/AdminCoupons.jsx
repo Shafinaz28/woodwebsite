@@ -2,15 +2,7 @@ import { useEffect, useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { AdminHeader, card, td, th } from "./adminUi.jsx";
 
-const KEY = "arileon_coupons";
-
-function loadCoupons() {
-  try {
-    return JSON.parse(localStorage.getItem(KEY) || "[]");
-  } catch {
-    return [];
-  }
-}
+import { loadCoupons, saveCoupons } from "../../lib/coupons";
 
 function AdminCoupons() {
   const [list, setList] = useState([]);
@@ -23,7 +15,7 @@ function AdminCoupons() {
 
   function save(next) {
     setList(next);
-    localStorage.setItem(KEY, JSON.stringify(next));
+    saveCoupons(next);
   }
 
   function add(e) {
@@ -45,7 +37,7 @@ function AdminCoupons() {
     <div>
       <AdminHeader
         title="Coupons"
-        subtitle="Discount codes stored on this browser until you connect a coupons table"
+        subtitle="Create a code here, then customers enter it on the Cart page and click Apply."
       />
 
       <form onSubmit={add} className={`${card} mb-6 flex flex-wrap items-end gap-3 p-4`}>

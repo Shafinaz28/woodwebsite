@@ -741,11 +741,11 @@ function AdminDashboard() {
                 Add Product
               </Link>
               <Link
-                to="/admin/products"
+                to="/admin/categories"
                 className="flex flex-col items-center gap-2 rounded-xl border border-[#eef0f3] bg-[#fafafa] px-3 py-4 text-center text-xs font-medium text-[#374151] hover:border-[#d6c3b0] hover:bg-white"
               >
                 <Tags size={18} className="text-[#5c4033]" />
-                Add Category
+                Manage Categories
               </Link>
               <Link
                 to="/admin/orders"

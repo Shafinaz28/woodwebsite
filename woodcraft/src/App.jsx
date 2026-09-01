@@ -23,6 +23,7 @@ import AdminProducts from "./pages/admin/AdminProducts";
 import AdminProductForm from "./pages/admin/AdminProductForm";
 import AdminOrders from "./pages/admin/AdminOrders";
 import AdminCategories from "./pages/admin/AdminCategories";
+import AdminCategoryEditor from "./pages/admin/AdminCategoryEditor";
 import AdminCustomers from "./pages/admin/AdminCustomers";
 import AdminCoupons from "./pages/admin/AdminCoupons";
 import AdminReviews from "./pages/admin/AdminReviews";
@@ -68,6 +69,7 @@ function App() {
             <Route path="products/:id" element={<AdminProductForm />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="categories" element={<AdminCategories />} />
+            <Route path="categories/:category" element={<AdminCategoryEditor />} />
             <Route path="customers" element={<AdminCustomers />} />
             <Route path="coupons" element={<AdminCoupons />} />
             <Route path="reviews" element={<AdminReviews />} />
