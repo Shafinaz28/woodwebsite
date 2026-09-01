@@ -20,9 +20,9 @@ const reviews = [
 
 function Testimonials() {
   return (
-    <section className="bg-background py-8 md:py-10">
+    <section className="bg-background py-16 md:py-24">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
-        <div className="flex items-center gap-4 md:gap-6 max-w-3xl mx-auto mb-6 md:mb-7">
+        <div className="flex items-center gap-4 md:gap-6 max-w-3xl mx-auto mb-10 md:mb-14">
           <span className="flex-1 h-px bg-dark-brown/25" />
           <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-[0.08em] text-dark-brown uppercase whitespace-nowrap text-center">
             What Our Customers Say

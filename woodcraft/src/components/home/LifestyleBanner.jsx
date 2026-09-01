@@ -3,7 +3,7 @@ import { Play } from "lucide-react";
 
 function LifestyleBanner() {
   return (
-    <section className="relative min-h-[420px] sm:min-h-[520px] md:min-h-[620px] overflow-hidden bg-[#1a1510]">
+    <section className="relative min-h-[480px] overflow-hidden bg-[#1a1510] sm:min-h-[580px] md:min-h-[720px]">
 
       <video
         className="
@@ -36,18 +36,18 @@ function LifestyleBanner() {
 
       <div className="absolute inset-0 bg-black/45" />
 
-      <div className="relative z-10 min-h-[420px] sm:min-h-[520px] md:min-h-[620px] flex flex-col items-center justify-center px-5 text-center text-white">
-        <p className="text-xs uppercase tracking-[0.3em] mb-4 text-white/90">
+      <div className="relative z-10 flex min-h-[480px] flex-col items-center justify-center px-6 py-20 text-center text-white sm:min-h-[580px] sm:px-10 sm:py-24 md:min-h-[720px] md:py-28">
+        <p className="mb-6 text-xs uppercase tracking-[0.3em] text-white/90">
           Our Products
         </p>
-        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium leading-[1.15] text-white max-w-3xl">
+        <h2 className="font-display max-w-3xl text-3xl font-medium leading-[1.2] text-white sm:text-4xl md:text-5xl lg:text-6xl">
           Watch Products Designed For Modern Living
         </h2>
 
         <Link
           to="/shop"
           className="
-            mt-10
+            mt-16
             w-20
             h-20
             rounded-full

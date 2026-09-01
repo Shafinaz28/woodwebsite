@@ -22,7 +22,7 @@ function Home() {
       <PromoBanners />
       <NewArrivals />
       <LifestyleBanner />
-      {/* <InspirationRow /> */}
+      <div className="h-16 bg-[#f4f0e8] sm:h-24 md:h-32" aria-hidden />
       <Craftsmanship />
       <WhyChooseUs />
       <Testimonials />

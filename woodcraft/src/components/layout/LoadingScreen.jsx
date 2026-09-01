@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const BAR_HEIGHTS = [38, 72, 52, 88, 70, 44];
+
 function LoadingScreen({ onDone }) {
   const [hiding, setHiding] = useState(false);
 
@@ -21,20 +23,21 @@ function LoadingScreen({ onDone }) {
       aria-busy="true"
       aria-live="polite"
     >
-      <div className="crt-scanlines" />
-      <div className="crt-glow" />
-
-      <div className="crt-content relative z-20 flex flex-col items-center justify-center text-center">
-        <p className="crt-loading-text">loading...</p>
-
-        <div className="crt-loader" aria-label="Loading">
-          <div className="crt-loader-fill">
-            <span className="crt-loader-shine" />
-          </div>
+      <div className="relative z-20 flex flex-col items-center justify-center">
+        <div className="eq-bars" aria-hidden>
+          {BAR_HEIGHTS.map((height, index) => (
+            <span
+              key={index}
+              className="eq-bar"
+              style={{
+                height: `${height}px`,
+                animationDelay: `${index * 0.12}s`,
+              }}
+            />
+          ))}
         </div>
+        <p className="eq-text">LOADING</p>
       </div>
-
-      <div className="crt-shine" />
     </div>
   );
 }

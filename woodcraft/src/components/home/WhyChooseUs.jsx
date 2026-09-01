@@ -91,10 +91,10 @@ const reasons = [
 
 function WhyChooseUs() {
   return (
-    <section className="bg-background py-8 md:py-10">
+    <section className="bg-background py-16 md:py-24">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
         <div className="border border-[#eadfd3] rounded-md overflow-hidden bg-[#f9f7f2]">
-          <div className="flex items-center gap-4 md:gap-6 px-6 pt-6 pb-5">
+          <div className="flex items-center gap-4 md:gap-6 px-6 pt-10 pb-8">
             <span className="flex-1 h-px bg-dark-brown/20" />
             <h2 className="font-display text-2xl sm:text-3xl font-bold tracking-[0.08em] text-[#4a3728] uppercase whitespace-nowrap text-center">
               Why Choose Arileon?
@@ -106,7 +106,7 @@ function WhyChooseUs() {
             {reasons.map(({ icon: Icon, title, text }, index) => (
               <div
                 key={title}
-                className={`flex items-center gap-3 px-5 py-6 border-[#eadfd3] border-b last:border-b-0 lg:border-b-0 ${
+                className={`flex items-center gap-3 px-6 py-8 border-[#eadfd3] border-b last:border-b-0 lg:border-b-0 ${
                   index !== reasons.length - 1 ? "lg:border-r" : ""
                 } ${index % 2 === 0 ? "sm:border-r lg:border-r" : ""}`}
               >
