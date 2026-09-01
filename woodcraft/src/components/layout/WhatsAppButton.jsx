@@ -1,6 +1,9 @@
+const PHONE = "919980085805";
 const WHATSAPP_URL =
-  "https://wa.me/919980085805?text=" +
-  encodeURIComponent("Hi Arileon, I’d like to know more about your furniture.");
+  "https://wa.me/" +
+  PHONE +
+  "?text=" +
+  encodeURIComponent("Hi Arileon, I would like to know more about your furniture.");
 
 function WhatsAppIcon({ size = 28 }) {
   return (
@@ -21,10 +24,10 @@ function WhatsAppButton() {
     <a
       href={WHATSAPP_URL}
       target="_blank"
-      rel="noreferrer"
+      rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
       title="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-[60] flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.45)] transition hover:scale-105 hover:bg-[#1ebe57] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] md:bottom-7 md:right-7"
+      className="fixed z-[100] flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.45)] print:hidden md:size-16 touch-manipulation select-none [transform:translateZ(0)] bottom-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] right-[max(1.25rem,calc(env(safe-area-inset-right)+0.75rem))] md:bottom-[max(1.75rem,calc(env(safe-area-inset-bottom)+1rem))] md:right-[max(1.75rem,calc(env(safe-area-inset-right)+1rem))]"
     >
       <WhatsAppIcon size={28} />
       <span className="sr-only">Chat on WhatsApp</span>

@@ -45,7 +45,11 @@ const quickContacts = [
     icon: MessageCircle,
     title: "WhatsApp",
     lines: [PHONE, "Chat with us on WhatsApp"],
-    href: "https://wa.me/919980085805",
+    href:
+      "https://wa.me/919980085805?text=" +
+      encodeURIComponent(
+        "Hi Arileon, I would like to know more about your furniture."
+      ),
   },
 ];
 
@@ -101,55 +105,53 @@ function Contact() {
   }
 
   const fieldClass =
-    "w-full border border-[#eadfd3] bg-[#faf8f4] py-3 pl-11 pr-4 text-sm text-[#2b1d0e] outline-none focus:border-[#6B4423]/45 focus:bg-white transition";
+    "w-full min-h-[44px] border border-[#eadfd3] bg-[#faf8f4] py-3 pl-11 pr-4 text-base sm:text-sm text-[#2b1d0e] outline-none focus:border-[#6B4423]/45 focus:bg-white transition";
 
   const iconClass =
     "pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B4423]/70";
 
-    return (
-    <div className="bg-[#F8F4F0] text-[#2b1d0e]">
-      {/* Hero */}
+  return (
+    <div className="overflow-x-hidden bg-[#F8F4F0] text-[#2b1d0e]">
       <section className="bg-[#2d1f16]">
-        <div className="max-w-[1280px] mx-auto px-8 sm:px-12 py-16 md:py-20 text-center">
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.25rem] font-semibold leading-[1.1] text-white">
-          Contact Us
-        </h1>
-          <p className="mt-3 text-lg text-[#d4b896] font-display italic">
+        <div className="mx-auto max-w-[1280px] px-4 py-10 text-center sm:px-8 sm:py-16 md:px-12 md:py-20">
+          <h1 className="font-display text-[2.15rem] font-semibold leading-[1.15] text-white sm:text-5xl lg:text-[3.25rem]">
+            Contact Us
+          </h1>
+          <p className="mt-3 font-display text-base italic text-[#d4b896] sm:text-lg">
             We&apos;d love to hear from you.
           </p>
-          <p className="mt-5 text-sm md:text-[15px] leading-7 text-white/80 max-w-md mx-auto">
+          <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-white/80 sm:mt-5 sm:text-[15px] sm:leading-7">
             Have a question about our furniture or need help choosing the
             perfect piece? Our team is here to help.
           </p>
           <a
             href="#message"
-            className="inline-flex mt-8 px-8 py-3.5 bg-[#434f23] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#363f1c] transition"
+            className="mt-7 inline-flex w-full max-w-xs items-center justify-center bg-[#434f23] px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#363f1c] sm:mt-8 sm:w-auto"
           >
             Get in Touch
           </a>
         </div>
       </section>
 
-      {/* Quick contact */}
       <section className="border-y border-[#eadfd3] bg-[#f3efe8]">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 py-12 md:py-14">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+        <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-8 sm:py-12 md:py-14 lg:px-12">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
             {quickContacts.map(({ icon: Icon, title, lines, href }) => (
               <a
                 key={title}
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel={href.startsWith("http") ? "noreferrer" : undefined}
-                className="flex flex-col items-center text-center group"
+                className="group flex flex-col items-center px-2 text-center"
               >
-                <span className="mb-4 inline-flex h-12 w-12 items-center justify-center text-[#6B4423]">
+                <span className="mb-3 inline-flex h-12 w-12 items-center justify-center text-[#6B4423] sm:mb-4">
                   <Icon size={26} strokeWidth={1.4} />
                 </span>
                 <h3 className="font-display text-lg font-semibold">{title}</h3>
                 {lines.map((line) => (
                   <p
                     key={line}
-                    className="mt-1.5 text-sm text-[#3a2a1c]/75 leading-6 group-hover:text-[#6B4423] transition break-words max-w-[220px]"
+                    className="mt-1.5 max-w-[280px] break-words text-sm leading-6 text-[#3a2a1c]/75 transition group-hover:text-[#6B4423]"
                   >
                     {line}
                   </p>
@@ -160,30 +162,33 @@ function Contact() {
         </div>
       </section>
 
-      {/* Studio left + form right */}
-      <section id="message" className="bg-white border-t border-[#eadfd3]">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 py-14 md:py-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left — Visit Our Studio */}
-            <div className="text-left">
-              <h2 className="font-display text-3xl md:text-[2.1rem] font-semibold">
+      <section
+        id="message"
+        className="scroll-mt-20 border-t border-[#eadfd3] bg-white sm:scroll-mt-24"
+      >
+        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-8 sm:py-14 md:py-20 lg:px-12">
+          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+            <div className="min-w-0 text-left">
+              <h2 className="font-display text-2xl font-semibold sm:text-3xl md:text-[2.1rem]">
                 Visit Our Studio
               </h2>
-              <p className="mt-4 text-sm md:text-[15px] text-[#3a2a1c]/80 leading-7 max-w-md">
+              <p className="mt-4 max-w-md text-sm leading-6 text-[#3a2a1c]/80 sm:text-[15px] sm:leading-7">
                 Come see the grain up close, sit with the pieces, and find what
                 belongs in your home at our Bengaluru workshop space.
               </p>
 
               <div className="mt-8 space-y-5">
-                <div className="flex gap-3 items-start">
+                <div className="flex items-start gap-3">
                   <MapPin
                     size={18}
                     strokeWidth={1.5}
                     className="mt-0.5 shrink-0 text-[#6B4423]"
                   />
-                  <p className="text-sm leading-6">{ADDRESS}</p>
+                  <p className="min-w-0 break-words text-sm leading-6">
+                    {ADDRESS}
+                  </p>
                 </div>
-                <div className="flex gap-3 items-start">
+                <div className="flex items-start gap-3">
                   <Phone
                     size={18}
                     strokeWidth={1.5}
@@ -191,12 +196,12 @@ function Contact() {
                   />
                   <a
                     href="tel:+919980085805"
-                    className="text-sm hover:text-[#6B4423] transition"
+                    className="text-sm transition hover:text-[#6B4423]"
                   >
                     {PHONE}
                   </a>
                 </div>
-                <div className="flex gap-3 items-start">
+                <div className="flex items-start gap-3">
                   <Clock
                     size={18}
                     strokeWidth={1.5}
@@ -214,27 +219,26 @@ function Contact() {
                 href={MAPS_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex mt-9 px-8 py-3.5 bg-[#4a2c18] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#3a2212] transition"
+                className="mt-8 inline-flex w-full items-center justify-center bg-[#4a2c18] px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#3a2212] sm:mt-9 sm:w-auto"
               >
                 Get Directions
               </a>
             </div>
 
-            {/* Right — Form */}
-            <div>
+            <div className="min-w-0">
               {sent ? (
-                <div className="text-left py-4">
+                <div className="py-2 text-left sm:py-4">
                   <span className="mb-5 inline-flex h-14 w-14 items-center justify-center text-[#434f23]">
                     <CheckCircle2 size={32} strokeWidth={1.5} />
                   </span>
-                  <h2 className="font-display text-3xl font-semibold">
+                  <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                     Thank you — we&apos;ll be in touch soon.
                   </h2>
-                  <p className="mt-4 text-sm text-[#3a2a1c]/75 leading-7 max-w-md">
+                  <p className="mt-4 max-w-md text-sm leading-7 text-[#3a2a1c]/75">
                     Your note is with our team. For urgent enquiries, email{" "}
                     <a
                       href={`mailto:${EMAIL}`}
-                      className="text-[#6B4423] underline underline-offset-2"
+                      className="break-all text-[#6B4423] underline underline-offset-2"
                     >
                       {EMAIL}
                     </a>
@@ -243,24 +247,27 @@ function Contact() {
                   <button
                     type="button"
                     onClick={() => setSent(false)}
-                    className="mt-8 text-[11px] uppercase tracking-[0.2em] font-bold border-b border-[#2b1d0e] pb-1"
+                    className="mt-8 border-b border-[#2b1d0e] pb-1 text-[11px] font-bold uppercase tracking-[0.2em]"
                   >
                     Send another message
                   </button>
                 </div>
               ) : (
                 <>
-                  <h2 className="font-display text-3xl md:text-[2.1rem] font-semibold">
+                  <h2 className="font-display text-2xl font-semibold sm:text-3xl md:text-[2.1rem]">
                     Send Us a Message
                   </h2>
-                  <p className="mt-3 text-sm text-[#3a2a1c]/75 leading-7">
+                  <p className="mt-3 text-sm leading-6 text-[#3a2a1c]/75 sm:leading-7">
                     Fill in the form and we&apos;ll get back to you as soon as
                     we can.
                   </p>
 
-                  <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <label className="block">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="mt-6 space-y-5 sm:mt-8"
+                  >
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                      <label className="block min-w-0">
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Your Name
                         </span>
@@ -280,7 +287,7 @@ function Contact() {
                           />
                         </div>
                       </label>
-                      <label className="block">
+                      <label className="block min-w-0">
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Your Email
                         </span>
@@ -302,8 +309,8 @@ function Contact() {
                       </label>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <label className="block">
+                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                      <label className="block min-w-0">
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Phone Number
                         </span>
@@ -317,12 +324,13 @@ function Contact() {
                             name="phone"
                             type="tel"
                             autoComplete="tel"
+                            inputMode="tel"
                             className={fieldClass}
                             placeholder="+91"
                           />
                         </div>
                       </label>
-                      <label className="block">
+                      <label className="block min-w-0">
                         <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                           Subject
                         </span>
@@ -343,7 +351,7 @@ function Contact() {
                       </label>
                     </div>
 
-                    <label className="block">
+                    <label className="block min-w-0">
                       <span className="text-[11px] uppercase tracking-[0.16em] text-[#6B4423]/80">
                         Your Message
                       </span>
@@ -357,7 +365,7 @@ function Contact() {
                           required
                           name="message"
                           rows={5}
-                          className={`${fieldClass} resize-y min-h-[140px]`}
+                          className={`${fieldClass} min-h-[140px] resize-y`}
                           placeholder="How can we help?"
                         />
                       </div>
@@ -370,7 +378,7 @@ function Contact() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex px-8 py-3.5 bg-[#4a2c18] text-white text-[11px] uppercase tracking-[0.18em] font-bold hover:bg-[#3a2212] transition disabled:opacity-60"
+                      className="inline-flex w-full items-center justify-center bg-[#4a2c18] px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#3a2212] disabled:opacity-60 sm:w-auto"
                     >
                       {submitting ? "Sending…" : "Send Message"}
                     </button>
@@ -382,13 +390,12 @@ function Contact() {
         </div>
       </section>
 
-      {/* Map — full width */}
-      <section className="bg-[#f7f4ef] border-t border-[#eadfd3]">
-        <div className="w-full overflow-hidden bg-white min-h-[360px] md:min-h-[480px]">
+      <section className="overflow-hidden border-t border-[#eadfd3] bg-[#f7f4ef]">
+        <div className="w-full overflow-hidden bg-white">
           <iframe
             title="Arileon — Wood Masters, Bengaluru"
             src={MAPS_EMBED}
-            className="block h-[360px] md:h-[480px] w-full border-0"
+            className="block h-[240px] w-full border-0 sm:h-[360px] md:h-[480px]"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
@@ -396,19 +403,21 @@ function Contact() {
         </div>
       </section>
 
-      {/* Values */}
-      <section className="bg-white border-t border-[#eadfd3]">
-        <div className="max-w-[1280px] mx-auto px-5 sm:px-8 lg:px-12 py-14 md:py-16">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
+      <section className="border-t border-[#eadfd3] bg-white">
+        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-8 sm:py-14 md:py-16 lg:px-12">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4 lg:gap-6">
             {values.map(({ icon: Icon, title, text }) => (
-              <div key={title} className="text-center flex flex-col items-center">
-                <span className="mb-4 inline-flex h-11 w-11 items-center justify-center text-[#6B4423]">
+              <div
+                key={title}
+                className="flex flex-col items-center px-2 text-center"
+              >
+                <span className="mb-3 inline-flex h-11 w-11 items-center justify-center text-[#6B4423] sm:mb-4">
                   <Icon size={24} strokeWidth={1.4} />
                 </span>
-                <h3 className="font-display text-base md:text-lg font-semibold">
+                <h3 className="font-display text-base font-semibold md:text-lg">
                   {title}
                 </h3>
-                <p className="mt-2 text-xs leading-5 text-[#3a2a1c]/70 max-w-[200px]">
+                <p className="mt-2 max-w-[260px] text-xs leading-5 text-[#3a2a1c]/70">
                   {text}
                 </p>
               </div>
@@ -417,7 +426,7 @@ function Contact() {
         </div>
       </section>
     </div>
-    );
-  }
-  
-  export default Contact;
+  );
+}
+
+export default Contact;

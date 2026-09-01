@@ -308,6 +308,27 @@ function Navbar() {
         {menuOpen && (
           <nav className="lg:hidden border-t border-[#eadfd3] py-2 max-h-[calc(100dvh-64px)] overflow-y-auto overscroll-contain">
             <ul className="flex flex-col text-[15px] text-[#3a4550]">
+              <li className="border-b border-[#eadfd3]/80 px-1 py-3">
+                <form
+                  onSubmit={handleSearch}
+                  className="flex h-11 items-center overflow-hidden rounded-md border border-[#cfc5b8] bg-white"
+                >
+                  <input
+                    type="search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search products..."
+                    className="h-full min-w-0 flex-1 bg-transparent px-3 text-base outline-none text-dark-brown placeholder:text-[#3a4550]/50"
+                  />
+                  <button
+                    type="submit"
+                    aria-label="Search"
+                    className="h-full border-l border-[#cfc5b8] px-3 text-dark-brown"
+                  >
+                    <Search size={16} strokeWidth={1.6} />
+                  </button>
+                </form>
+              </li>
               {NAV_LINKS_BEFORE.map((link) => (
                 <li key={link.label}>
                   <Link
