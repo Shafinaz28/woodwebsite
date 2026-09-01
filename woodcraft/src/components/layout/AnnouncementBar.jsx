@@ -1,18 +1,19 @@
 import { Phone, Truck, Trees, Hammer, Sparkles } from "lucide-react";
+import SocialIcons from "./SocialIcons";
 
 function AnnouncementBar() {
   return (
     <div className="bg-dark-brown text-background">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10 h-10 flex items-center justify-between gap-4 text-[10px] sm:text-[11px]">
+      <div className="mx-auto flex h-10 max-w-[1500px] items-center justify-between gap-4 px-4 text-[10px] sm:px-5 sm:text-[11px] md:px-10">
         <a
           href="#shipping"
-          className="hidden lg:inline-flex items-center gap-2 shrink-0 hover:text-cream transition"
+          className="hidden shrink-0 items-center gap-2 transition hover:text-cream lg:inline-flex"
         >
           <Truck size={13} strokeWidth={1.7} />
           <span>Free Delivery Across Bengaluru</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-4 lg:gap-6 flex-1 justify-center text-background/90">
+        <div className="hidden flex-1 items-center justify-center gap-4 text-background/90 md:flex lg:gap-6">
           <span className="inline-flex items-center gap-1.5">
             <Trees size={12} strokeWidth={1.7} />
             Authentic Wood
@@ -29,17 +30,25 @@ function AnnouncementBar() {
           </span>
         </div>
 
-        <p className="md:hidden flex-1 text-center tracking-wide">
+        <p className="flex-1 text-center tracking-wide md:hidden">
           Free Delivery · Authentic Wood
         </p>
 
-        <a
-          href="tel:+919980085805"
-          className="hidden sm:inline-flex items-center gap-2 shrink-0 hover:text-cream transition"
-        >
-          <Phone size={12} strokeWidth={1.75} />
-          <span>Call Us: +91 99800 85805</span>
-        </a>
+        <div className="flex shrink-0 items-center gap-3">
+          <SocialIcons
+            className="hidden sm:flex"
+            iconClassName="text-background hover:text-cream"
+            size={14}
+          />
+          <a
+            href="tel:+919980085805"
+            className="inline-flex items-center gap-2 transition hover:text-cream"
+          >
+            <Phone size={12} strokeWidth={1.75} />
+            <span className="hidden sm:inline">Call Us: +91 99800 85805</span>
+            <span className="sm:hidden">Call</span>
+          </a>
+        </div>
       </div>
     </div>
   );

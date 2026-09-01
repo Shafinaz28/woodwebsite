@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate, useLocation } from "react-router";
 import {
   Menu,
   X,
@@ -12,14 +12,17 @@ import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 import { fetchCatalog, subscribeToCatalog } from "../../lib/catalog";
 import Logo from "./Logo";
+import SocialIcons from "./SocialIcons";
 
 const NAV_LINKS_BEFORE = [
   { label: "Home", to: "/" },
-  { label: "Shop", to: "/shop" },
   { label: "Our Story", to: "/about" },
 ];
 
-const NAV_LINKS_AFTER = [{ label: "Contact", to: "/contact" }];
+const NAV_LINKS_AFTER = [
+  { label: "Blog", to: "/blog" },
+  { label: "Contact", to: "/contact" },
+];
 
 const PRODUCT_FOLDERS = [
   { key: "all", label: "All Products", category: null },
@@ -40,6 +43,10 @@ function Navbar() {
   const [listOpen, setListOpen] = useState(false);
   const [productsOpen, setProductsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const onProducts =
+    location.pathname.startsWith("/shop") ||
+    location.pathname.startsWith("/product/");
   const { cartCount } = useCart();
   const { user, isAdmin } = useAuth();
   const searchRef = useRef(null);
@@ -174,7 +181,7 @@ function Navbar() {
                   type="button"
                   onClick={() => setProductsOpen((open) => !open)}
                   className={`inline-flex items-center gap-1 px-2.5 xl:px-3 py-2 transition hover:text-dark-brown ${
-                    productsOpen
+                    productsOpen || onProducts
                       ? "text-dark-brown font-semibold"
                       : "font-medium"
                   }`}
@@ -214,6 +221,12 @@ function Navbar() {
           </nav>
 
           <div className="flex items-center justify-end gap-2.5 sm:gap-4 shrink-0 justify-self-end lg:col-start-3">
+            <SocialIcons
+              className="hidden md:flex"
+              iconClassName="h-8 w-8 rounded-full border border-[#cfc5b8] text-[#4a2c18] hover:bg-[#f7f4ef]"
+              size={15}
+            />
+
             <div ref={searchRef} className="relative hidden md:block">
               <form
                 onSubmit={handleSearch}
@@ -373,6 +386,9 @@ function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className="flex items-center gap-3 px-1 py-4">
+                <SocialIcons iconClassName="text-dark-brown" size={18} />
+              </li>
             </ul>
           </nav>
         )}

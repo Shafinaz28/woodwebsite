@@ -4,7 +4,8 @@ import { AdminHeader, card } from "./adminUi.jsx";
 
 const pages = [
   { title: "Home", path: "/", note: "Hero, shop by room, blog cards" },
-  { title: "Shop", path: "/shop", note: "Product catalog" },
+  { title: "Products", path: "/shop", note: "Product catalog" },
+  { title: "Blog", path: "/blog", note: "Articles" },
   { title: "About / Our Story", path: "/about", note: "Brand story" },
   { title: "Contact", path: "/contact", note: "Form, map, WhatsApp" },
   { title: "Terms & Conditions", path: "/terms", note: "Legal — edit src/pages/Terms.jsx" },
