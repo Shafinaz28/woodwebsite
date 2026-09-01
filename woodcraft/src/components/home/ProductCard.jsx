@@ -17,8 +17,8 @@ function ProductCard({ product }) {
   }
 
   return (
-    <div className="group flex flex-col h-full bg-cream/70 border border-dark-brown/10 rounded-xl overflow-hidden shadow-[0_1px_3px_rgba(42,24,8,0.06)]">
-      <div className="relative overflow-hidden bg-[#f3ebe0] aspect-[4/3] flex items-center justify-center p-2">
+    <div className="group flex h-full min-w-0 flex-col overflow-hidden rounded-xl border border-dark-brown/10 bg-cream/70 shadow-[0_1px_3px_rgba(42,24,8,0.06)]">
+      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#f3ebe0] p-1.5 sm:p-2">
         <Link
           to={`/product/${product.slug}`}
           className="flex h-full w-full items-center justify-center"
@@ -26,12 +26,12 @@ function ProductCard({ product }) {
           <img
             src={image}
             alt={product.name}
-            className="w-full h-full object-cover transition duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
           />
         </Link>
 
         {product.tag && (
-          <span className="absolute top-3 left-3 bg-[#5c6b3a] text-white px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] font-medium">
+          <span className="absolute left-2 top-2 bg-[#5c6b3a] px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-[0.1em] text-white sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-[10px]">
             {product.tag}
           </span>
         )}
@@ -39,42 +39,45 @@ function ProductCard({ product }) {
         <button
           type="button"
           aria-label="Add to wishlist"
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-dark-brown hover:text-wood transition shadow-sm"
+          className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-dark-brown shadow-sm sm:right-3 sm:top-3 sm:h-9 sm:w-9"
         >
-          <Heart size={16} strokeWidth={1.5} />
+          <Heart size={14} strokeWidth={1.5} />
         </button>
       </div>
 
-      <div className="flex flex-col flex-1 p-4 pt-3">
-        <p className="text-[10px] uppercase tracking-[0.16em] text-[#6B4423]/80 mb-1.5">
+      <div className="flex flex-1 flex-col p-2.5 pt-2 sm:p-4 sm:pt-3">
+        <p className="mb-1 truncate text-[9px] uppercase tracking-[0.14em] text-[#6B4423]/80 sm:mb-1.5 sm:text-[10px]">
           {product.subcategory || product.category}
         </p>
-        <Link to={`/product/${product.slug}`}>
-          <h3 className="font-display text-base md:text-lg font-bold text-dark-brown line-clamp-2 min-h-[2.75rem] leading-snug">
+        <Link to={`/product/${product.slug}`} className="min-w-0">
+          <h3 className="font-display line-clamp-2 min-h-[2.4rem] text-sm font-bold leading-snug text-dark-brown sm:min-h-[2.75rem] sm:text-base md:text-lg">
             {product.name}
           </h3>
         </Link>
 
-        <div className="mt-2.5 flex items-center gap-1.5">
+        <div className="mt-1.5 flex items-center gap-1 sm:mt-2.5 sm:gap-1.5">
           <div className="flex items-center gap-0.5 text-[#c4a35a]">
             {Array.from({ length: 5 }).map((_, index) => (
-              <Star key={index} size={13} fill="currentColor" strokeWidth={0} />
+              <Star key={index} size={11} fill="currentColor" strokeWidth={0} />
             ))}
           </div>
-          <span className="text-[11px] font-bold text-dark-brown">({reviews})</span>
+          <span className="text-[10px] font-bold text-dark-brown sm:text-[11px]">
+            ({reviews})
+          </span>
         </div>
 
-        <div className="mt-auto pt-4">
+        <div className="mt-auto pt-3 sm:pt-4">
           <button
             type="button"
             onClick={handleAdd}
-            className="w-full h-11 inline-flex items-stretch rounded-md overflow-hidden bg-[#c4a574] text-dark-brown hover:bg-[#b89560] transition"
+            className="inline-flex h-10 w-full items-stretch overflow-hidden rounded-md bg-[#c4a574] text-dark-brown transition hover:bg-[#b89560] sm:h-11"
           >
-            <span className="flex-1 h-full inline-flex items-center justify-center text-[11px] uppercase tracking-[0.14em] font-bold">
-              Add to Cart
+            <span className="inline-flex h-full flex-1 items-center justify-center px-1 text-[10px] font-bold uppercase tracking-[0.1em] sm:text-[11px] sm:tracking-[0.14em]">
+              <span className="sm:hidden">Add</span>
+              <span className="hidden sm:inline">Add to Cart</span>
             </span>
-            <span className="w-11 h-full shrink-0 inline-flex items-center justify-center border-l border-dark-brown/25">
-              <ShoppingCart size={16} strokeWidth={2} />
+            <span className="inline-flex h-full w-9 shrink-0 items-center justify-center border-l border-dark-brown/25 sm:w-11">
+              <ShoppingCart size={15} strokeWidth={2} />
             </span>
           </button>
         </div>

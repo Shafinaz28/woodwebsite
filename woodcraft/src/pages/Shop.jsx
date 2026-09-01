@@ -1,6 +1,6 @@
 import { useMemo, useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSearchParams } from "react-router";
+import { ChevronLeft, ChevronRight, SlidersHorizontal } from "lucide-react";
 import ProductCard from "../components/home/ProductCard";
 import { fetchCatalog, subscribeToCatalog } from "../lib/catalog";
 import { getCategories } from "../lib/categories";
@@ -20,6 +20,7 @@ function Shop() {
   const [sortBy, setSortBy] = useState("featured");
   const [material, setMaterial] = useState("All");
   const [availability, setAvailability] = useState("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -75,14 +76,7 @@ function Shop() {
     }
 
     return list;
-  }, [
-    products,
-    selectedCategory,
-    query,
-    material,
-    availability,
-    sortBy,
-  ]);
+  }, [products, selectedCategory, query, material, availability, sortBy]);
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
@@ -103,7 +97,7 @@ function Shop() {
     if (nextPage <= 1) next.delete("page");
     else next.set("page", String(nextPage));
     setSearchParams(next);
-    window.scrollTo({ top: 320, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function clearFilters() {
@@ -122,137 +116,177 @@ function Shop() {
   const heading =
     selectedCategory === "All" ? "All Furniture" : selectedCategory;
 
+  const pageItems = useMemo(() => {
+    if (totalPages <= 5) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    const nums = new Set([
+      1,
+      totalPages,
+      currentPage,
+      currentPage - 1,
+      currentPage + 1,
+    ]);
+    return [...nums]
+      .filter((n) => n >= 1 && n <= totalPages)
+      .sort((a, b) => a - b);
+  }, [totalPages, currentPage]);
+
+  function FiltersPanel({ formId }) {
+    return (
+    <>
+      <FilterBlock title="Categories">
+        <ul className="space-y-2.5">
+          {CATEGORIES.map((cat) => (
+            <li key={cat}>
+              <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+                <input
+                  type="radio"
+                  name={`${formId}-category`}
+                  checked={selectedCategory === cat}
+                  onChange={() => selectCategory(cat)}
+                  className="accent-[#4a2c18]"
+                />
+                <span
+                  className={
+                    selectedCategory === cat
+                      ? "font-semibold text-[#2b1d0e]"
+                      : "text-[#2b1d0e]/75"
+                  }
+                >
+                  {cat === "All" ? "All Products" : cat}
+                </span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </FilterBlock>
+
+      <FilterBlock title="Material">
+        <ul className="space-y-2.5">
+          <li>
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+              <input
+                type="radio"
+                name={`${formId}-material`}
+                checked={material === "All"}
+                onChange={() => setMaterial("All")}
+                className="accent-[#4a2c18]"
+              />
+              All
+            </label>
+          </li>
+          {MATERIALS.map((m) => (
+            <li key={m}>
+              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-[#2b1d0e]/75">
+                <input
+                  type="radio"
+                  name={`${formId}-material`}
+                  checked={material === m}
+                  onChange={() => setMaterial(m)}
+                  className="accent-[#4a2c18]"
+                />
+                {m}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </FilterBlock>
+
+      <FilterBlock title="Availability">
+        <ul className="space-y-2.5">
+          {[
+            { id: "all", label: "All items" },
+            { id: "new", label: "New arrivals" },
+            { id: "bestseller", label: "Bestsellers" },
+          ].map((opt) => (
+            <li key={opt.id}>
+              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-[#2b1d0e]/75">
+                <input
+                  type="radio"
+                  name={`${formId}-availability`}
+                  checked={availability === opt.id}
+                  onChange={() => setAvailability(opt.id)}
+                  className="accent-[#4a2c18]"
+                />
+                {opt.label}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </FilterBlock>
+
+      <button
+        type="button"
+        onClick={clearFilters}
+        className="w-full border border-[#4a2c18] py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#4a2c18] transition hover:bg-[#4a2c18] hover:text-white"
+      >
+        Clear All Filters
+      </button>
+    </>
+    );
+  }
+
   return (
-    <main className="bg-[#f7f4ef] text-[#2b1d0e]">
-      <section className="relative min-h-[240px] md:min-h-[300px] overflow-hidden bg-[#1a120c]">
+    <main className="overflow-x-hidden bg-[#f7f4ef] text-[#2b1d0e]">
+      <section className="relative min-h-[180px] overflow-hidden bg-[#1a120c] sm:min-h-[240px] md:min-h-[300px]">
         <img
           src="/images/shop/hero-bg.avif"
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-[#1a120c]/40" />
-        <div className="relative z-10 mx-auto flex min-h-[240px] max-w-[1500px] items-center justify-center px-5 md:min-h-[300px] md:px-10">
-          <div className="max-w-xl text-center text-white">
-            <p className="mb-3 text-[11px] uppercase tracking-[0.28em] text-white/70">
+        <div className="relative z-10 mx-auto flex min-h-[180px] max-w-[1500px] items-center justify-center px-4 sm:min-h-[240px] sm:px-5 md:min-h-[300px] md:px-10">
+          <div className="max-w-xl px-1 text-center text-white">
+            <p className="mb-2 text-[10px] uppercase tracking-[0.28em] text-white/70 sm:mb-3 sm:text-[11px]">
               Catalog
             </p>
-            <h1 className="font-display text-4xl font-semibold leading-[1.1] md:text-5xl">
+            <h1 className="font-display text-3xl font-semibold leading-[1.15] sm:text-4xl md:text-5xl">
               {heading}
             </h1>
-            <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-white/85 md:text-[15px]">
+            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-white/85 sm:mt-4 sm:leading-7 md:text-[15px]">
               Solid wood furniture for living, dining, bedroom, and more.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="py-10 md:py-14">
-        <div className="mx-auto max-w-[1500px] px-5 md:px-10">
-          <div className="grid gap-10 lg:grid-cols-[240px_1fr] lg:gap-12">
-            <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
-              <FilterBlock title="Categories">
-                <ul className="space-y-2.5">
-                  {CATEGORIES.map((cat) => (
-                    <li key={cat}>
-                      <label className="flex cursor-pointer items-center gap-2.5 text-sm">
-                        <input
-                          type="radio"
-                          name="category"
-                          checked={selectedCategory === cat}
-                          onChange={() => selectCategory(cat)}
-                          className="accent-[#4a2c18]"
-                        />
-                        <span
-                          className={
-                            selectedCategory === cat
-                              ? "font-semibold text-[#2b1d0e]"
-                              : "text-[#2b1d0e]/75"
-                          }
-                        >
-                          {cat === "All" ? "All Products" : cat}
-                        </span>
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </FilterBlock>
-
-              <FilterBlock title="Material">
-                <ul className="space-y-2.5">
-                  <li>
-                    <label className="flex cursor-pointer items-center gap-2.5 text-sm">
-                      <input
-                        type="radio"
-                        name="material"
-                        checked={material === "All"}
-                        onChange={() => setMaterial("All")}
-                        className="accent-[#4a2c18]"
-                      />
-                      All
-                    </label>
-                  </li>
-                  {MATERIALS.map((m) => (
-                    <li key={m}>
-                      <label className="flex cursor-pointer items-center gap-2.5 text-sm text-[#2b1d0e]/75">
-                        <input
-                          type="radio"
-                          name="material"
-                          checked={material === m}
-                          onChange={() => setMaterial(m)}
-                          className="accent-[#4a2c18]"
-                        />
-                        {m}
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </FilterBlock>
-
-              <FilterBlock title="Availability">
-                <ul className="space-y-2.5">
-                  {[
-                    { id: "all", label: "All items" },
-                    { id: "new", label: "New arrivals" },
-                    { id: "bestseller", label: "Bestsellers" },
-                  ].map((opt) => (
-                    <li key={opt.id}>
-                      <label className="flex cursor-pointer items-center gap-2.5 text-sm text-[#2b1d0e]/75">
-                        <input
-                          type="radio"
-                          name="availability"
-                          checked={availability === opt.id}
-                          onChange={() => setAvailability(opt.id)}
-                          className="accent-[#4a2c18]"
-                        />
-                        {opt.label}
-                      </label>
-                    </li>
-                  ))}
-                </ul>
-              </FilterBlock>
-
+      <section className="py-6 sm:py-10 md:py-14">
+        <div className="mx-auto max-w-[1500px] px-3 sm:px-5 md:px-10">
+          <div className="grid gap-6 lg:grid-cols-[240px_1fr] lg:gap-12">
+            <div className="lg:hidden">
               <button
                 type="button"
-                onClick={clearFilters}
-                className="w-full border border-[#4a2c18] py-3 text-[11px] font-bold uppercase tracking-[0.16em] text-[#4a2c18] transition hover:bg-[#4a2c18] hover:text-white"
+                onClick={() => setFiltersOpen((open) => !open)}
+                className="flex h-12 w-full items-center justify-center gap-2 border border-[#4a2c18] bg-white text-[11px] font-bold uppercase tracking-[0.16em] text-[#4a2c18]"
               >
-                Clear All Filters
+                <SlidersHorizontal size={16} />
+                {filtersOpen ? "Hide filters" : "Filters"}
               </button>
+              {filtersOpen ? (
+                <div className="mt-3 space-y-8 border border-[#4a2c18]/10 bg-white p-4">
+                  <FiltersPanel formId="mobile" />
+                </div>
+              ) : null}
+            </div>
+
+            <aside className="hidden space-y-8 lg:sticky lg:top-28 lg:block lg:self-start">
+              <FiltersPanel formId="desktop" />
             </aside>
 
-            <div>
-              <div className="mb-6 flex flex-col gap-4 border-b border-[#4a2c18]/10 pb-4 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm text-[#2b1d0e]/75">
+            <div className="min-w-0">
+              <div className="mb-4 flex flex-col gap-3 border-b border-[#4a2c18]/10 pb-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-xs text-[#2b1d0e]/75 sm:text-sm">
                   {loading
                     ? "Loading products..."
                     : `Showing ${showingFrom}–${showingTo} of ${filteredProducts.length} products`}
                 </p>
-                <label className="flex items-center gap-2 text-sm text-[#2b1d0e]/75">
-                  <span className="whitespace-nowrap">Sort by:</span>
+                <label className="flex min-w-0 items-center gap-2 text-sm text-[#2b1d0e]/75">
+                  <span className="shrink-0">Sort by:</span>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="border border-[#4a2c18]/20 bg-transparent px-3 py-2 text-sm text-[#2b1d0e] outline-none"
+                    className="min-w-0 flex-1 border border-[#4a2c18]/20 bg-white px-3 py-2 text-sm text-[#2b1d0e] outline-none sm:flex-none"
                   >
                     <option value="featured">Featured</option>
                     <option value="name">Name</option>
@@ -261,7 +295,7 @@ function Shop() {
               </div>
 
               {loading && (
-                <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-6">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-5 md:grid-cols-3 md:gap-6">
                   {Array.from({ length: 6 }).map((_, i) => (
                     <div
                       key={i}
@@ -272,7 +306,7 @@ function Shop() {
               )}
 
               {!loading && (
-                <div className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 md:gap-6">
+                <div className="grid grid-cols-2 gap-2.5 sm:gap-5 md:grid-cols-3 md:gap-6">
                   {pageProducts.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
@@ -287,7 +321,7 @@ function Shop() {
 
               {totalPages > 1 && (
                 <nav
-                  className="mt-10 flex items-center justify-center gap-1.5"
+                  className="mt-8 flex flex-wrap items-center justify-center gap-1 sm:mt-10"
                   aria-label="Pagination"
                 >
                   <button
@@ -299,10 +333,12 @@ function Shop() {
                   >
                     <ChevronLeft size={18} />
                   </button>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                    (n) => (
+                  {pageItems.map((n, i) => (
+                    <span key={n} className="contents">
+                      {i > 0 && pageItems[i - 1] !== n - 1 ? (
+                        <span className="px-1 text-[#2b1d0e]/40">…</span>
+                      ) : null}
                       <button
-                        key={n}
                         type="button"
                         onClick={() => setPage(n)}
                         className={`h-9 min-w-9 px-2 text-sm font-semibold ${
@@ -313,8 +349,8 @@ function Shop() {
                       >
                         {n}
                       </button>
-                    )
-                  )}
+                    </span>
+                  ))}
                   <button
                     type="button"
                     disabled={currentPage >= totalPages}
