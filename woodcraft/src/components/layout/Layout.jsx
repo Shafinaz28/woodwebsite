@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
 import WhatsAppButton from "./WhatsAppButton";
+import PageReveal from "./PageReveal";
 
 function Layout() {
   return (
@@ -16,7 +17,9 @@ function Layout() {
       <Navbar />
 
       <main>
-        <Outlet />
+        <PageReveal>
+          <Outlet />
+        </PageReveal>
       </main>
 
       <Footer />

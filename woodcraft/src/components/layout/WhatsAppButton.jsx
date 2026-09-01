@@ -24,17 +24,18 @@ function WhatsAppIcon({ size = 28 }) {
 
 function WhatsAppButton() {
   return (
-    <div className="pointer-events-none fixed z-[100] flex flex-col items-end gap-3 print:hidden bottom-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] right-[max(1.25rem,calc(env(safe-area-inset-right)+0.75rem))] md:bottom-[max(1.75rem,calc(env(safe-area-inset-bottom)+1rem))] md:right-[max(1.75rem,calc(env(safe-area-inset-right)+1rem))]">
+    <div
+      data-float-actions
+      className="pointer-events-none fixed z-[100] flex flex-col items-end gap-3 print:hidden bottom-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] right-[max(1.25rem,calc(env(safe-area-inset-right)+0.75rem))] md:bottom-[max(1.75rem,calc(env(safe-area-inset-bottom)+1rem))] md:right-[max(1.75rem,calc(env(safe-area-inset-right)+1rem))]"
+    >
       <a
         href={TEL_URL}
         aria-label="Call Us"
         title="Call Us"
-        className="pointer-events-auto flex h-14 items-center gap-2 rounded-full bg-[#4a2c18] pl-4 pr-5 text-white shadow-[0_8px_24px_rgba(74,44,24,0.4)] touch-manipulation select-none md:h-16"
+        className="pointer-events-auto flex size-14 items-center justify-center rounded-full bg-[#4a2c18] text-white shadow-[0_8px_24px_rgba(74,44,24,0.4)] touch-manipulation select-none md:size-16"
       >
-        <Phone size={20} strokeWidth={2} />
-        <span className="text-[11px] font-bold uppercase tracking-[0.14em]">
-          Call Us
-        </span>
+        <Phone size={22} strokeWidth={2} />
+        <span className="sr-only">Call Us</span>
       </a>
 
       <a

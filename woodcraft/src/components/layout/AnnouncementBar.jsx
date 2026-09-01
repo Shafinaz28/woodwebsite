@@ -34,11 +34,11 @@ function AnnouncementBar() {
           Free Delivery · Authentic Wood
         </p>
 
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-4">
           <SocialIcons
             className="hidden sm:flex"
             iconClassName="text-background hover:text-cream"
-            size={14}
+            size={15}
           />
           <a
             href="tel:+919980085805"

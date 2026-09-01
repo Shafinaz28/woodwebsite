@@ -8,6 +8,8 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
+    host: true,
+    port: 5173,
     watch: {
       ignored: ["**/public/**/*.mp4", "**/public/**/*.webm", "**/public/**/*.mov"],
     },
