@@ -13,9 +13,9 @@ function Logo({
   align = "left",
 }) {
   const heights = {
-    sm: "h-12",
-    md: "h-14 sm:h-16",
-    lg: "h-16 md:h-20",
+    sm: "h-14",
+    md: "h-[4.5rem] sm:h-[5.25rem] lg:h-[6rem]",
+    lg: "h-20 md:h-24",
   };
 
   const img = (

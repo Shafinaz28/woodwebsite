@@ -154,13 +154,13 @@ function Navbar() {
       data-gsap-nav
       className="bg-white text-dark-brown sticky top-0 z-50 border-b border-[#eadfd3]"
     >
-      <div className="max-w-[1500px] mx-auto px-3 sm:px-6 lg:px-10">
-        <div className="h-[64px] sm:h-[76px] lg:h-[96px] grid grid-cols-[auto_1fr] lg:grid-cols-[1fr_auto_1fr] items-center gap-2 sm:gap-4">
+      <div className="mx-auto max-w-[1760px] px-3 sm:px-6 lg:px-12">
+        <div className="grid h-[80px] grid-cols-[auto_1fr] items-center gap-2 sm:h-[92px] sm:gap-4 lg:h-[112px] lg:grid-cols-[1fr_auto_1fr]">
           <Logo
             to="/"
             onClick={closeMobile}
             size="md"
-            className="justify-self-start sm:scale-105 lg:scale-110 origin-left"
+            className="justify-self-start origin-left"
           />
 
           <nav className="hidden lg:flex items-center justify-center justify-self-center">

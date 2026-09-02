@@ -13,7 +13,6 @@ function PageReveal({ children }) {
   const { pathname } = useLocation();
   const chromeDone = useRef(false);
   const footerDone = useRef(false);
-  const floatDone = useRef(false);
 
   useLayoutEffect(() => {
     if (prefersReducedMotion()) return undefined;
@@ -68,25 +67,6 @@ function PageReveal({ children }) {
         );
       }
       footerDone.current = true;
-    }
-
-    if (!floatDone.current) {
-      const float = document.querySelector("[data-float-actions]");
-      if (float) {
-        gsap.fromTo(
-          float,
-          { opacity: 0, scale: 0.85, y: 16 },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            duration: 0.5,
-            delay: 0.35,
-            ease: "back.out(1.4)",
-          }
-        );
-      }
-      floatDone.current = true;
     }
 
     const ctx = gsap.context(() => {

@@ -160,7 +160,7 @@ function Footer() {
         </div>
 
         <div className="border-t border-white/10">
-          <div className="flex flex-col items-center gap-3 px-5 py-4 pb-36 md:pb-8">
+          <div className="flex flex-col items-center gap-3 px-5 py-4 pb-28 md:pb-8">
             <p className="text-center text-sm text-white/50">
               © Arileon 2026 All Rights Reserved.
             </p>

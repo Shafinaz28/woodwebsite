@@ -1,14 +1,12 @@
 import { Phone } from "lucide-react";
 
 const PHONE = "919986587575";
-const TEL_URL = `tel:+${PHONE}`;
+const TEL_URL = "tel:+919986587575";
 const WHATSAPP_URL =
-  "https://wa.me/" +
-  PHONE +
-  "?text=" +
+  "https://wa.me/919986587575?text=" +
   encodeURIComponent("Hi Arileon, I would like to know more about your furniture.");
 
-function WhatsAppIcon({ size = 28 }) {
+function WhatsAppIcon({ size = 22 }) {
   return (
     <svg
       width={size}
@@ -22,20 +20,20 @@ function WhatsAppIcon({ size = 28 }) {
   );
 }
 
+const btn =
+  "flex size-12 items-center justify-center rounded-full text-white shadow-[0_6px_20px_rgba(0,0,0,0.28)] ring-2 ring-white touch-manipulation select-none md:size-14";
+
 function WhatsAppButton() {
   return (
-    <div
-      data-float-actions
-      className="pointer-events-none fixed z-[100] flex flex-col items-end gap-3 print:hidden bottom-[max(1.25rem,calc(env(safe-area-inset-bottom)+0.75rem))] right-[max(1.25rem,calc(env(safe-area-inset-right)+0.75rem))] md:bottom-[max(1.75rem,calc(env(safe-area-inset-bottom)+1rem))] md:right-[max(1.75rem,calc(env(safe-area-inset-right)+1rem))]"
-    >
+    <div className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(0.85rem,env(safe-area-inset-right))] z-[200] flex flex-col items-center gap-2.5 print:hidden md:bottom-6 md:right-6">
       <a
         href={TEL_URL}
-        aria-label="Call Us"
-        title="Call Us"
-        className="pointer-events-auto flex size-14 items-center justify-center rounded-full bg-[#4a2c18] text-white shadow-[0_8px_24px_rgba(74,44,24,0.4)] touch-manipulation select-none md:size-16"
+        aria-label="Call Arileon"
+        title="Call"
+        className={`${btn} bg-[#c4a574]`}
       >
-        <Phone size={22} strokeWidth={2} />
-        <span className="sr-only">Call Us</span>
+        <Phone size={20} strokeWidth={2.25} />
+        <span className="sr-only">Call</span>
       </a>
 
       <a
@@ -43,11 +41,11 @@ function WhatsAppButton() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        title="Chat on WhatsApp"
-        className="pointer-events-auto flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_8px_24px_rgba(37,211,102,0.45)] touch-manipulation select-none md:size-16"
+        title="WhatsApp"
+        className={`${btn} bg-[#25D366]`}
       >
-        <WhatsAppIcon size={28} />
-        <span className="sr-only">Chat on WhatsApp</span>
+        <WhatsAppIcon size={22} />
+        <span className="sr-only">WhatsApp</span>
       </a>
     </div>
   );
