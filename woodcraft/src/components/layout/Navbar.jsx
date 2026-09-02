@@ -5,10 +5,12 @@ import {
   Menu,
   X,
   Search,
+  UserRound,
   ShoppingCart,
   ChevronDown,
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 import { fetchCatalog, subscribeToCatalog } from "../../lib/catalog";
 import Logo from "./Logo";
 
@@ -46,8 +48,10 @@ function Navbar() {
     location.pathname.startsWith("/shop") ||
     location.pathname.startsWith("/product/");
   const { cartCount } = useCart();
+  const { user, isAdmin } = useAuth();
   const searchRef = useRef(null);
   const productsRef = useRef(null);
+  const accountTo = user && isAdmin ? "/admin" : "/admin/login";
 
   useEffect(() => {
     let active = true;
@@ -281,6 +285,15 @@ function Navbar() {
                 </div>
               )}
             </div>
+
+            <Link
+              to={accountTo}
+              aria-label={user && isAdmin ? "Admin dashboard" : "Admin login"}
+              className="hidden p-1.5 text-dark-brown transition hover:opacity-70 lg:inline-flex"
+              title={user && isAdmin ? "Admin dashboard" : "Admin login"}
+            >
+              <UserRound size={20} strokeWidth={1.5} />
+            </Link>
 
             <Link
               to="/cart"
