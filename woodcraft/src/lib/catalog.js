@@ -14,6 +14,32 @@ function toAvifIfLocal(src) {
   return src.replace(/\.(png|jpe?g)(\?.*)?$/i, ".avif$2");
 }
 
+function isRemoteImage(src) {
+  return /^https?:\/\//i.test(String(src || "").trim());
+}
+
+const knownLocalImages = new Set(
+  localProducts.flatMap((item) => {
+    const src = String(item.image || "").trim();
+    if (!src || isRemoteImage(src)) return [];
+    const withSlash = src.startsWith("/") ? src : `/${src.replace(/^\.?\//, "")}`;
+    return [withSlash, toAvifIfLocal(withSlash)];
+  })
+);
+
+function isUsableProductImage(src) {
+  const value = String(src || "").trim();
+  if (!value) return false;
+  if (isRemoteImage(value)) return true;
+  const withSlash = value.startsWith("/")
+    ? value
+    : `/${value.replace(/^\.?\//, "")}`;
+  return (
+    knownLocalImages.has(withSlash) ||
+    knownLocalImages.has(toAvifIfLocal(withSlash))
+  );
+}
+
 function parseProductImages(product = {}) {
   const direct = Array.isArray(product?.images)
     ? product.images.filter(Boolean).map(String)
@@ -67,8 +93,15 @@ export function normalizeProduct(row = {}) {
     localByName.get(row.name?.toLowerCase?.() || "") ||
     {};
 
-  // Prefer Supabase/uploaded image when present
-  const imageSource = row.image || row.image_url || local.image || "";
+  let imageSource = row.image || row.image_url || local.image || "";
+  if (
+    imageSource &&
+    !isRemoteImage(imageSource) &&
+    !isUsableProductImage(imageSource) &&
+    local.image
+  ) {
+    imageSource = local.image;
+  }
 
   const images = parseProductImages({ ...local, ...row, image: imageSource });
 
@@ -130,7 +163,7 @@ export async function fetchCatalog() {
       }
     }
     return [...newlyAdded, ...Array.from(bySlug.values())].filter(
-      (item) => item.listed !== false
+      (item) => item.listed !== false && isUsableProductImage(item.image)
     );
   } catch (err) {
     console.error("Supabase fetch failed:", err);
@@ -159,7 +192,11 @@ export async function fetchProductBySlug(slug) {
 
     if (data) {
       const product = normalizeProduct(data);
-      return product.listed === false ? null : product;
+      if (product.listed === false || !isUsableProductImage(product.image)) {
+        const local = localProducts.find((item) => item.slug === slug);
+        return local ? normalizeProduct(local) : null;
+      }
+      return product;
     }
 
     const local = localProducts.find((item) => item.slug === slug);

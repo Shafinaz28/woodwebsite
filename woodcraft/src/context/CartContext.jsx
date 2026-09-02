@@ -1,11 +1,16 @@
-import { createContext, useContext, useMemo, useState } from "react";
-import { discountFromCoupon, findCoupon } from "../lib/coupons";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  discountFromCoupon,
+  validateCoupon,
+} from "../lib/coupons";
 
 const CartContext = createContext();
+const COUPON_SESSION_KEY = "arileon_coupon_code";
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
-  const [coupon, setCoupon] = useState(null);
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponMessage, setCouponMessage] = useState("");
 
   function addToCart(product, quantity = 1) {
     setCart((currentCart) => {
@@ -59,20 +64,9 @@ export function CartProvider({ children }) {
 
   function clearCart() {
     setCart([]);
-    setCoupon(null);
-  }
-
-  function applyCoupon(code) {
-    const found = findCoupon(code);
-    if (!found) {
-      throw new Error("Invalid or inactive coupon code");
-    }
-    setCoupon(found);
-    return found;
-  }
-
-  function removeCoupon() {
-    setCoupon(null);
+    setAppliedCoupon(null);
+    setCouponMessage("");
+    sessionStorage.removeItem(COUPON_SESSION_KEY);
   }
 
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
@@ -82,10 +76,46 @@ export function CartProvider({ children }) {
     0
   );
 
+  useEffect(() => {
+    const saved = sessionStorage.getItem(COUPON_SESSION_KEY);
+    if (!saved) {
+      setAppliedCoupon(null);
+      return;
+    }
+    const result = validateCoupon(saved, cartTotal);
+    if (result.ok) {
+      setAppliedCoupon(result.coupon);
+      setCouponMessage("");
+    } else {
+      setAppliedCoupon(null);
+      if (cart.length > 0) setCouponMessage(result.error);
+      sessionStorage.removeItem(COUPON_SESSION_KEY);
+    }
+  }, [cartTotal, cart.length]);
+
+  function applyCoupon(code) {
+    const result = validateCoupon(code, cartTotal);
+    if (!result.ok) {
+      setCouponMessage(result.error);
+      return result;
+    }
+    setAppliedCoupon(result.coupon);
+    setCouponMessage(`${result.coupon.code} applied — ${result.coupon.percent}% off`);
+    sessionStorage.setItem(COUPON_SESSION_KEY, result.coupon.code);
+    return result;
+  }
+
+  function removeCoupon() {
+    setAppliedCoupon(null);
+    setCouponMessage("");
+    sessionStorage.removeItem(COUPON_SESSION_KEY);
+  }
+
   const discount = useMemo(
-    () => discountFromCoupon(cartTotal, coupon),
-    [cartTotal, coupon]
+    () => discountFromCoupon(cartTotal, appliedCoupon),
+    [cartTotal, appliedCoupon]
   );
+
   const payableTotal = Math.max(0, cartTotal - discount);
 
   return (
@@ -98,11 +128,12 @@ export function CartProvider({ children }) {
         clearCart,
         cartCount,
         cartTotal,
-        coupon,
-        applyCoupon,
-        removeCoupon,
         discount,
         payableTotal,
+        appliedCoupon,
+        couponMessage,
+        applyCoupon,
+        removeCoupon,
       }}
     >
       {children}

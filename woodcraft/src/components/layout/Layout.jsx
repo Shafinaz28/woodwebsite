@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 
 import AnnouncementBar from "./AnnouncementBar";
+import FestivalOfferBar from "./FestivalOfferBar";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import ScrollToTop from "./ScrollToTop";
@@ -13,6 +14,7 @@ function Layout() {
       <ScrollToTop />
 
       <AnnouncementBar />
+      <FestivalOfferBar />
 
       <Navbar />
 

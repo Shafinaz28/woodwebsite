@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { getLiveCoupons } from "../lib/coupons";
 
 function Cart() {
   const {
@@ -10,29 +11,19 @@ function Cart() {
     removeFromCart,
     cartCount,
     cartTotal,
-    coupon,
-    applyCoupon,
-    removeCoupon,
     discount,
     payableTotal,
+    appliedCoupon,
+    couponMessage,
+    applyCoupon,
+    removeCoupon,
   } = useCart();
   const [code, setCode] = useState("");
-  const [couponError, setCouponError] = useState("");
+  const [liveCoupons, setLiveCoupons] = useState([]);
 
-  function handleApplyCoupon(e) {
-    e.preventDefault();
-    setCouponError("");
-    try {
-      applyCoupon(code);
-      setCode("");
-    } catch (err) {
-      setCouponError(
-        err.message === "Invalid or inactive coupon code"
-          ? "Code not found. Create it in Admin → Coupons, or try WELCOME10."
-          : err.message || "Could not apply coupon"
-      );
-    }
-  }
+  useEffect(() => {
+    setLiveCoupons(getLiveCoupons());
+  }, []);
 
   if (cart.length === 0) {
     return (
@@ -264,51 +255,14 @@ function Cart() {
 
               </div>
 
-              <form onSubmit={handleApplyCoupon} className="pt-2">
-                <p className="text-xs uppercase tracking-[0.15em] text-black/45 mb-2">
-                  Coupon code
-                </p>
-                <div className="flex gap-2">
-                  <input
-                    value={code}
-                    onChange={(e) => setCode(e.target.value.toUpperCase())}
-                    placeholder="WELCOME10"
-                    className="min-w-0 flex-1 border border-black/20 bg-white px-3 py-2 text-sm outline-none"
-                  />
-                  <button
-                    type="submit"
-                    className="shrink-0 bg-[#434f23] px-4 py-2 text-[11px] uppercase tracking-wider text-white"
-                  >
-                    Apply
-                  </button>
-                </div>
-                {couponError && (
-                  <p className="mt-2 text-xs text-red-700">{couponError}</p>
-                )}
-                {coupon && (
-                  <div className="mt-2 flex items-center justify-between text-sm text-[#434f23]">
-                    <span>
-                      {coupon.code} · {coupon.percent}% off
-                    </span>
-                    <button
-                      type="button"
-                      onClick={removeCoupon}
-                      className="text-xs uppercase tracking-wider text-black/50"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                )}
-              </form>
-
               {discount > 0 && (
-                <div className="flex justify-between text-sm">
-                  <span className="text-black/50">Discount</span>
+                <div className="flex justify-between text-sm text-[#434f23]">
+                  <span>Coupon {appliedCoupon?.code}</span>
                   <span>−₹{discount.toLocaleString("en-IN")}</span>
                 </div>
               )}
 
-              {cartTotal > 0 && (
+              {payableTotal > 0 && (
                 <div className="flex justify-between text-sm font-medium">
                   <span>To pay</span>
                   <span>₹{payableTotal.toLocaleString("en-IN")}</span>
@@ -316,6 +270,74 @@ function Cart() {
               )}
 
             </div>
+
+            <form
+              className="mt-6"
+              onSubmit={(e) => {
+                e.preventDefault();
+                applyCoupon(code);
+              }}
+            >
+              <p className="text-[11px] uppercase tracking-[0.16em] text-black/50">
+                Festival coupon
+              </p>
+              {!appliedCoupon && liveCoupons.length > 0 ? (
+                <div className="mt-2 space-y-2">
+                  {liveCoupons.map((item) => (
+                    <button
+                      key={item.id || item.code}
+                      type="button"
+                      onClick={() => applyCoupon(item.code)}
+                      className="flex w-full items-center justify-between border border-dashed border-dark-brown/25 bg-white px-3 py-2.5 text-left text-sm hover:border-dark-brown/50"
+                    >
+                      <span>
+                        <span className="font-semibold tracking-wide">
+                          {item.code}
+                        </span>
+                        {item.label ? (
+                          <span className="text-black/50"> · {item.label}</span>
+                        ) : null}
+                      </span>
+                      <span className="text-xs uppercase tracking-wider text-[#434f23]">
+                        {item.percent}% off · Apply
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+              {appliedCoupon ? (
+                <div className="mt-2 flex items-center justify-between border border-dark-brown/15 bg-white px-3 py-2.5 text-sm">
+                  <span>{appliedCoupon.code} · {appliedCoupon.percent}% off</span>
+                  <button
+                    type="button"
+                    onClick={removeCoupon}
+                    className="text-xs uppercase tracking-wider text-black/50"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-2 flex gap-2">
+                  <input
+                    value={code}
+                    onChange={(e) => setCode(e.target.value.toUpperCase())}
+                    placeholder="Enter code"
+                    className="min-w-0 flex-1 border border-dark-brown/15 bg-white px-3 py-2.5 text-sm outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="shrink-0 bg-black px-4 py-2.5 text-[11px] uppercase tracking-[0.14em] text-white"
+                  >
+                    Apply
+                  </button>
+                </div>
+              )}
+              {couponMessage ? (
+                <p className="mt-2 text-xs leading-5 text-black/60">
+                  {couponMessage}
+                </p>
+              ) : null}
+            </form>
 
 
             <div className="border-t border-black/10 my-7"></div>

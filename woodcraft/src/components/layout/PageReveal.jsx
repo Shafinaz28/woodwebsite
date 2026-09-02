@@ -169,7 +169,7 @@ function PageReveal({ children }) {
   }, [pathname]);
 
   return (
-    <div data-page-reveal className="min-w-0">
+    <div data-page-reveal className="min-w-0 overflow-visible">
       {children}
     </div>
   );

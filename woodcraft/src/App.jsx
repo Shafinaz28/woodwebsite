@@ -27,12 +27,13 @@ import AdminOrders from "./pages/admin/AdminOrders";
 import AdminCategories from "./pages/admin/AdminCategories";
 import AdminCategoryEditor from "./pages/admin/AdminCategoryEditor";
 import AdminCustomers from "./pages/admin/AdminCustomers";
-import AdminCoupons from "./pages/admin/AdminCoupons";
+import AdminEnquiries from "./pages/admin/AdminEnquiries";
 import AdminReviews from "./pages/admin/AdminReviews";
 import AdminStock from "./pages/admin/AdminStock";
 import AdminMedia from "./pages/admin/AdminMedia";
 import AdminPages from "./pages/admin/AdminPages";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminCoupons from "./pages/admin/AdminCoupons";
 
 function App() {
   const [booting, setBooting] = useState(true);
@@ -75,6 +76,7 @@ function App() {
             <Route path="categories" element={<AdminCategories />} />
             <Route path="categories/:category" element={<AdminCategoryEditor />} />
             <Route path="customers" element={<AdminCustomers />} />
+            <Route path="enquiries" element={<AdminEnquiries />} />
             <Route path="coupons" element={<AdminCoupons />} />
             <Route path="reviews" element={<AdminReviews />} />
             <Route path="stock" element={<AdminStock />} />

@@ -21,15 +21,15 @@ function ProductCard({ product }) {
       data-gsap-item
       className="group flex h-full min-w-0 flex-col overflow-hidden rounded-xl border border-dark-brown/10 bg-cream/70 shadow-[0_1px_3px_rgba(42,24,8,0.06)]"
     >
-      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[#f3ebe0] p-1.5 sm:p-2">
+      <div className="relative aspect-[4/3] overflow-hidden bg-[#f3ebe0]">
         <Link
           to={`/product/${product.slug}`}
-          className="flex h-full w-full items-center justify-center"
+          className="block h-full w-full"
         >
           <img
             src={image}
             alt={product.name}
-            className="h-full w-full object-contain object-center transition duration-700 group-hover:scale-105"
+            className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105"
           />
         </Link>
 

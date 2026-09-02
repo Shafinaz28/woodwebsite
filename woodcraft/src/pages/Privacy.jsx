@@ -18,7 +18,7 @@ function Privacy() {
           Arileon Furniture, Wood Masters, 1st Cross, Nelagadarana Halli,
           Nagasandra Post, Bengaluru 560073. Email:{" "}
           <a href="mailto:arileoninfo@gmail.com">arileoninfo@gmail.com</a>.
-          Phone: +91 99800 85805.
+          Phone: +91 99865 87575.
         </p>
       </LegalSection>
 

@@ -9,7 +9,7 @@ function BestSelling() {
     },
     {
       title: "Dining Spaces",
-      image: "/images/products/dining/dining.avif",
+      image: "/images/products/dining/dining1.avif",
     },
     {
       title: "Bedroom Calm",

@@ -41,11 +41,11 @@ function AnnouncementBar() {
             size={15}
           />
           <a
-            href="tel:+919980085805"
+            href="tel:+919986587575"
             className="inline-flex items-center gap-2 transition hover:text-cream"
           >
             <Phone size={12} strokeWidth={1.75} />
-            <span className="hidden sm:inline">Call Us: +91 99800 85805</span>
+            <span className="hidden sm:inline">Call Us: +91 99865 87575</span>
             <span className="sm:hidden">Call</span>
           </a>
         </div>

@@ -9,11 +9,7 @@ import {
 } from "../../lib/admin";
 import { getCategories } from "../../lib/categories";
 import { isProductListed, setProductListedLocal } from "../../lib/listing";
-import {
-  MATERIALS,
-  TAGS,
-  getSubcategories,
-} from "../../lib/productOptions";
+import { MATERIALS, TAGS } from "../../lib/productOptions";
 
 const CATEGORIES = getCategories();
 
@@ -99,10 +95,6 @@ function AdminProductForm() {
       const next = { ...prev, [field]: value };
       if (field === "name" && (isNew || !prev.slugLocked)) {
         next.slug = slugify(value);
-      }
-      if (field === "category") {
-        const allowed = getSubcategories(value);
-        if (!allowed.includes(prev.subcategory)) next.subcategory = "";
       }
       return next;
     });
@@ -256,48 +248,22 @@ function AdminProductForm() {
           />
         </label>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          <label className="block">
-            <span className="text-sm font-semibold text-[#374151]">
-              Category
-            </span>
-            <select
-              value={form.category}
-              onChange={(e) => update("category", e.target.value)}
-              className={field}
-            >
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className="block">
-            <span className="text-sm font-semibold text-[#374151]">
-              Type / subcategory
-            </span>
-            <select
-              value={form.subcategory}
-              onChange={(e) => update("subcategory", e.target.value)}
-              className={field}
-            >
-              <option value="">None</option>
-              {getSubcategories(form.category).map((sub) => (
-                <option key={sub} value={sub}>
-                  {sub}
-                </option>
-              ))}
-              {form.subcategory &&
-                !getSubcategories(form.category).includes(form.subcategory) && (
-                  <option value={form.subcategory}>{form.subcategory}</option>
-                )}
-            </select>
-            <p className="mt-1 text-xs text-[#6b7280]">
-              Used by shop filters (e.g. Centre and Side Tables).
-            </p>
-          </label>
-        </div>
+        <label className="block">
+          <span className="text-sm font-semibold text-[#374151]">
+            Category
+          </span>
+          <select
+            value={form.category}
+            onChange={(e) => update("category", e.target.value)}
+            className={field}
+          >
+            {CATEGORIES.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </label>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="block">

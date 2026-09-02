@@ -136,9 +136,9 @@ function Footer() {
                 Contact Us
               </h3>
               <div className="flex flex-col gap-4 text-sm text-white/60">
-                <a href="tel:+919980085805" className="inline-flex items-start gap-2 hover:text-white transition">
+                <a href="tel:+919986587575" className="inline-flex items-start gap-2 hover:text-white transition">
                   <Phone size={15} className="mt-0.5 shrink-0" />
-                  +91 99800 85805
+                  +91 99865 87575
                 </a>
                 <a href="mailto:arileoninfo@gmail.com" className="inline-flex items-start gap-2 hover:text-white transition">
                   <Mail size={15} className="mt-0.5 shrink-0" />

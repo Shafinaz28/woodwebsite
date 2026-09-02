@@ -37,10 +37,13 @@
 
 html {
   overflow-x: clip;
+  overflow-y: scroll;
 }
 
 body {
   margin: 0;
+  overflow-x: clip;
+  overflow-y: visible;
   color: var(--dark-brown);
   font-family: var(--font-sans);
   font-weight: 700;

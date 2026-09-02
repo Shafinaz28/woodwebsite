@@ -3,9 +3,17 @@ import { Link, Navigate, useNavigate } from "react-router";
 import { useCart } from "../context/CartContext";
 import { createOrder, markOrderPaid } from "../lib/orders";
 import { openRazorpayCheckout } from "../lib/razorpay";
+import { validateCoupon } from "../lib/coupons";
 
 function Checkout() {
-  const { cart, cartTotal, payableTotal, coupon, discount, clearCart } = useCart();
+  const {
+    cart,
+    cartTotal,
+    discount,
+    payableTotal,
+    appliedCoupon,
+    clearCart,
+  } = useCart();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -40,6 +48,15 @@ function Checkout() {
       image: item.image,
     }));
 
+    if (appliedCoupon) {
+      const check = validateCoupon(appliedCoupon.code, cartTotal);
+      if (!check.ok) {
+        setError(check.error || "This coupon is no longer valid.");
+        setSubmitting(false);
+        return;
+      }
+    }
+
     try {
       const order = await createOrder({
         customer_name: form.name.trim(),
@@ -51,8 +68,6 @@ function Checkout() {
         items,
         subtotal: cartTotal,
         total: payableTotal,
-        coupon_code: coupon?.code || null,
-        discount,
         status: "pending",
         payment_method: "razorpay",
       });
@@ -194,11 +209,13 @@ function Checkout() {
               ))}
             </ul>
             <div className="border-t border-[#eadfd3] mt-5 pt-5 text-sm space-y-2">
-              {coupon && (
+              <div className="flex justify-between text-[#3a2a1c]/70">
+                <span>Subtotal</span>
+                <span>₹{cartTotal.toLocaleString("en-IN")}</span>
+              </div>
+              {discount > 0 && (
                 <div className="flex justify-between text-[#434f23]">
-                  <span>
-                    {coupon.code} ({coupon.percent}% off)
-                  </span>
+                  <span>Coupon {appliedCoupon?.code}</span>
                   <span>−₹{discount.toLocaleString("en-IN")}</span>
                 </div>
               )}

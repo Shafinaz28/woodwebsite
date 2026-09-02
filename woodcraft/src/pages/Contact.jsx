@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { submitContactToSheet } from "../lib/contactSheet";
+import { submitContactMessage } from "../lib/contactMessages";
 import {
   Mail,
   MapPin,
@@ -16,18 +16,17 @@ import {
 
 const ADDRESS =
   "Wood Masters, 1st Cross, Nelagadarana Halli, Nagasandra Post, Bengaluru 560073";
-const PHONE = "+91 99800 85805";
+const PHONE = "+91 99865 87575";
 const EMAIL = "arileoninfo@gmail.com";
-const MAPS_URL =
-  "https://www.google.com/maps?q=Wood+Masters,+1st+Cross,+Nelagadarana+Halli,+Nagasandra+Post,+Bengaluru+560073";
-const MAPS_EMBED = `${MAPS_URL}&output=embed`;
+const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
+const MAPS_EMBED = `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=16&output=embed`;
 
 const quickContacts = [
   {
     icon: Phone,
     title: "Call Us",
     lines: [PHONE, "Mon – Sat · 10:00 – 18:00 IST"],
-    href: "tel:+919980085805",
+    href: "tel:+919986587575",
   },
   {
     icon: Mail,
@@ -46,7 +45,7 @@ const quickContacts = [
     title: "WhatsApp",
     lines: [PHONE, "Chat with us on WhatsApp"],
     href:
-      "https://wa.me/919980085805?text=" +
+      "https://wa.me/919986587575?text=" +
       encodeURIComponent(
         "Hi Arileon, I would like to know more about your furniture."
       ),
@@ -80,6 +79,7 @@ function Contact() {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [mapActive, setMapActive] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -88,7 +88,7 @@ function Contact() {
     const form = e.currentTarget;
     const data = new FormData(form);
     try {
-      await submitContactToSheet({
+      await submitContactMessage({
         name: data.get("name"),
         email: data.get("email"),
         phone: data.get("phone"),
@@ -105,37 +105,45 @@ function Contact() {
   }
 
   const fieldClass =
-    "w-full min-h-[44px] border border-[#eadfd3] bg-[#faf8f4] py-3 pl-11 pr-4 text-base sm:text-sm text-[#2b1d0e] outline-none focus:border-[#6B4423]/45 focus:bg-white transition";
+    "w-full min-h-[48px] rounded-md border border-[#eadfd3] bg-[#faf8f4] py-3 pl-11 pr-4 text-base text-[#2b1d0e] outline-none transition focus:border-[#6B4423]/50 focus:bg-white sm:text-sm";
 
   const iconClass =
     "pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[#6B4423]/70";
 
   return (
-    <div className="overflow-x-hidden bg-[#F8F4F0] text-[#2b1d0e]">
-      <section className="bg-[#2d1f16]">
-        <div className="mx-auto max-w-[1280px] px-4 py-10 text-center sm:px-8 sm:py-16 md:px-12 md:py-20">
-          <h1 className="font-display text-[2.15rem] font-semibold leading-[1.15] text-white sm:text-5xl lg:text-[3.25rem]">
-            Contact Us
-          </h1>
-          <p className="mt-3 font-display text-base italic text-[#d4b896] sm:text-lg">
-            We&apos;d love to hear from you.
-          </p>
-          <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-white/80 sm:mt-5 sm:text-[15px] sm:leading-7">
-            Have a question about our furniture or need help choosing the
-            perfect piece? Our team is here to help.
-          </p>
-          <a
-            href="#message"
-            className="mt-7 inline-flex w-full max-w-xs items-center justify-center bg-[#434f23] px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#363f1c] sm:mt-8 sm:w-auto"
-          >
-            Get in Touch
-          </a>
+    <div className="bg-[#f5f3f0] text-[#2b1d0e]">
+      <section className="relative min-h-[320px] overflow-hidden bg-[#2d1f16] md:min-h-[400px]">
+        <img
+          src="/images/about/hero-dining.avif"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[#2d1f16]/70" />
+        <div className="relative z-10 flex min-h-[320px] items-center justify-center px-5 py-14 md:min-h-[400px]">
+          <div className="max-w-xl text-center text-white">
+            <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-white/80">
+              Contact
+            </p>
+            <h1 className="font-display text-3xl font-semibold leading-[1.12] sm:text-4xl lg:text-[2.75rem]">
+              We&apos;d love to hear from you.
+            </h1>
+            <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-white/90">
+              Questions about a piece, wood, size, or a visit to our Bengaluru
+              studio — send a message and we will get back to you.
+            </p>
+            <a
+              href="#message"
+              className="mt-7 inline-flex px-8 py-3.5 bg-[#434f23] text-[11px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#363f1c]"
+            >
+              Send a Message
+            </a>
+          </div>
         </div>
       </section>
 
       <section className="border-y border-[#eadfd3] bg-[#f3efe8]">
-        <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-8 sm:py-12 md:py-14 lg:px-12">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-8 md:py-12 lg:px-12">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {quickContacts.map(({ icon: Icon, title, lines, href }) => (
               <a
                 key={title}
@@ -145,7 +153,7 @@ function Contact() {
                 rel={href.startsWith("http") ? "noreferrer" : undefined}
                 className="group flex flex-col items-center px-2 text-center"
               >
-                <span className="mb-3 inline-flex h-12 w-12 items-center justify-center text-[#6B4423] sm:mb-4">
+                <span className="mb-3 inline-flex h-12 w-12 items-center justify-center text-[#6B4423]">
                   <Icon size={26} strokeWidth={1.4} />
                 </span>
                 <h3 className="font-display text-lg font-semibold">{title}</h3>
@@ -165,17 +173,17 @@ function Contact() {
 
       <section
         id="message"
-        className="scroll-mt-20 border-t border-[#eadfd3] bg-white sm:scroll-mt-24"
+        className="scroll-mt-24 border-t border-[#eadfd3] bg-white"
       >
-        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-8 sm:py-14 md:py-20 lg:px-12">
-          <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
-            <div className="min-w-0 text-left">
-              <h2 className="font-display text-2xl font-semibold sm:text-3xl md:text-[2.1rem]">
+        <div className="mx-auto max-w-[1280px] px-4 py-12 sm:px-8 md:py-16 lg:px-12 lg:py-20">
+          <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+            <div className="min-w-0 order-2 lg:order-1">
+              <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                 Visit Our Studio
               </h2>
-              <p className="mt-4 max-w-md text-sm leading-6 text-[#3a2a1c]/80 sm:text-[15px] sm:leading-7">
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#3a2a1c]/80">
                 Come see the grain up close, sit with the pieces, and find what
-                belongs in your home at our Bengaluru workshop space.
+                belongs in your home at our Bengaluru workshop.
               </p>
 
               <div className="mt-8 space-y-5">
@@ -196,10 +204,23 @@ function Contact() {
                     className="mt-0.5 shrink-0 text-[#6B4423]"
                   />
                   <a
-                    href="tel:+919980085805"
+                    href="tel:+919986587575"
                     className="text-sm transition hover:text-[#6B4423]"
                   >
                     {PHONE}
+                  </a>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Mail
+                    size={18}
+                    strokeWidth={1.5}
+                    className="mt-0.5 shrink-0 text-[#6B4423]"
+                  />
+                  <a
+                    href={`mailto:${EMAIL}`}
+                    className="break-all text-sm transition hover:text-[#6B4423]"
+                  >
+                    {EMAIL}
                   </a>
                 </div>
                 <div className="flex items-start gap-3">
@@ -220,23 +241,28 @@ function Contact() {
                 href={MAPS_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-8 inline-flex w-full items-center justify-center bg-[#4a2c18] px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#3a2212] sm:mt-9 sm:w-auto"
+                className="mt-8 inline-flex w-full items-center justify-center bg-[#4a2c18] px-8 py-3.5 text-[11px] font-bold uppercase tracking-[0.18em] text-white transition hover:bg-[#3a2212] sm:w-auto"
               >
                 Get Directions
               </a>
             </div>
 
-            <div className="min-w-0">
+            <div className="min-w-0 order-1 lg:order-2 rounded-xl border border-[#eadfd3] bg-[#faf8f4] p-5 sm:p-8">
               {sent ? (
-                <div className="py-2 text-left sm:py-4">
-                  <span className="mb-5 inline-flex h-14 w-14 items-center justify-center text-[#434f23]">
+                <div>
+                  <span className="mb-5 inline-flex text-[#434f23]">
                     <CheckCircle2 size={32} strokeWidth={1.5} />
                   </span>
                   <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                     Thank you — we&apos;ll be in touch soon.
                   </h2>
                   <p className="mt-4 max-w-md text-sm leading-7 text-[#3a2a1c]/75">
-                    Your note is with our team. For urgent enquiries, email{" "}
+                    We received your message and will reply within one business
+                    day. For something urgent, call{" "}
+                    <a href="tel:+919986587575" className="text-[#6B4423]">
+                      {PHONE}
+                    </a>{" "}
+                    or email{" "}
                     <a
                       href={`mailto:${EMAIL}`}
                       className="break-all text-[#6B4423] underline underline-offset-2"
@@ -255,10 +281,10 @@ function Contact() {
                 </div>
               ) : (
                 <>
-                  <h2 className="font-display text-2xl font-semibold sm:text-3xl md:text-[2.1rem]">
+                  <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                     Send Us a Message
                   </h2>
-                  <p className="mt-3 text-sm leading-6 text-[#3a2a1c]/75 sm:leading-7">
+                  <p className="mt-3 text-sm leading-7 text-[#3a2a1c]/75">
                     Fill in the form and we&apos;ll get back to you as soon as
                     we can.
                   </p>
@@ -322,6 +348,7 @@ function Contact() {
                             className={iconClass}
                           />
                           <input
+                            required
                             name="phone"
                             type="tel"
                             autoComplete="tel"
@@ -366,7 +393,7 @@ function Contact() {
                           required
                           name="message"
                           rows={5}
-                          className={`${fieldClass} min-h-[140px] resize-y`}
+                          className={`${fieldClass} min-h-[140px] resize-y pt-3`}
                           placeholder="How can we help?"
                         />
                       </div>
@@ -391,29 +418,39 @@ function Contact() {
         </div>
       </section>
 
-      <section className="overflow-hidden border-t border-[#eadfd3] bg-[#f7f4ef]">
-        <div className="w-full overflow-hidden bg-white">
+      <section className="border-t border-[#eadfd3] bg-[#f7f4ef]">
+        <div
+          className="relative h-[280px] w-full sm:h-[400px] md:h-[480px]"
+          onClick={() => setMapActive(true)}
+        >
           <iframe
-            title="Arileon — Wood Masters, Bengaluru"
+            title="Arileon studio — Bengaluru"
             src={MAPS_EMBED}
-            className="block h-[240px] w-full border-0 sm:h-[360px] md:h-[480px]"
+            className={`block h-full w-full border-0 ${
+              mapActive ? "pointer-events-auto" : "pointer-events-none"
+            }`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
           />
+          {!mapActive ? (
+            <p className="pointer-events-none absolute bottom-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-white/90 px-4 py-1.5 text-[11px] uppercase tracking-[0.14em] text-[#2b1d0e] shadow-sm">
+              Click map to move it
+            </p>
+          ) : null}
         </div>
       </section>
 
       <section className="border-t border-[#eadfd3] bg-white">
-        <div className="mx-auto max-w-[1280px] px-4 py-10 sm:px-8 sm:py-14 md:py-16 lg:px-12">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4 lg:gap-6">
+        <div className="mx-auto max-w-[1280px] px-4 py-12 sm:px-8 md:py-16 lg:px-12">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {values.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
                 data-gsap-item
                 className="flex flex-col items-center px-2 text-center"
               >
-                <span className="mb-3 inline-flex h-11 w-11 items-center justify-center text-[#6B4423] sm:mb-4">
+                <span className="mb-3 inline-flex h-11 w-11 items-center justify-center text-[#6B4423]">
                   <Icon size={24} strokeWidth={1.4} />
                 </span>
                 <h3 className="font-display text-base font-semibold md:text-lg">

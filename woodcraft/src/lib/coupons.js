@@ -1,52 +1,99 @@
 export const COUPONS_KEY = "arileon_coupons";
 
-const DEFAULT_COUPONS = [
-  { id: "default-welcome10", code: "WELCOME10", percent: 10, active: true },
-];
+function todayISO() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
 
-function normalize(list) {
-  if (!Array.isArray(list)) return [];
-  return list
-    .map((item) => ({
-      id: item.id || Date.now(),
-      code: String(item.code || "")
-        .trim()
-        .toUpperCase(),
-      percent: Number(item.percent) || 0,
-      active: item.active !== false,
-    }))
-    .filter((item) => item.code && item.percent > 0);
+export function normalizeCode(code) {
+  return String(code || "")
+    .trim()
+    .toUpperCase()
+    .replace(/\s+/g, "");
 }
 
 export function loadCoupons() {
   try {
-    const list = normalize(JSON.parse(localStorage.getItem(COUPONS_KEY) || "[]"));
-    const hasWelcome = list.some((item) => item.code === "WELCOME10");
-    if (!list.length || !hasWelcome) {
-      const merged = hasWelcome ? list : [...DEFAULT_COUPONS, ...list];
-      return saveCoupons(merged);
-    }
-    return list;
+    const raw = localStorage.getItem(COUPONS_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    return Array.isArray(list) ? list : [];
   } catch {
-    saveCoupons(DEFAULT_COUPONS);
-    return [...DEFAULT_COUPONS];
+    return [];
   }
 }
 
 export function saveCoupons(list) {
-  const next = normalize(list);
+  const next = Array.isArray(list) ? list : [];
   localStorage.setItem(COUPONS_KEY, JSON.stringify(next));
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("arileon-coupons"));
+  }
   return next;
 }
 
+export function getLiveCoupons() {
+  return loadCoupons().filter((item) => isCouponLive(item));
+}
+
+export function isCouponLive(coupon, when = todayISO()) {
+  if (!coupon?.active) return false;
+  if (coupon.starts_on && when < coupon.starts_on) return false;
+  if (coupon.ends_on && when > coupon.ends_on) return false;
+  return true;
+}
+
 export function findCoupon(code) {
-  const needle = String(code || "").trim().toUpperCase();
+  const needle = normalizeCode(code);
   if (!needle) return null;
-  return loadCoupons().find((item) => item.active && item.code === needle) || null;
+  return (
+    loadCoupons().find(
+      (item) => normalizeCode(item.code) === needle && isCouponLive(item)
+    ) || null
+  );
 }
 
 export function discountFromCoupon(subtotal, coupon) {
   const percent = Number(coupon?.percent) || 0;
-  if (!percent) return 0;
-  return Math.round((Number(subtotal) || 0) * (percent / 100));
+  const min = Number(coupon?.min_subtotal) || 0;
+  const amount = Number(subtotal) || 0;
+  if (!coupon || percent <= 0 || amount < min) return 0;
+  return Math.round((amount * percent) / 100);
+}
+
+export function validateCoupon(code, subtotal) {
+  const needle = normalizeCode(code);
+  const amount = Number(subtotal) || 0;
+  const stored = loadCoupons().find(
+    (item) => normalizeCode(item.code) === needle
+  );
+
+  if (!stored) {
+    return { ok: false, error: "This coupon code is not valid." };
+  }
+  if (!stored.active) {
+    return { ok: false, error: "This coupon is turned off." };
+  }
+  if (!isCouponLive(stored)) {
+    return {
+      ok: false,
+      error: "This coupon is not valid on today's date.",
+    };
+  }
+
+  const min = Number(stored.min_subtotal) || 0;
+  if (amount < min) {
+    return {
+      ok: false,
+      error: `Add items worth ₹${min.toLocaleString("en-IN")} or more to use this coupon.`,
+    };
+  }
+
+  return {
+    ok: true,
+    coupon: stored,
+    discount: discountFromCoupon(amount, stored),
+  };
 }

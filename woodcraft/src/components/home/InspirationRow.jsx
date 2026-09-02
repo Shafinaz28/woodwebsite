@@ -9,7 +9,7 @@ function InspirationRow() {
     },
     {
       title: "Modern Dining Room Furniture Styles",
-      image: "/images/products/dining/dining11.avif",
+      image: "/images/products/dining/dining1.avif",
     },
     {
       title: "Calm Bedroom Furniture Styles",
@@ -17,7 +17,7 @@ function InspirationRow() {
     },
     {
       title: "Coffee Table & Side Table Styles",
-      image: "/images/products/tables/tablee1.avif",
+      image: "/images/products/tables/table1.avif",
     },
   ];
 

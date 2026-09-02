@@ -15,7 +15,7 @@ function CircleCategories() {
     },
     {
       title: "Dining",
-      image: "/images/products/dining/dining.avif",
+      image: "/images/products/dining/dining1.avif",
       link: "/shop?category=Dining",
     },
     {

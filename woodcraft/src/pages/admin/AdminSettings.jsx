@@ -30,7 +30,7 @@ function AdminSettings() {
         </label>
         <label className="block text-sm">
           Phone
-          <input readOnly value="+91 99800 85805" className={field} />
+          <input readOnly value="+91 99865 87575" className={field} />
         </label>
         <label className="block text-sm">
           Email

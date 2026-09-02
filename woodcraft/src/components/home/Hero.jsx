@@ -4,9 +4,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
-    image: "/images/products/living-room/living8.avif",
-    title: "Authentic Wood.\nTimeless Comfort.",
-    text: "Crafted with passion, designed for life. Bring home the warmth of solid wood and timeless beauty.",
+    image: "/images/products/dining/dining8.avif",
+    title: "Dining Built\nfor Connection.",
+    text: "Tables and chairs made for long meals, shared stories and furniture that feels like home.",
   },
   {
     image: "/images/products/living-room/living9.avif",
@@ -14,9 +14,9 @@ const slides = [
     text: "Living room collections in solid wood, shaped for comfort, gathering and everyday beauty.",
   },
   {
-    image: "/images/products/dining/dining8.avif",
-    title: "Dining Built\nfor Connection.",
-    text: "Tables and chairs made for long meals, shared stories and furniture that feels like home.",
+    image: "/images/products/living-room/living7.avif",
+    title: "Authentic Wood.\nTimeless Comfort.",
+    text: "Crafted with passion, designed for life. Bring home the warmth of solid wood and timeless beauty.",
   },
 ];
 

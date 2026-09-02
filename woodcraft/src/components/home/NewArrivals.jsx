@@ -50,11 +50,11 @@ function NewArrivals() {
               to={`/product/${product.slug}`}
               className="group"
             >
-              <div className="bg-[#efede8] rounded-2xl overflow-hidden aspect-[4/3] flex items-center justify-center p-2 sm:p-3">
+              <div className="bg-[#efede8] rounded-2xl overflow-hidden aspect-[4/3]">
                 <img
                   src={getProductImage(product)}
                   alt={product.name}
-                  className="w-full h-full object-contain object-center transition duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover object-center transition duration-700 group-hover:scale-105"
                 />
               </div>
 

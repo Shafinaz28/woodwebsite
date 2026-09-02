@@ -16,7 +16,7 @@ const CATEGORY_IMAGES = {
   Bedroom: "/images/categories/bedroom.avif",
   Dining: "/images/categories/dining.avif",
   Tables: "/images/categories/tables.avif",
-  Office: "/images/categories/office.avif",
+  Office: "/images/products/office/office.avif",
   Outdoor: "/images/categories/outdoor.avif",
   Storage: "/images/categories/storage.avif",
 };

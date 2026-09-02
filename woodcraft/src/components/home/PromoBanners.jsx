@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { getLiveCoupons } from "../../lib/coupons";
 
 const banners = [
   {
     title: "Upto 20% Off\nOn First Order",
-    text: "Use Code: WELCOME20",
+    text: "New collections, made to last.",
     cta: "Shop Now",
     to: "/shop",
     image: "/images/products/living-room/living12.avif",
@@ -16,7 +18,7 @@ const banners = [
     text: "Each piece is crafted by skilled artisans with attention to detail.",
     cta: "Explore Collection",
     to: "/shop",
-    image: "/images/products/dining/dining11.avif",
+    image: "/images/products/dining/dining1.avif",
     overlay: "from-[#d8c4a4] via-[#d8c4a4]/90 to-transparent",
     tone: "text-[#4a2c18]",
     bg: "bg-[#d8c4a4]",
@@ -26,7 +28,7 @@ const banners = [
     text: "Furniture that stays with you for generations.",
     cta: "Learn More",
     to: "/about",
-    image: "/images/products/tables/tablee6.avif",
+    image: "/images/products/tables/table6.avif",
     overlay: "from-[#b05a3a] via-[#b05a3a]/90 to-transparent",
     tone: "text-[#f4eadc]",
     bg: "bg-[#b05a3a]",
@@ -34,11 +36,30 @@ const banners = [
 ];
 
 function PromoBanners() {
+  const [offer, setOffer] = useState(null);
+
+  useEffect(() => {
+    setOffer(getLiveCoupons()[0] || null);
+  }, []);
+
+  const cards = banners.map((banner, index) => {
+    if (index !== 0 || !offer) return banner;
+    return {
+      ...banner,
+      title: `${offer.percent}% Off\nUse ${offer.code}`,
+      text: offer.label
+        ? `${offer.label} — apply this code in your cart.`
+        : "Apply this code in your cart at checkout.",
+      cta: "Shop Now",
+      to: "/shop",
+    };
+  });
+
   return (
     <section className="bg-background py-6 md:py-8">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-5 md:px-10">
         <div className="grid md:grid-cols-3 gap-4 md:gap-5">
-          {banners.map((banner) => (
+          {cards.map((banner) => (
             <div
               key={banner.cta}
               className={`relative min-h-[240px] sm:min-h-[270px] rounded-2xl overflow-hidden ${banner.bg}`}

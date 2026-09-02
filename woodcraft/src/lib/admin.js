@@ -65,7 +65,6 @@ export async function adminUpsertProduct(product) {
     name: product.name,
     slug: product.slug,
     category: product.category,
-    subcategory: product.subcategory || null,
     price: Number(product.price) || 0,
     image: imageValue,
     tag: product.tag || null,
@@ -92,10 +91,6 @@ export async function adminUpsertProduct(product) {
 
   let omit = [];
   let { data, error } = await write(omit);
-  if (error && /subcategory/i.test(error.message || "")) {
-    omit = [...omit, "subcategory"];
-    ({ data, error } = await write(omit));
-  }
   if (error && /listed/i.test(error.message || "")) {
     omit = [...omit, "listed"];
     ({ data, error } = await write(omit));
@@ -151,7 +146,6 @@ export async function adminSyncLocalProducts() {
     name: item.name,
     slug: item.slug,
     category: item.category || null,
-    subcategory: item.subcategory || null,
     price: Number(item.price) || 0,
     image: item.image || null,
     tag: item.tag || null,

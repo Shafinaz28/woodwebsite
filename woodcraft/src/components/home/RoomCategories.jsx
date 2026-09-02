@@ -13,12 +13,12 @@ const rooms = [
   },
   {
     title: "Dining Room",
-    image: "/images/products/dining/dining11.avif",
+    image: "/images/products/dining/dining12.avif",
     link: "/shop?category=Dining",
   },
   {
     title: "Tables",
-    image: "/images/products/living-room/centre-side/cst12.avif",
+    image: "/images/products/living-room/centre-side/cst7.avif",
     link: "/shop?category=Tables",
   },
 ];

@@ -1,6 +1,6 @@
 import { Phone } from "lucide-react";
 
-const PHONE = "919980085805";
+const PHONE = "919986587575";
 const TEL_URL = `tel:+${PHONE}`;
 const WHATSAPP_URL =
   "https://wa.me/" +

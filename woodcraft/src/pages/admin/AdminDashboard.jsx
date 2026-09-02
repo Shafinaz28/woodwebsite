@@ -7,7 +7,6 @@ import {
   Package,
   Plus,
   Tags,
-  TicketPercent,
   Image,
   Eye,
   CalendarDays,
@@ -16,8 +15,11 @@ import {
   BedDouble,
   UtensilsCrossed,
   Lamp,
+  Mail,
+  TicketPercent,
 } from "lucide-react";
 import { adminFetchOrders, adminFetchProducts } from "../../lib/admin";
+import { fetchContactMessages } from "../../lib/contactMessages";
 import { getProductImage } from "../../lib/catalog";
 import { products as localProducts } from "../../data/products";
 
@@ -237,23 +239,27 @@ function GrowthMiniChart() {
 function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [enquiries, setEnquiries] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
     (async () => {
       try {
-        const [productList, orderList] = await Promise.all([
+        const [productList, orderList, enquiryList] = await Promise.all([
           adminFetchProducts(),
           adminFetchOrders(),
+          fetchContactMessages(),
         ]);
         if (!active) return;
         setProducts(productList?.length ? productList : localProducts);
         setOrders(mergeOrders(orderList || []));
+        setEnquiries(enquiryList || []);
       } catch {
         if (active) {
           setProducts(localProducts);
           setOrders(mergeOrders([]));
+          setEnquiries([]);
         }
       } finally {
         if (active) setLoading(false);
@@ -397,9 +403,11 @@ function AdminDashboard() {
     return {
       hasLiveOrders,
       catalogCount: catalog.length,
-      orderCount: hasLiveOrders ? orders.length : 156,
-      revenue: hasLiveOrders ? revenue : 324750,
-      customers: hasLiveOrders ? customers || orders.length : 892,
+      orderCount: orders.length,
+      revenue: hasLiveOrders ? revenue : 0,
+      customers: hasLiveOrders ? customers : 0,
+      enquiryCount: enquiries.length,
+      recentEnquiries: enquiries.slice(0, 8),
       salesPoints,
       statusSlices,
       statusTotal,
@@ -447,7 +455,7 @@ function AdminDashboard() {
           ],
       rangeLabel,
     };
-  }, [products, orders]);
+  }, [products, orders, enquiries]);
 
   const categoryIcons = {
     "Living Room": Sofa,
@@ -485,6 +493,13 @@ function AdminDashboard() {
       icon: Package,
       iconBg: "bg-[#faf5ff] text-[#7c3aed]",
     },
+    {
+      label: "Enquiries",
+      value: loading ? "…" : analytics.enquiryCount,
+      delta: "From contact form",
+      icon: Mail,
+      iconBg: "bg-[#fef3c7] text-[#b45309]",
+    },
   ];
 
   return (
@@ -506,7 +521,7 @@ function AdminDashboard() {
       </div>
 
       {/* Stat cards */}
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {cards.map((card) => {
           const Icon = card.icon;
           return (
@@ -660,6 +675,69 @@ function AdminDashboard() {
             </div>
           </div>
 
+          <div className="rounded-2xl border border-[#eef0f3] bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
+            <div className="flex items-center justify-between px-5 py-4">
+              <h2 className="text-base font-semibold text-[#111827]">
+                Contact form
+              </h2>
+              <Link
+                to="/admin/enquiries"
+                className="inline-flex items-center gap-1 text-xs font-medium text-[#5c4033] hover:underline"
+              >
+                View all <ArrowUpRight size={14} />
+              </Link>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[640px] text-sm">
+                <thead className="bg-[#f9fafb] text-left text-[11px] uppercase tracking-wider text-[#9ca3af]">
+                  <tr>
+                    <th className="px-5 py-3 font-medium">Name</th>
+                    <th className="px-5 py-3 font-medium">Email</th>
+                    <th className="px-5 py-3 font-medium">Phone</th>
+                    <th className="px-5 py-3 font-medium">Message</th>
+                    <th className="px-5 py-3 font-medium">Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {analytics.recentEnquiries.length === 0 && (
+                    <tr>
+                      <td
+                        colSpan={5}
+                        className="px-5 py-8 text-center text-[#6b7280]"
+                      >
+                        No contact form messages yet.
+                      </td>
+                    </tr>
+                  )}
+                  {analytics.recentEnquiries.map((row) => (
+                    <tr
+                      key={row.id}
+                      className="border-t border-[#f3f4f6] text-[#111827]"
+                    >
+                      <td className="px-5 py-3.5 font-medium">
+                        {row.name || "—"}
+                      </td>
+                      <td className="px-5 py-3.5 text-[#6b7280]">
+                        {row.email || "—"}
+                      </td>
+                      <td className="px-5 py-3.5 text-[#6b7280]">
+                        {row.phone || "—"}
+                      </td>
+                      <td className="max-w-[220px] truncate px-5 py-3.5 text-[#6b7280]">
+                        {row.subject
+                          ? `${row.subject}: ${row.message || ""}`
+                          : row.message || "—"}
+                      </td>
+                      <td className="whitespace-nowrap px-5 py-3.5 text-[#6b7280]">
+                        {formatDate(row.created_at)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <div className="grid gap-4 md:grid-cols-2">
             {/* Top selling */}
             <div className="rounded-2xl border border-[#eef0f3] bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,0.04)]">
@@ -754,13 +832,27 @@ function AdminDashboard() {
                 <ShoppingBag size={18} className="text-[#5c4033]" />
                 View Orders
               </Link>
-              <button
-                type="button"
+              <Link
+                to="/admin/enquiries"
+                className="flex flex-col items-center gap-2 rounded-xl border border-[#eef0f3] bg-[#fafafa] px-3 py-4 text-center text-xs font-medium text-[#374151] hover:border-[#d6c3b0] hover:bg-white"
+              >
+                <Mail size={18} className="text-[#5c4033]" />
+                Enquiries
+              </Link>
+              <Link
+                to="/admin/coupons"
                 className="flex flex-col items-center gap-2 rounded-xl border border-[#eef0f3] bg-[#fafafa] px-3 py-4 text-center text-xs font-medium text-[#374151] hover:border-[#d6c3b0] hover:bg-white"
               >
                 <TicketPercent size={18} className="text-[#5c4033]" />
-                Add Coupon
-              </button>
+                Coupons
+              </Link>
+              <Link
+                to="/admin/stock"
+                className="flex flex-col items-center gap-2 rounded-xl border border-[#eef0f3] bg-[#fafafa] px-3 py-4 text-center text-xs font-medium text-[#374151] hover:border-[#d6c3b0] hover:bg-white"
+              >
+                <Package size={18} className="text-[#5c4033]" />
+                Stock
+              </Link>
             </div>
             <button
               type="button"
