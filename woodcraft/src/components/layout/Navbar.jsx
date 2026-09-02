@@ -1,15 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useNavigate, useLocation } from "react-router";
 import {
   Menu,
   X,
   Search,
-  UserRound,
   ShoppingCart,
   ChevronDown,
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
-import { useAuth } from "../../context/AuthContext";
 import { fetchCatalog, subscribeToCatalog } from "../../lib/catalog";
 import Logo from "./Logo";
 
@@ -47,10 +46,8 @@ function Navbar() {
     location.pathname.startsWith("/shop") ||
     location.pathname.startsWith("/product/");
   const { cartCount } = useCart();
-  const { user, isAdmin } = useAuth();
   const searchRef = useRef(null);
   const productsRef = useRef(null);
-  const accountTo = user && isAdmin ? "/admin" : "/admin/login";
 
   useEffect(() => {
     let active = true;
@@ -286,16 +283,6 @@ function Navbar() {
             </div>
 
             <Link
-              to={accountTo}
-              aria-label={user && isAdmin ? "Admin dashboard" : "Admin login"}
-              onClick={closeMobile}
-              className="hidden sm:inline-flex p-1.5 text-dark-brown hover:opacity-70 transition"
-              title={user && isAdmin ? "Admin dashboard" : "Admin login"}
-            >
-              <UserRound size={20} strokeWidth={1.5} />
-            </Link>
-
-            <Link
               to="/cart"
               aria-label={`Cart (${cartCount})`}
               onClick={closeMobile}
@@ -319,77 +306,106 @@ function Navbar() {
           </div>
         </div>
 
-        {menuOpen && (
-          <nav className="lg:hidden border-t border-[#eadfd3] py-2 max-h-[calc(100dvh-64px)] overflow-y-auto overscroll-contain">
-            <ul className="flex flex-col text-[15px] text-[#3a4550]">
-              <li className="border-b border-[#eadfd3]/80 px-1 py-3">
-                <form
-                  onSubmit={handleSearch}
-                  className="flex h-11 items-center overflow-hidden rounded-md border border-[#cfc5b8] bg-white"
-                >
-                  <input
-                    type="search"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search products..."
-                    className="h-full min-w-0 flex-1 bg-transparent px-3 text-base outline-none text-dark-brown placeholder:text-[#3a4550]/50"
-                  />
+        {menuOpen &&
+          createPortal(
+            <div className="fixed inset-0 z-[300] lg:hidden">
+              <button
+                type="button"
+                className="absolute inset-0 bg-black/35"
+                aria-label="Close menu"
+                onClick={closeMobile}
+              />
+              <div className="relative mx-3 mt-3 h-fit max-h-[85dvh] overflow-y-auto rounded-2xl bg-white shadow-xl">
+                <div className="flex items-center justify-between gap-3 border-b border-[#eadfd3] px-4 py-3">
+                  <Logo to="/" onClick={closeMobile} size="sm" />
                   <button
-                    type="submit"
-                    aria-label="Search"
-                    className="h-full border-l border-[#cfc5b8] px-3 text-dark-brown"
+                    type="button"
+                    className="p-1.5 text-dark-brown"
+                    onClick={closeMobile}
+                    aria-label="Close menu"
                   >
-                    <Search size={16} strokeWidth={1.6} />
+                    <X size={22} />
                   </button>
-                </form>
-              </li>
-              {NAV_LINKS_BEFORE.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.to}
-                    onClick={closeMobile}
-                    className="block px-1 py-3.5 border-b border-[#eadfd3]/80 hover:text-dark-brown transition"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-
-              <li>
-                <button
-                  type="button"
-                  onClick={() => setMobileProductsOpen((open) => !open)}
-                  className="w-full flex items-center justify-between px-1 py-3.5 border-b border-[#eadfd3]/80 hover:text-dark-brown transition text-left"
-                >
-                  <span>Products</span>
-                  <ChevronDown
-                    size={16}
-                    strokeWidth={2}
-                    className={`opacity-70 transition ${mobileProductsOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
-
-                {mobileProductsOpen && (
-                  <div className="mb-2 mt-1 rounded-md border border-[#6B4423]/20 bg-[#faf8f4] overflow-hidden">
-                    <ProductsTree onPick={closeMobile} />
-                  </div>
-                )}
-              </li>
-
-              {NAV_LINKS_AFTER.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.to}
-                    onClick={closeMobile}
-                    className="block px-1 py-3.5 border-b border-[#eadfd3]/80 hover:text-dark-brown transition"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
+                </div>
+                <nav className="px-4 pb-3">
+                  <ul className="flex flex-col text-[15px] text-[#3a4550]">
+                    <li className="border-b border-[#eadfd3]/80 py-3">
+                      <form
+                        onSubmit={handleSearch}
+                        className="flex h-11 items-center overflow-hidden rounded-md border border-[#cfc5b8] bg-white"
+                      >
+                        <input
+                          type="search"
+                          value={query}
+                          onChange={(e) => setQuery(e.target.value)}
+                          placeholder="Search products..."
+                          className="h-full min-w-0 flex-1 bg-transparent px-3 text-base outline-none text-dark-brown placeholder:text-[#3a4550]/50"
+                        />
+                        <button
+                          type="submit"
+                          aria-label="Search"
+                          className="h-full border-l border-[#cfc5b8] px-3 text-dark-brown"
+                        >
+                          <Search size={16} strokeWidth={1.6} />
+                        </button>
+                      </form>
+                    </li>
+                    {NAV_LINKS_BEFORE.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          to={link.to}
+                          onClick={closeMobile}
+                          className="block py-3 border-b border-[#eadfd3]/80"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => setMobileProductsOpen((open) => !open)}
+                        className="flex w-full items-center justify-between py-3 text-left border-b border-[#eadfd3]/80"
+                      >
+                        <span>Products</span>
+                        <ChevronDown
+                          size={16}
+                          strokeWidth={2}
+                          className={`opacity-70 transition ${mobileProductsOpen ? "rotate-180" : ""}`}
+                        />
+                      </button>
+                      {mobileProductsOpen && (
+                        <div className="mb-2 mt-1 overflow-hidden rounded-md border border-[#6B4423]/20 bg-[#faf8f4]">
+                          <ProductsTree onPick={closeMobile} />
+                        </div>
+                      )}
+                    </li>
+                    {NAV_LINKS_AFTER.map((link) => (
+                      <li key={link.label}>
+                        <Link
+                          to={link.to}
+                          onClick={closeMobile}
+                          className="block py-3 border-b border-[#eadfd3]/80"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                    <li>
+                      <Link
+                        to="/cart"
+                        onClick={closeMobile}
+                        className="block py-3"
+                      >
+                        Cart ({cartCount})
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>,
+            document.body
+          )}
       </div>
     </header>
   );

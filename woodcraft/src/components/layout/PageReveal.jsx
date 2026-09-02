@@ -41,6 +41,7 @@ function PageReveal({ children }) {
             duration: 0.55,
             delay: 0.08,
             ease: "power3.out",
+            clearProps: "transform",
           }
         );
       }

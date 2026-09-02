@@ -128,19 +128,19 @@ function AdminLayout() {
   }
 
   const linkClass = ({ isActive }) =>
-    `flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13px] font-medium transition ${
+    `flex items-center gap-3 rounded-xl px-3.5 py-2 text-[13px] font-medium transition ${
       isActive
         ? "bg-[#6b4a36] text-white shadow-sm"
         : "text-white/70 hover:bg-white/8 hover:text-white"
     }`;
 
   const sidebar = (
-    <div className="flex h-full flex-col">
-      <div className="border-b border-white/10 px-4 py-3 flex justify-center">
-        <Logo to="/admin" size="md" invert />
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="flex shrink-0 justify-center border-b border-white/10 px-3 py-2">
+        <Logo to="/admin" size="sm" invert />
       </div>
 
-      <nav className="flex-1 overflow-hidden px-3 py-4 space-y-0.5">
+      <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-2 space-y-0.5">
         {navItems.map(({ to, end, label, icon: Icon }) =>
           to ? (
             <NavLink
@@ -166,14 +166,9 @@ function AdminLayout() {
         )}
       </nav>
 
-      <div className="mx-3 mb-5 rounded-2xl bg-[#3d2a20] p-4 flex flex-col items-center text-center">
-        <p className="text-[13px] font-semibold text-white leading-snug">
-          Premium Furniture.
-          <br />
-          Timeless Designs.
-        </p>
-        <p className="mt-3 text-[10px] text-white/40">© 2026 Arileon</p>
-      </div>
+      <p className="shrink-0 border-t border-white/10 px-3 py-2.5 text-center text-[10px] text-white/40">
+        © 2026 Arileon
+      </p>
     </div>
   );
 
@@ -184,14 +179,14 @@ function AdminLayout() {
       </aside>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-[300] md:hidden">
           <button
             type="button"
             aria-label="Close menu"
             className="absolute inset-0 bg-black/40"
             onClick={() => setMobileOpen(false)}
           />
-          <aside className="relative z-10 flex h-full w-[270px] flex-col bg-[#4a3428]">
+          <aside className="relative z-10 flex h-full min-h-0 w-[min(280px,86vw)] flex-col bg-[#4a3428]">
             <button
               type="button"
               aria-label="Close"
